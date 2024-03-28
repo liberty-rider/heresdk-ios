@@ -246,6 +246,7 @@ function instruction.select_common_content(message, close_distance_limit)
     content.vp_marc_lang_code = message.vp_marc_lang_code
     content.vp_supported_lang_code = message.vp_supported_lang_code
     content.trigger = message.trigger
+    content.use_ssml = message.use_ssml
 
     if content.trigger == 'imperative' then
         content.time = 'none'
@@ -292,8 +293,8 @@ function instruction.select_head(message, rules)
     local content = instruction.select_common_content(message, rules.close_distance_limit)
     content.trigger = 'action'
     content.action = 'head'
-    direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                message.street, message.route, message.signpost,
+    local direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
+                                                                message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
                                                                 rules.filter_direction_information, content.action, content.purpose,
                                                                 message.country_code, message.use_road_information_for_action_notification,
                                                                 message.use_signpost_direction_for_action_notification)
@@ -310,14 +311,17 @@ end
 function instruction.select_uturn(message, rules)
     local content = instruction.select_common_content(message, rules.close_distance_limit)
     content.action = 'makeuturn'
-    content.natural_guidance = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
-                                                            rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold, rules.natural_guidance_count_limit,
-                                                            rules.natural_guidance_distance_limit, rules.natural_guidance_elements_priority_order,
-                                                              rules.natural_guidance_distance_to_first_element_threshold)
-    if natural_guidance.excludes_distance(content.natural_guidance, rules.use_distance_with_natural_guidance) then
-        content.time = 'landmark'
-        content.distance_value = nil
-        content.distance_unit_phrase_id = nil
+    if not common.is_enabled_japan_direction_for_japanese(message.country_code, message.vp_marc_lang_code, content.trigger, message.intersection) then
+        content.natural_guidance = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
+                                                                rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold, rules.natural_guidance_count_limit,
+                                                                rules.natural_guidance_distance_limit, rules.natural_guidance_elements_priority_order,
+                                                                rules.natural_guidance_distance_to_first_element_threshold)
+
+        if natural_guidance.excludes_distance(content.natural_guidance, rules.use_distance_with_natural_guidance) then
+            content.time = 'landmark'
+            content.distance_value = nil
+            content.distance_unit_phrase_id = nil
+        end
     end
 
     content.additional_information = instruction.get_additional_info(content)
@@ -331,22 +335,24 @@ function instruction.select_ferry(message, rules)
     local direction_information = nil
     if direction.use_direction_information(content.trigger, message.road_class, message.distance.value_in_meters, rules.direction_information_limit) then
         direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                    message.street, message.route, message.signpost,
+                                                                    message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
                                                                     rules.filter_direction_information, content.action, content.purpose,
                                                                     message.country_code, message.use_road_information_for_action_notification,
                                                                     message.use_signpost_direction_for_action_notification)
         content = utils.merge_tables(content, direction_information)
     end
-    local natural_guidance_element = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
-                                                                  rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold, rules.natural_guidance_count_limit,
-                                                                  rules.natural_guidance_distance_limit, rules.natural_guidance_elements_priority_order,
-                                                                  rules.natural_guidance_distance_to_first_element_threshold)
-    if not natural_guidance.excluded_by_direction(direction_information, natural_guidance_element, rules.use_natural_guidance_with_direction) then
-        content.natural_guidance = natural_guidance_element
-        if natural_guidance.excludes_distance(natural_guidance_element, rules.use_distance_with_natural_guidance) then
-            content.time = 'landmark'
-            content.distance_value = nil
-            content.distance_unit_phrase_id = nil
+    if not common.is_enabled_japan_direction_for_japanese(message.country_code, message.vp_marc_lang_code, content.trigger, message.intersection) then
+        local natural_guidance_element = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
+                                                                    rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold, rules.natural_guidance_count_limit,
+                                                                    rules.natural_guidance_distance_limit, rules.natural_guidance_elements_priority_order,
+                                                                    rules.natural_guidance_distance_to_first_element_threshold)
+        if not natural_guidance.excluded_by_direction(direction_information, natural_guidance_element, rules.use_natural_guidance_with_direction) then
+            content.natural_guidance = natural_guidance_element
+            if natural_guidance.excludes_distance(natural_guidance_element, rules.use_distance_with_natural_guidance) then
+                content.time = 'landmark'
+                content.distance_value = nil
+                content.distance_unit_phrase_id = nil
+            end
         end
     end
 
@@ -364,7 +370,7 @@ function instruction.select_exit_roundabout(message, rules)
     content.action = 'takeexit'
     if direction.use_direction_information(content.trigger, message.road_class, message.distance.value_in_meters, rules.direction_information_limit) then
         local direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                          message.street, message.route, message.signpost,
+                                                                          message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
                                                                           rules.filter_direction_information, content.action, content.purpose,
                                                                           message.country_code, message.use_road_information_for_action_notification,
                                                                           message.use_signpost_direction_for_action_notification)
@@ -386,7 +392,7 @@ function instruction.select_roundabout(message, rules)
     content.action = 'exitroundabout'
     if direction.use_direction_information(content.trigger, message.road_class, message.distance.value_in_meters, rules.direction_information_limit) then
         local direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                          message.street, message.route, message.signpost,
+                                                                          message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
                                                                           rules.filter_direction_information, content.action, content.purpose,
                                                                           message.country_code, message.use_road_information_for_action_notification,
                                                                           message.use_signpost_direction_for_action_notification)
@@ -413,29 +419,31 @@ function instruction.select_enter_highway(message, rules)
         local direction_information = nil
         if use_direction_information then
             direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                        message.street, message.route, message.signpost,
-                                                                        rules.filter_direction_information,
-                                                                        enter_highway_turn_information.action, enter_highway_turn_information.purpose,
+                                                                        message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
+                                                                        rules.filter_direction_information, enter_highway_turn_information.action, enter_highway_turn_information.purpose,
                                                                         message.country_code, message.use_road_information_for_action_notification,
                                                                         message.use_signpost_direction_for_action_notification)
             content = utils.merge_tables(content, direction_information)
         end
 
-        local natural_guidance_element = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
-                                                                      rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold,
-                                                                      rules.natural_guidance_count_limit, rules.natural_guidance_distance_limit,
-                                                                      rules.natural_guidance_elements_priority_order,
-                                                                      rules.natural_guidance_distance_to_first_element_threshold)
+        if not common.is_enabled_japan_direction_for_japanese(message.country_code, message.vp_marc_lang_code, content.trigger, message.intersection) then
+            local natural_guidance_element = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
+                                                                        rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold,
+                                                                        rules.natural_guidance_count_limit, rules.natural_guidance_distance_limit,
+                                                                        rules.natural_guidance_elements_priority_order,
+                                                                        rules.natural_guidance_distance_to_first_element_threshold)
 
-        if not natural_guidance.excluded_by_direction(direction_information, natural_guidance_element, rules.use_natural_guidance_with_direction) and
-           not natural_guidance.excluded_by_lane_information(action_content, natural_guidance_element, message.order, rules.use_natural_guidance_with_lane_information) then
-            content.natural_guidance = natural_guidance_element
-            if natural_guidance.excludes_distance(natural_guidance_element, rules.use_distance_with_natural_guidance) then
-                content.time = 'landmark'
-                content.distance_value = nil
-                content.distance_unit_phrase_id = nil
+            if not natural_guidance.excluded_by_direction(direction_information, natural_guidance_element, rules.use_natural_guidance_with_direction) and
+            not natural_guidance.excluded_by_lane_information(action_content, natural_guidance_element, message.order, rules.use_natural_guidance_with_lane_information) then
+                content.natural_guidance = natural_guidance_element
+                if natural_guidance.excludes_distance(natural_guidance_element, rules.use_distance_with_natural_guidance) then
+                    content.time = 'landmark'
+                    content.distance_value = nil
+                    content.distance_unit_phrase_id = nil
+                end
             end
         end
+
         if enter_highway_turn_information.purpose then
             content.purpose = enter_highway_turn_information.purpose
             if direction_information == nil or direction_information.route == nil then
@@ -462,25 +470,27 @@ function instruction.select_junction(message, rules)
     local direction_information = nil
     if direction.use_direction_information(content.trigger, message.road_class, message.distance.value_in_meters, rules.direction_information_limit) then
         direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                    message.street, message.route, message.signpost,
+                                                                    message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
                                                                     rules.filter_direction_information, content.action, content.purpose,
                                                                     message.country_code, message.use_road_information_for_action_notification,
                                                                     message.use_signpost_direction_for_action_notification)
         content = utils.merge_tables(content, direction_information)
     end
 
-    local natural_guidance_element = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
-                                                                  rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold,
-                                                                  rules.natural_guidance_count_limit, rules.natural_guidance_distance_limit,
-                                                                  rules.natural_guidance_elements_priority_order,
-                                                                  rules.natural_guidance_distance_to_first_element_threshold)
-    if not natural_guidance.excluded_by_direction(direction_information, natural_guidance_element, rules.use_natural_guidance_with_direction) and
-       not natural_guidance.excluded_by_lane_information(action_content, natural_guidance_element, message.order, rules.use_natural_guidance_with_lane_information) then
-        content.natural_guidance = natural_guidance_element
-        if natural_guidance.excludes_distance(natural_guidance_element, rules.use_distance_with_natural_guidance) then
-            content.time = 'landmark'
-            content.distance_value = nil
-            content.distance_unit_phrase_id = nil
+    if not common.is_enabled_japan_direction_for_japanese(message.country_code, message.vp_marc_lang_code, content.trigger, message.intersection) then
+        local natural_guidance_element = natural_guidance.get_element(message.order, content.trigger, message.instruction_class, message.distance.value_in_meters, message.natural_guidance,
+                                                                    rules.use_natural_guidance_with_trigger, rules.natural_guidance_importance_threshold,
+                                                                    rules.natural_guidance_count_limit, rules.natural_guidance_distance_limit,
+                                                                    rules.natural_guidance_elements_priority_order,
+                                                                    rules.natural_guidance_distance_to_first_element_threshold)
+        if not natural_guidance.excluded_by_direction(direction_information, natural_guidance_element, rules.use_natural_guidance_with_direction) and
+        not natural_guidance.excluded_by_lane_information(action_content, natural_guidance_element, message.order, rules.use_natural_guidance_with_lane_information) then
+            content.natural_guidance = natural_guidance_element
+            if natural_guidance.excludes_distance(natural_guidance_element, rules.use_distance_with_natural_guidance) then
+                content.time = 'landmark'
+                content.distance_value = nil
+                content.distance_unit_phrase_id = nil
+            end
         end
     end
 
@@ -505,7 +515,8 @@ function instruction.select_highway_turn(message, rules)
 
     local use_continue_purpose = instruction.get_use_continue_purpose(message.order, content.trigger, check_continue, rules.use_continue_purpose, use_direction_information)
     local use_exit_purpose = false
-    if (message.order ~= 'second' and highway_exit_information ~= nil) or use_continue_purpose == false then
+    if (message.vp_marc_lang_code ~= 'jpn' or message.next_road_class == 'street')
+        and ((message.order ~= 'second' and highway_exit_information ~= nil) or use_continue_purpose == false) then
         use_exit_purpose = instruction.get_use_exit_purpose(message.order, content.trigger, message.leaving_highway, message.exit_name, rules.use_exit_purpose)
         if use_exit_purpose == true then
             content = utils.merge_tables(content, highway_exit_information)
@@ -520,7 +531,7 @@ function instruction.select_highway_turn(message, rules)
 
     if use_direction_information then
         local direction_information = direction.get_direction_information(message.order, content.trigger, message.instruction_class, message.road_class,
-                                                                          message.street, message.route, message.signpost,
+                                                                          message.street, message.route, message.signpost, message.intersection, message.vp_marc_lang_code,
                                                                           rules.filter_direction_information,content.action, content.purpose,
                                                                           message.country_code, message.use_road_information_for_action_notification,
                                                                           message.use_signpost_direction_for_action_notification, continue_road_change)

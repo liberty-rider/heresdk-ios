@@ -1,1 +1,1 @@
-{"styles": [{"layer": "rasterterrain", "technique": "raster", "attr": {"gamma": ["ref", "Satellite.Texture.Gamma"], "brightness": ["ref", "Satellite.Texture.Brightness"]}}]}
+{"styles": [{"id": "rasterterrain_2d", "layer": "rasterterrain", "technique": "raster", "attr": {"gamma": ["ref", "Satellite.Texture.Gamma"], "brightness": ["ref", "Satellite.Texture.Brightness"]}}]}

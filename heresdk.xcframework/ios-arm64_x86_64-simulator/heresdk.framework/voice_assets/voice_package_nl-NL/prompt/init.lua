@@ -23,15 +23,19 @@ function prompt.realize(prompt_table, language_code)
             template = template .. '.'
         end
 
-        prompt_output = prompt._substitute_placeholders(template, prompt_table, substitutes, mods)
+        prompt_output = prompt._substitute_placeholders(template, prompt_table, substitutes, mods, language_code)
         prompt_output = mods.apply_language_specific_mods(prompt_output)
         prompt_output = prompt._cleanup(prompt_output)
+
+        if prompt_table.use_ssml == true then
+            prompt_output = '<speak>' .. prompt_output .. '</speak>'
+        end
     end
     return prompt_output
 end
 
 
-function prompt._substitute_placeholders(template, prompt_table, substitutes, mods)
+function prompt._substitute_placeholders(template, prompt_table, substitutes, mods, language_code)
     local function _get_value_for_placeholder(placeholder)
         local value
         -- template placeholders
@@ -43,9 +47,9 @@ function prompt._substitute_placeholders(template, prompt_table, substitutes, mo
         elseif placeholder == '{INTERVAL}' then
             value = prompt._get_interval_phrase(prompt_table, substitutes, mods)
         elseif placeholder == '{DIRECTION}' then
-            value = prompt._get_direction_phrase(prompt_table, substitutes, 'current')
+            value = prompt._get_direction_phrase(prompt_table, substitutes, 'current', mods, language_code)
         elseif placeholder == '{NEXT_DIRECTION}' then
-            value = prompt._get_direction_phrase(prompt_table, substitutes, 'next')
+            value = prompt._get_direction_phrase(prompt_table, substitutes, 'next', mods, language_code)
         ---- placeholders for values
         elseif placeholder == '{GOAL}' then
             value = substitutes.variables[prompt_table.goal]
@@ -99,6 +103,10 @@ function prompt._substitute_placeholders(template, prompt_table, substitutes, mo
             value = prompt._get_direction(prompt_table.signpost, prompt_table.vp_marc_lang_code, prompt_table.vp_supported_lang_code)
         elseif placeholder == '{NEXT_SIGNPOST}' then
             value = prompt._get_direction(prompt_table.next_signpost, prompt_table.vp_marc_lang_code, prompt_table.vp_supported_lang_code)
+        elseif placeholder == '{INTERSECTION}' then
+            value = prompt._get_direction(prompt_table.intersection, prompt_table.vp_marc_lang_code, prompt_table.vp_supported_lang_code)
+        elseif placeholder == '{NEXT_INTERSECTION}' then
+            value = prompt._get_direction(prompt_table.next_intersection, prompt_table.vp_marc_lang_code, prompt_table.vp_supported_lang_code)
         end
 
         if value == '' then
@@ -222,7 +230,7 @@ end
 function prompt._get_interval_phrase(prompt_table, substitutes, mods)
     local phrase = ''
     local template_id = 'nav.clause.INTERVAL.' .. prompt_table.time
-    template = substitutes.clauses[template_id]
+    local template = substitutes.clauses[template_id]
     if template ~= nil then
         phrase = prompt._substitute_placeholders(template, prompt_table, substitutes, mods)
     end
@@ -230,24 +238,28 @@ function prompt._get_interval_phrase(prompt_table, substitutes, mods)
 end
 
 
-function prompt._get_direction_phrase(prompt_table, substitutes, segment_order)
-    local template, phrase = ''
+function prompt._get_direction_phrase(prompt_table, substitutes, segment_order, mods, language_code)
+    local template, phrase = '', ''
     local template_id = 'nav.clause.DIRECTION.'
-    local route, street, signpost
+    local route, street, signpost, intersection
     local prompt_id
     if segment_order == 'next' then
         route = prompt_table.next_route
         street = prompt_table.next_street
         signpost = prompt_table.next_signpost
+        intersection = prompt_table.next_intersection
         prompt_id = prompt_table.prompt_id[2]
     else
         route = prompt_table.route
         street = prompt_table.street
         signpost = prompt_table.signpost
+        intersection = prompt_table.intersection
         prompt_id = prompt_table.prompt_id[1]
     end
-    if route ~= nil or street ~= nil or signpost ~= nil then
-        if (prompt_id:find('tocontinue')
+    if route ~= nil or street ~= nil or signpost ~= nil or intersection ~= nil then
+        if intersection and language_code == 'ja-JP' then
+            template_id = template_id .. 'intersection.' .. intersection.preposition_id
+        elseif (prompt_id:find('tocontinue')
                 or prompt_id:find('tojoin'))
             and (route or street) and signpost then
             if route then
@@ -278,6 +290,7 @@ function prompt._get_direction_phrase(prompt_table, substitutes, segment_order)
         end
         phrase = prompt._substitute_placeholders(template, prompt_table, substitutes)
         phrase = phrase:gsub('%,%s*$','')
+        phrase = mods.adjust_direction_phrase(phrase, template_id, prompt_table, segment_order)
     end
     return phrase
 end
@@ -325,8 +338,7 @@ function prompt._get_phoneme(information_string, information_phoneme, phoneme_la
     local orig_lang = constants.marc_to_nuance[string.upper(marc_code)]
     if (not voice_settings['tts_output_format'] or voice_settings['tts_output_format'] == 'ssml')
         and dest_lang ~= nil then
-        result = prompt._build_ssml_phoneme(dest_lang, information_phoneme, information_string)
-        return result
+        return prompt._build_ssml_phoneme(dest_lang, information_phoneme, information_string)
     end
     if not dest_lang or not orig_lang then
         return information_string

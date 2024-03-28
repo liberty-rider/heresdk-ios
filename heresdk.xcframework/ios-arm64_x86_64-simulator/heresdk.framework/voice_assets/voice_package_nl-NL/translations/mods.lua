@@ -8,4 +8,8 @@ function mods.get_distance_phrase(distance, distance_unit, variables)
     return distance .. ' ' .. variables[distance_unit]
 end
 
+function mods.adjust_direction_phrase(original_direction_phrase, template_id, prompt_table, segment_order)
+    return original_direction_phrase
+end
+
 return mods

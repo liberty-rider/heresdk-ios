@@ -122,4 +122,10 @@ function common._get_additional_information_segment(content_table)
     return '-'
 end
 
+
+function common.is_enabled_japan_direction_for_japanese(country_code, marc_code, trigger, intersection)
+    return country_code == 'jpn' and marc_code == 'jpn' and trigger == 'distance' and intersection ~= nil
+end
+
+
 return common

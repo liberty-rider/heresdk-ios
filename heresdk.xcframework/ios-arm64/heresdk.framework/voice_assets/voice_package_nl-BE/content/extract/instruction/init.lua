@@ -38,6 +38,9 @@ function instruction.extract_common_instruction_content(input_table, with_direct
         message_content.route = attributes.get_direction_element(input_maneuver.next_route,
                                                                  input_maneuver.next_route_phoneme_nt_sampa,
                                                                  input_maneuver.next_route_phoneme_nt_sampa_lang)
+        message_content.intersection = attributes.get_direction_element(input_maneuver.intersection,
+                                                                        input_maneuver.intersection_phoneme_nt_sampa,
+                                                                        input_maneuver.intersection_phoneme_nt_sampa_lang)
         local signpost = attributes.get_direction_element(input_maneuver.signpost_direction,
                                                                     input_maneuver.signpost_direction_phoneme_nt_sampa,
                                                                     input_maneuver.signpost_direction_phoneme_nt_sampa_lang)

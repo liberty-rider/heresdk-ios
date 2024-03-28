@@ -1,6 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
 // swift-module-flags: -target arm64-apple-ios12.4 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name heresdk
+// swift-module-flags-ignorable: -enable-bare-slash-regex
 import CoreGraphics
 import CoreLocation
 import Foundation
@@ -10,6 +11,7 @@ import Swift
 import SystemConfiguration
 import UIKit
 import _Concurrency
+import _StringProcessing
 @_exported import heresdk
 import os.log
 import os
@@ -197,7 +199,19 @@ public enum MetadataType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   }
 }
 public struct NamedColor {
-  public static var white: UIKit.UIColor
+  public static let white: UIKit.UIColor
+}
+public struct PickedPlace : Swift.Hashable {
+  public var name: Swift.String
+  public var coordinates: heresdk.GeoCoordinates
+  public var placeCategoryId: Swift.String
+  public var offlineSearchId: Swift.String
+  public init(name: Swift.String, coordinates: heresdk.GeoCoordinates, placeCategoryId: Swift.String, offlineSearchId: Swift.String = "")
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.PickedPlace, b: heresdk.PickedPlace) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
 }
 public struct Point2D : Swift.Hashable {
   public var x: Swift.Double
@@ -720,6 +734,19 @@ public struct DashPattern : Swift.Hashable {
     get
   }
 }
+public enum DrawOrderType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case mapSceneAdditionOrderDependent
+  case mapSceneAdditionOrderIndependent
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.DrawOrderType]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.DrawOrderType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
 @_hasMissingDesignatedInitializers public class HereMap {
   @objc deinit
   public func addMapIdleDelegate(_ delegate: heresdk.MapIdleDelegate)
@@ -809,7 +836,7 @@ public enum LineCap : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   public init(geometry: heresdk.GeoPolyline, widthInPixels: Swift.Double, color: UIKit.UIColor)
   public var measureDependentTailWidth: [heresdk.MapMeasure : Swift.Double] {
     get
-    set(newValue)
+    set
   }
   @objc deinit
 }
@@ -821,12 +848,13 @@ extension heresdk.MapArrow : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class MapCamera {
+  public typealias DryCameraUpdateHandler = (heresdk.MapCamera.State?) -> Swift.Void
   public var state: heresdk.MapCamera.State {
     get
   }
   public var principalPoint: heresdk.Point2D {
     get
-    set(newValue)
+    set
   }
   public var boundingBox: heresdk.GeoBox? {
     get
@@ -846,6 +874,7 @@ extension heresdk.MapArrow : Swift.Hashable {
   public func removeDelegate(_ delegate: heresdk.MapCameraDelegate)
   public func removeDelegates()
   public func applyUpdate(_ cameraUpdate: heresdk.MapCameraUpdate)
+  public func dryApplyUpdate(_ cameraUpdate: heresdk.MapCameraUpdate, completion: @escaping heresdk.MapCamera.DryCameraUpdateHandler)
   public func startAnimation(_ cameraAnimation: heresdk.MapCameraAnimation)
   public func startAnimation(_ cameraAnimation: heresdk.MapCameraAnimation, animationDelegate: heresdk.AnimationDelegate)
   public func cancelAnimation(_ cameraAnimation: heresdk.MapCameraAnimation)
@@ -991,25 +1020,25 @@ extension heresdk.MapCameraKeyframeTrack : Swift.Hashable {
 extension heresdk.MapCameraKeyframeTrack.InstantiationErrorCode : Swift.Error {
 }
 @_hasMissingDesignatedInitializers public class MapCameraLimits {
-  public static var minTilt: Swift.Double
-  public static var maxTilt: Swift.Double
-  public static var minZoomLevel: Swift.Double
-  public static var maxZoomLevel: Swift.Double
+  public static let minTilt: Swift.Double
+  public static let maxTilt: Swift.Double
+  public static let minZoomLevel: Swift.Double
+  public static let maxZoomLevel: Swift.Double
   public var tiltRange: heresdk.AngleRange {
     get
-    set(newValue)
+    set
   }
   public var bearingRange: heresdk.AngleRange {
     get
-    set(newValue)
+    set
   }
   public var zoomRange: heresdk.MapMeasureRange {
     get
-    set(newValue)
+    set
   }
   public var targetArea: heresdk.GeoBox? {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func setBearingRangeAtZoom(_ zoom: heresdk.MapMeasure, bearingRange: heresdk.AngleRange)
@@ -1092,13 +1121,8 @@ public enum MapContentCategory : Swift.UInt32, Swift.CaseIterable, Swift.Codable
   }
 }
 public enum MapContentType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case point
-  case screenPoint
-  case line
-  case lineShiftable
-  case polygon
   case rasterImage
-  case mesh
+  case line
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.MapContentType]
   public typealias RawValue = Swift.UInt32
@@ -1135,39 +1159,40 @@ public enum MapError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   }
 }
 public struct MapFeatureModes {
-  public static var defaultMode: Swift.String
-  public static var buildingFootprintsAll: Swift.String
-  public static var congestionZonesAll: Swift.String
-  public static var extrudedBuildingsAll: Swift.String
-  public static var environmentalZonesAll: Swift.String
-  public static var trafficFlowJapanWithoutFreeFlow: Swift.String
-  public static var trafficFlowWithFreeFlow: Swift.String
-  public static var trafficFlowWithoutFreeFlow: Swift.String
-  public static var trafficIncidentsAll: Swift.String
-  public static var landmarksTextured: Swift.String
-  public static var landmarksTextureless: Swift.String
-  public static var vehicleRestrictionsActiveAndInactive: Swift.String
-  public static var vehicleRestrictionsActiveAndInactiveDifferentiated: Swift.String
-  public static var vehicleRestrictionsActive: Swift.String
-  public static var safetyCamerasAll: Swift.String
-  public static var terrainHillshading: Swift.String
-  public static var roadExitLabelsNumbersOnly: Swift.String
-  public static var roadExitLabelsAll: Swift.String
-  public static var shadowsAll: Swift.String
+  public static let defaultMode: Swift.String
+  public static let buildingFootprintsAll: Swift.String
+  public static let congestionZonesAll: Swift.String
+  public static let extrudedBuildingsAll: Swift.String
+  public static let environmentalZonesAll: Swift.String
+  public static let trafficFlowJapanWithoutFreeFlow: Swift.String
+  public static let trafficFlowWithFreeFlow: Swift.String
+  public static let trafficFlowWithoutFreeFlow: Swift.String
+  public static let trafficIncidentsAll: Swift.String
+  public static let landmarksTextured: Swift.String
+  public static let landmarksTextureless: Swift.String
+  public static let vehicleRestrictionsActiveAndInactive: Swift.String
+  public static let vehicleRestrictionsActiveAndInactiveDifferentiated: Swift.String
+  public static let vehicleRestrictionsActive: Swift.String
+  public static let safetyCamerasAll: Swift.String
+  public static let terrainHillshading: Swift.String
+  public static let terrainHillshadingWith3d: Swift.String
+  public static let roadExitLabelsNumbersOnly: Swift.String
+  public static let roadExitLabelsAll: Swift.String
+  public static let shadowsAll: Swift.String
 }
 public struct MapFeatures {
-  public static var extrudedBuildings: Swift.String
-  public static var buildingFootprints: Swift.String
-  public static var trafficFlow: Swift.String
-  public static var trafficIncidents: Swift.String
-  public static var vehicleRestrictions: Swift.String
-  public static var safetyCameras: Swift.String
-  public static var landmarks: Swift.String
-  public static var environmentalZones: Swift.String
-  public static var congestionZones: Swift.String
-  public static var terrain: Swift.String
-  public static var roadExitLabels: Swift.String
-  public static var shadows: Swift.String
+  public static let extrudedBuildings: Swift.String
+  public static let buildingFootprints: Swift.String
+  public static let trafficFlow: Swift.String
+  public static let trafficIncidents: Swift.String
+  public static let vehicleRestrictions: Swift.String
+  public static let safetyCameras: Swift.String
+  public static let landmarks: Swift.String
+  public static let environmentalZones: Swift.String
+  public static let congestionZones: Swift.String
+  public static let terrain: Swift.String
+  public static let roadExitLabels: Swift.String
+  public static let shadows: Swift.String
 }
 public protocol MapIdleDelegate : AnyObject {
   func onMapBusy()
@@ -1191,19 +1216,19 @@ extension heresdk.MapImage : Swift.Hashable {
   public init(at viewCoordinates: heresdk.Point2D, image: heresdk.MapImage, anchor: heresdk.Anchor2D)
   public var viewCoordinates: heresdk.Point2D {
     get
-    set(newValue)
+    set
   }
   public var drawOrder: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   public var image: heresdk.MapImage {
     get
-    set(newValue)
+    set
   }
   public var anchor: heresdk.Anchor2D {
     get
-    set(newValue)
+    set
   }
   @objc deinit
 }
@@ -1321,39 +1346,39 @@ public struct MapLayerVisibilityRange : Swift.Hashable {
   public init(at coordinates: heresdk.GeoCoordinates, image: heresdk.MapImage, anchor: heresdk.Anchor2D)
   public var coordinates: heresdk.GeoCoordinates {
     get
-    set(newValue)
+    set
   }
   public var metadata: heresdk.Metadata? {
     get
-    set(newValue)
+    set
   }
   public var isOverlapAllowed: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var drawOrder: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   public var image: heresdk.MapImage {
     get
-    set(newValue)
+    set
   }
   public var anchor: heresdk.Anchor2D {
     get
-    set(newValue)
+    set
   }
   public var opacity: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var fadeDuration: Foundation.TimeInterval {
     get
-    set(newValue)
+    set
   }
   public var visibilityRanges: [heresdk.MapMeasureRange] {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func startAnimation(_ animation: heresdk.MapMarkerAnimation, animationDelegate: heresdk.AnimationDelegate?)
@@ -1373,43 +1398,43 @@ extension heresdk.MapMarker : Swift.Hashable {
   public init(at: heresdk.GeoCoordinates, model: heresdk.MapMarker3DModel, scale: Swift.Double, unit: heresdk.RenderSize.Unit)
   public var coordinates: heresdk.GeoCoordinates {
     get
-    set(newValue)
+    set
   }
   public var metadata: heresdk.Metadata? {
     get
-    set(newValue)
+    set
   }
   public var bearing: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var roll: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var pitch: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var scale: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var isDepthCheckEnabled: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var isRenderInternalsEnabled: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var opacity: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var visibilityRanges: [heresdk.MapMeasureRange] {
     get
-    set(newValue)
+    set
   }
   @objc deinit
 }
@@ -1459,7 +1484,7 @@ extension heresdk.MapMarker3DModel.InstantiationErrorCode : Swift.Error {
   }
   public var opacity: Swift.Double {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public struct Grouping {
@@ -1563,31 +1588,31 @@ public struct MapMeasureRange : Swift.Hashable {
   public init(geometry: heresdk.GeoPolygon, color: UIKit.UIColor, outlineColor: UIKit.UIColor, outlineWidthInPixels: Swift.Double)
   public var geometry: heresdk.GeoPolygon {
     get
-    set(newValue)
+    set
   }
   public var metadata: heresdk.Metadata? {
     get
-    set(newValue)
+    set
   }
   public var fillColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   public var drawOrder: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   public var visibilityRanges: [heresdk.MapMeasureRange] {
     get
-    set(newValue)
+    set
   }
   public var outlineColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   public var outlineWidth: Swift.Double {
     get
-    set(newValue)
+    set
   }
   @objc deinit
 }
@@ -1606,80 +1631,84 @@ extension heresdk.MapPolygon : Swift.Hashable {
   public init(geometry: heresdk.GeoPolyline, representation: heresdk.MapPolyline.Representation)
   public var geometry: heresdk.GeoPolyline {
     get
-    set(newValue)
+    set
   }
   public var metadata: heresdk.Metadata? {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var lineCap: heresdk.LineCap {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var lineColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var lineWidth: Swift.Double {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var measureDependentLineWidth: [heresdk.MapMeasure : Swift.Double] {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var outlineColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var outlineWidth: Swift.Double {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var measureDependentOutlineWidth: [heresdk.MapMeasure : Swift.Double] {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var dashPattern: heresdk.DashPattern? {
     get
-    set(newValue)
+    set
   }
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `MapPolyline.setRepresentation(...)` instead to control the appearance of the polyline.")
   public var dashFillColor: UIKit.UIColor? {
     get
-    set(newValue)
+    set
   }
   public var drawOrder: Swift.Int32 {
     get
-    set(newValue)
+    set
+  }
+  public var drawOrderType: heresdk.DrawOrderType {
+    get
+    set
   }
   public var visibilityRanges: [heresdk.MapMeasureRange] {
     get
-    set(newValue)
+    set
   }
   public var progress: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var progressColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   public var progressOutlineColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   public var mapContentCategoriesToBlock: [heresdk.MapContentCategory] {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   @_hasMissingDesignatedInitializers public class Representation : heresdk.MapItemRepresentation {
@@ -1831,6 +1860,7 @@ public enum MapScheme : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case liteHybridDay
   case liteHybridNight
   case logisticsDay
+  case logisticsNight
   case roadNetworkDay
   case roadNetworkNight
   public init?(rawValue: Swift.UInt32)
@@ -1976,6 +2006,191 @@ public enum WatermarkStyle : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     get
   }
 }
+@_hasMissingDesignatedInitializers public class DataAttributeValue {
+  public init(_ value: Swift.String)
+  public init(_ value: Swift.Int64)
+  public init(_ value: Swift.Float)
+  public init(_ value: Swift.Double)
+  public init(_ value: Swift.Bool)
+  public init(_ value: [heresdk.DataAttributeValue])
+  @objc deinit
+  public enum ValueType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+    case string
+    case int64
+    case float
+    case double
+    case boolean
+    case array
+    public init?(rawValue: Swift.UInt32)
+    public typealias AllCases = [heresdk.DataAttributeValue.ValueType]
+    public typealias RawValue = Swift.UInt32
+    public static var allCases: [heresdk.DataAttributeValue.ValueType] {
+      get
+    }
+    public var rawValue: Swift.UInt32 {
+      get
+    }
+  }
+  public func getType() -> heresdk.DataAttributeValue.ValueType
+  public func getString() -> Swift.String?
+  public func getInt64() -> Swift.Int64?
+  public func getFloat() -> Swift.Float?
+  public func getDouble() -> Swift.Double?
+  public func getBoolean() -> Swift.Bool?
+  public func getArray() -> [heresdk.DataAttributeValue]?
+  public func getAsString() -> Swift.String
+}
+extension heresdk.DataAttributeValue : Swift.Hashable {
+  public static func == (lhs: heresdk.DataAttributeValue, rhs: heresdk.DataAttributeValue) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DataAttributes : heresdk.DataAttributesBase {
+  @objc deinit
+  public func getAttributeNames() -> [Swift.String]
+  public func getValueType(_ name: Swift.String) -> heresdk.DataAttributeValue.ValueType?
+  public func getAsString(_ name: Swift.String) -> Swift.String?
+  public func getString(_ name: Swift.String) -> Swift.String?
+  public func getInt64(_ name: Swift.String) -> Swift.Int64?
+  public func getFloat(_ name: Swift.String) -> Swift.Float?
+  public func getDouble(_ name: Swift.String) -> Swift.Double?
+  public func getBoolean(_ name: Swift.String) -> Swift.Bool?
+  public func getValue(_ name: Swift.String) -> heresdk.DataAttributeValue?
+}
+extension heresdk.DataAttributes : Swift.Hashable {
+  public static func == (lhs: heresdk.DataAttributes, rhs: heresdk.DataAttributes) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DataAttributesAccessor : heresdk.DataAttributesBase {
+  @objc deinit
+  public func getAttributeNames() -> [Swift.String]
+  public func getValueType(_ name: Swift.String) -> heresdk.DataAttributeValue.ValueType?
+  public func getAsString(_ name: Swift.String) -> Swift.String?
+  public func getString(_ name: Swift.String) -> Swift.String?
+  public func getInt64(_ name: Swift.String) -> Swift.Int64?
+  public func getFloat(_ name: Swift.String) -> Swift.Float?
+  public func getDouble(_ name: Swift.String) -> Swift.Double?
+  public func getBoolean(_ name: Swift.String) -> Swift.Bool?
+  public func getValue(_ name: Swift.String) -> heresdk.DataAttributeValue?
+  public func addOrReplace(name: Swift.String, value: Swift.String)
+  public func addOrReplace(name: Swift.String, value: Swift.Int64)
+  public func addOrReplace(name: Swift.String, value: Swift.Float)
+  public func addOrReplace(name: Swift.String, value: Swift.Double)
+  public func addOrReplace(name: Swift.String, value: Swift.Bool)
+  public func addOrReplace(name: Swift.String, value: heresdk.DataAttributeValue)
+  public func remove(name: Swift.String)
+  public func removeAll()
+}
+extension heresdk.DataAttributesAccessor : Swift.Hashable {
+  public static func == (lhs: heresdk.DataAttributesAccessor, rhs: heresdk.DataAttributesAccessor) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol DataAttributesBase : AnyObject {
+  func getAttributeNames() -> [Swift.String]
+  func getValueType(_ name: Swift.String) -> heresdk.DataAttributeValue.ValueType?
+  func getAsString(_ name: Swift.String) -> Swift.String?
+  func getString(_ name: Swift.String) -> Swift.String?
+  func getInt64(_ name: Swift.String) -> Swift.Int64?
+  func getFloat(_ name: Swift.String) -> Swift.Float?
+  func getDouble(_ name: Swift.String) -> Swift.Double?
+  func getBoolean(_ name: Swift.String) -> Swift.Bool?
+  func getValue(_ name: Swift.String) -> heresdk.DataAttributeValue?
+}
+@_hasMissingDesignatedInitializers public class DataAttributesBuilder {
+  public init()
+  @objc deinit
+  public func with(name: Swift.String, value: Swift.String) -> heresdk.DataAttributesBuilder
+  public func with(name: Swift.String, value: Swift.Int64) -> heresdk.DataAttributesBuilder
+  public func with(name: Swift.String, value: Swift.Float) -> heresdk.DataAttributesBuilder
+  public func with(name: Swift.String, value: Swift.Double) -> heresdk.DataAttributesBuilder
+  public func with(name: Swift.String, value: Swift.Bool) -> heresdk.DataAttributesBuilder
+  public func with(name: Swift.String, value: heresdk.DataAttributeValue) -> heresdk.DataAttributesBuilder
+  public func build() -> heresdk.DataAttributes
+}
+extension heresdk.DataAttributesBuilder : Swift.Hashable {
+  public static func == (lhs: heresdk.DataAttributesBuilder, rhs: heresdk.DataAttributesBuilder) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class LineData {
+  @objc deinit
+}
+extension heresdk.LineData : Swift.Hashable {
+  public static func == (lhs: heresdk.LineData, rhs: heresdk.LineData) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class LineDataAccessor {
+  @objc deinit
+  public func getGeometry() -> heresdk.GeoPolyline
+  public func getAttributes() -> heresdk.DataAttributesAccessor
+  public func setGeometry(_ geometry: heresdk.GeoPolyline)
+  public func setAttributes(_ attributes: heresdk.DataAttributes)
+}
+extension heresdk.LineDataAccessor : Swift.Hashable {
+  public static func == (lhs: heresdk.LineDataAccessor, rhs: heresdk.LineDataAccessor) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class LineDataBuilder {
+  public init()
+  @objc deinit
+  public func withGeometry(_ geometry: heresdk.GeoPolyline) -> heresdk.LineDataBuilder
+  public func withAttributes(_ attributes: heresdk.DataAttributes) -> heresdk.LineDataBuilder
+  public func build() -> heresdk.LineData
+}
+extension heresdk.LineDataBuilder : Swift.Hashable {
+  public static func == (lhs: heresdk.LineDataBuilder, rhs: heresdk.LineDataBuilder) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class LineDataSource {
+  public typealias LineDataProcessor = (heresdk.LineDataAccessor) -> Swift.Bool
+  @objc deinit
+  public func add(_ line: heresdk.LineData)
+  public func add(_ lines: [heresdk.LineData])
+  public func removeAll()
+  public func forEach(_ processor: @escaping heresdk.LineDataSource.LineDataProcessor)
+  public func removeIf(_ inspector: @escaping heresdk.LineDataSource.LineDataProcessor)
+}
+extension heresdk.LineDataSource : Swift.Hashable {
+  public static func == (lhs: heresdk.LineDataSource, rhs: heresdk.LineDataSource) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class LineDataSourceBuilder {
+  public init(_ context: heresdk.MapContext)
+  @objc deinit
+  public func withName(_ dataSourceName: Swift.String) -> heresdk.LineDataSourceBuilder
+  public func withPolyline(_ polyline: heresdk.LineData) -> heresdk.LineDataSourceBuilder
+  public func withPolylines(_ polylines: [heresdk.LineData]) -> heresdk.LineDataSourceBuilder
+  public func build() -> heresdk.LineDataSource
+}
+extension heresdk.LineDataSourceBuilder : Swift.Hashable {
+  public static func == (lhs: heresdk.LineDataSourceBuilder, rhs: heresdk.LineDataSourceBuilder) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 @_hasMissingDesignatedInitializers public class TileUrlProviderFactory {
   @objc deinit
   public static func fromXyzUrlTemplate(_ urlTemplate: Swift.String) -> heresdk.TileUrlRequestHandler?
@@ -2042,7 +2257,7 @@ public enum ConsentFeature : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
 @_hasMissingDesignatedInitializers public class ConsentInternal {
   public var consentState: heresdk.ConsentState {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public static func fromSdkNativeEngine(sdkEngine: heresdk.SDKNativeEngine) throws -> heresdk.ConsentInternal
@@ -2619,7 +2834,8 @@ public struct Location : Swift.Hashable {
   public var timestampSinceBoot: Foundation.TimeInterval?
   public var locationTechnology: heresdk.LocationTechnology?
   public var gnssTime: Foundation.TimeInterval?
-  public init(coordinates: heresdk.GeoCoordinates, bearingInDegrees: Swift.Double? = nil, speedInMetersPerSecond: Swift.Double? = nil, time: Foundation.Date? = nil, horizontalAccuracyInMeters: Swift.Double? = nil, verticalAccuracyInMeters: Swift.Double? = nil, bearingAccuracyInDegrees: Swift.Double? = nil, speedAccuracyInMetersPerSecond: Swift.Double? = nil, timestampSinceBoot: Foundation.TimeInterval? = nil, locationTechnology: heresdk.LocationTechnology? = nil, gnssTime: Foundation.TimeInterval? = nil)
+  public var pitchInDegrees: Swift.Double?
+  public init(coordinates: heresdk.GeoCoordinates, bearingInDegrees: Swift.Double? = nil, speedInMetersPerSecond: Swift.Double? = nil, time: Foundation.Date? = nil, horizontalAccuracyInMeters: Swift.Double? = nil, verticalAccuracyInMeters: Swift.Double? = nil, bearingAccuracyInDegrees: Swift.Double? = nil, speedAccuracyInMetersPerSecond: Swift.Double? = nil, timestampSinceBoot: Foundation.TimeInterval? = nil, locationTechnology: heresdk.LocationTechnology? = nil, gnssTime: Foundation.TimeInterval? = nil, pitchInDegrees: Swift.Double? = nil)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.Location, b: heresdk.Location) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -2634,6 +2850,7 @@ public enum LocationTechnology : Swift.UInt32, Swift.CaseIterable, Swift.Codable
   case gnss
   case hdGnss
   case wifi
+  case deadReckoning
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.LocationTechnology]
   public typealias RawValue = Swift.UInt32
@@ -2687,17 +2904,6 @@ public struct PedestrianProfile : Swift.Hashable {
   public init(walkingSpeedInMetersPerSecond: Swift.Double = 1.0)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.PedestrianProfile, b: heresdk.PedestrianProfile) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct PickedPlace : Swift.Hashable {
-  public var name: Swift.String
-  public var coordinates: heresdk.GeoCoordinates
-  public var placeCategoryId: Swift.String
-  public init(name: Swift.String, coordinates: heresdk.GeoCoordinates, placeCategoryId: Swift.String)
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.PickedPlace, b: heresdk.PickedPlace) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -3006,23 +3212,23 @@ extension heresdk.SDKBuildInformation : Swift.Hashable {
   }
   public static var sharedInstance: heresdk.SDKNativeEngine? {
     get
-    set(newValue)
+    set
   }
   public var isOfflineMode: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var passThroughFeatures: Swift.Set<heresdk.PassThroughFeature>? {
     get
-    set(newValue)
+    set
   }
   public static var parameterConfig: heresdk.ParameterConfiguration {
     get
-    set(newValue)
+    set
   }
   public var proxySettings: heresdk.ProxySettings? {
     get
-    set(newValue)
+    set
   }
   public var sdkUsageStats: [heresdk.UsageStats] {
     get
@@ -3131,15 +3337,15 @@ public struct UsageStats {
     public init(sentBytes: Swift.UInt64, receivedBytes: Swift.UInt64, methodCall: Swift.String, requestCounter: Swift.UInt32)
   }
   public struct MethodNames {
-    public static var defaultNetworkCall: Swift.String
-    public static var analytics: Swift.String
-    public static var authentication: Swift.String
-    public static var calculateRoute: Swift.String
-    public static var calculateTransitRoute: Swift.String
-    public static var calculateRouteWithTraffic: Swift.String
-    public static var mapContent: Swift.String
-    public static var searchMethod: Swift.String
-    public static var trafficFetchIncidents: Swift.String
+    public static let defaultNetworkCall: Swift.String
+    public static let analytics: Swift.String
+    public static let authentication: Swift.String
+    public static let calculateRoute: Swift.String
+    public static let calculateTransitRoute: Swift.String
+    public static let calculateRouteWithTraffic: Swift.String
+    public static let mapContent: Swift.String
+    public static let searchMethod: Swift.String
+    public static let trafficFetchIncidents: Swift.String
   }
 }
 public protocol PlatformThreading : AnyObject {
@@ -3424,31 +3630,31 @@ public enum GestureType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
 @_hasMissingDesignatedInitializers public class Gestures {
   weak public var tapDelegate: heresdk.TapDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var doubleTapDelegate: heresdk.DoubleTapDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var pinchRotateDelegate: heresdk.PinchRotateDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var longPressDelegate: heresdk.LongPressDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var panDelegate: heresdk.PanDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var twoFingerTapDelegate: heresdk.TwoFingerTapDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var twoFingerPanDelegate: heresdk.TwoFingerPanDelegate? {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func enableDefaultAction(forGesture gestureType: heresdk.GestureType)
@@ -3805,7 +4011,7 @@ public enum InstalledRegionStatus : Swift.UInt32, Swift.CaseIterable, Swift.Coda
 @_hasMissingDesignatedInitializers public class MapDownloader {
   public var taskCount: Swift.UInt32 {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public static func fromEngineAsync(_ sdkEngine: heresdk.SDKNativeEngine, _ mapDownloaderConstructionCallback: @escaping heresdk.MapDownloaderConstructionHandle)
@@ -3815,6 +4021,7 @@ public enum InstalledRegionStatus : Swift.UInt32, Swift.CaseIterable, Swift.Coda
   public func getDownloadableRegions(languageCode: heresdk.LanguageCode, completion: @escaping heresdk.CompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func downloadRegions(regions: [heresdk.RegionId], statusListener: heresdk.DownloadRegionsStatusListener) -> heresdk.MapDownloaderTask
+  public func downloadArea(area: heresdk.GeoPolygon, statusListener: heresdk.DownloadRegionsStatusListener) -> heresdk.MapDownloaderTask
   public func deleteRegions(regions: [heresdk.RegionId], completion: @escaping heresdk.DeleteRegionsCompletionHandler)
   public func clearPersistentMapStorage(completion: @escaping heresdk.CacheCallbackCompletionHandler)
   public func getInstalledRegions() throws -> [heresdk.InstalledRegion]
@@ -3875,7 +4082,7 @@ public enum MapLoaderError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case proxyAuthenticationFailed
   case proxyServerUnreachable
   case notEnoughSpace
-  public static var requestLimitReached: heresdk.MapLoaderError
+  public static let requestLimitReached: heresdk.MapLoaderError
   public static var allCases: [heresdk.MapLoaderError] {
     get
   }
@@ -3937,7 +4144,7 @@ extension heresdk.MapUpdateTask : Swift.Hashable {
 @_hasMissingDesignatedInitializers public class MapUpdater {
   public var taskCount: Swift.UInt32 {
     get
-    set(newValue)
+    set
   }
   public var updateStatistics: heresdk.UpdateStatistics {
     get
@@ -4095,19 +4302,19 @@ extension heresdk.ExternalMapDataSourceErrorCode : Swift.Error {
   public init(for mapView: heresdk.MapViewBase)
   public var isAccuracyVisualized: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var locationIndicatorStyle: heresdk.LocationIndicator.IndicatorStyle {
     get
-    set(newValue)
+    set
   }
   public var isActive: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var opacity: Swift.Double {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public enum IndicatorStyle : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
@@ -4227,7 +4434,11 @@ public struct MapViewOptions : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class PickMapContentResult {
+  @available(*, deprecated, message: "Will be removed in v4.19.0. The picked POI results are returned in `PickMapContentResult.pickedPlaces` instead.")
   public var pois: [heresdk.PickMapContentResult.PoiResult] {
+    get
+  }
+  public var pickedPlaces: [heresdk.PickedPlace] {
     get
   }
   public var trafficIncidents: [heresdk.PickMapContentResult.TrafficIncidentResult] {
@@ -4261,6 +4472,7 @@ public struct MapViewOptions : Swift.Hashable {
     }
     @objc deinit
   }
+  @available(*, deprecated, message: "Will be removed in v4.19.0. The picked POI results are represented using `PickedPlace` instead.")
   public struct PoiResult {
     public var name: Swift.String
     public var coordinates: heresdk.GeoCoordinates
@@ -4487,6 +4699,30 @@ public struct EnvironmentalZoneWarningOptions : Swift.Hashable {
     get
   }
 }
+public struct EventText : Swift.Hashable {
+  public var type: heresdk.TextNotificationType
+  public var text: Swift.String
+  public var maneuverNotificationDetails: heresdk.ManeuverNotificationDetails?
+  public var spatialNotificationDetails: heresdk.SpatialNotificationDetails?
+  public init(type: heresdk.TextNotificationType, text: Swift.String, maneuverNotificationDetails: heresdk.ManeuverNotificationDetails? = nil, spatialNotificationDetails: heresdk.SpatialNotificationDetails? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.EventText, b: heresdk.EventText) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol EventTextDelegate : AnyObject {
+  func onEventTextUpdated(_ eventText: heresdk.EventText)
+}
+public struct EventTextOptions : Swift.Hashable {
+  public var enableSpatialAudio: Swift.Bool
+  public init(enableSpatialAudio: Swift.Bool = false)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.EventTextOptions, b: heresdk.EventTextOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 @_hasMissingDesignatedInitializers public class GPXDocument {
   public init(gpxFilePath: Swift.String, options: heresdk.GPXOptions) throws
   public init(tracks: [heresdk.GPXTrack])
@@ -4517,11 +4753,11 @@ public struct GPXOptions : Swift.Hashable {
 @_hasMissingDesignatedInitializers public class GPXTrack {
   public var name: Swift.String {
     get
-    set(newValue)
+    set
   }
   public var description: Swift.String {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func getLocations() -> [heresdk.Location]
@@ -4682,7 +4918,7 @@ public enum LocalizedTextUsageOption : Swift.UInt32, Swift.CaseIterable, Swift.C
   public init(gpxTrack: heresdk.GPXTrack, options: heresdk.LocationSimulatorOptions) throws
   weak public var delegate: heresdk.LocationDelegate? {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func start()
@@ -4707,8 +4943,21 @@ public struct LocationSimulatorOptions : Swift.Hashable {
     get
   }
 }
+@available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `EventTextDelegate` listener instead.")
 public protocol ManeuverNotificationDelegate : AnyObject {
+  @available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `EventTextDelegate` class instead.")
   func onManeuverNotification(_ text: Swift.String)
+}
+public struct ManeuverNotificationDetails : Swift.Hashable {
+  public var maneuver: heresdk.Maneuver
+  public var maneuverNotificationType: heresdk.ManeuverNotificationType
+  public var isCombinedManeuverText: Swift.Bool
+  public init(maneuver: heresdk.Maneuver, maneuverNotificationType: heresdk.ManeuverNotificationType, isCombinedManeuverText: Swift.Bool = false)
+  public static func == (lhs: heresdk.ManeuverNotificationDetails, rhs: heresdk.ManeuverNotificationDetails) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
 }
 public struct ManeuverNotificationOptions : Swift.Hashable {
   public var language: heresdk.LanguageCode
@@ -4797,7 +5046,9 @@ public struct MapMatchedLocation : Swift.Hashable {
   public var segmentReference: heresdk.SegmentReference
   public var segmentOffsetInCentimeters: Swift.UInt32
   public var confidence: Swift.Double
-  public init(coordinates: heresdk.GeoCoordinates, bearingInDegrees: Swift.Double? = nil, segmentReference: heresdk.SegmentReference = SegmentReference(), segmentOffsetInCentimeters: Swift.UInt32 = 0, confidence: Swift.Double = 0.0)
+  public var isDrivingInTheWrongWay: Swift.Bool
+  public var horizontalAccuracyInMeters: Swift.Double?
+  public init(coordinates: heresdk.GeoCoordinates, bearingInDegrees: Swift.Double? = nil, segmentReference: heresdk.SegmentReference = SegmentReference(), segmentOffsetInCentimeters: Swift.UInt32 = 0, confidence: Swift.Double = 0.0, isDrivingInTheWrongWay: Swift.Bool = false, horizontalAccuracyInMeters: Swift.Double? = nil)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.MapMatchedLocation, b: heresdk.MapMatchedLocation) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -4877,163 +5128,183 @@ public protocol NavigableLocationDelegate : AnyObject {
   public init(sdkEngine: heresdk.SDKNativeEngine) throws
   public var route: heresdk.Route? {
     get
-    set(newValue)
+    set
   }
   public var trackingTransportProfile: heresdk.TransportProfile? {
     get
-    set(newValue)
+    set
   }
   weak public var navigableLocationDelegate: heresdk.NavigableLocationDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var routeProgressDelegate: heresdk.RouteProgressDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var routeDeviationDelegate: heresdk.RouteDeviationDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var maneuverNotificationDelegate: heresdk.ManeuverNotificationDelegate? {
     get
-    set(newValue)
+    set
+  }
+  weak public var eventTextDelegate: heresdk.EventTextDelegate? {
+    get
+    set
   }
   weak public var milestoneStatusDelegate: heresdk.MilestoneStatusDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var destinationReachedDelegate: heresdk.DestinationReachedDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var speedWarningDelegate: heresdk.SpeedWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var maneuverViewLaneAssistanceDelegate: heresdk.ManeuverViewLaneAssistanceDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var currentSituationLaneAssistanceViewDelegate: heresdk.CurrentSituationLaneAssistanceViewDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var environmentalZoneWarningListenerDelegate: heresdk.EnvironmentalZoneWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var environmentalZoneWarningOptions: heresdk.EnvironmentalZoneWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var junctionViewLaneAssistanceDelegate: heresdk.JunctionViewLaneAssistanceDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var safetyCameraWarningDelegate: heresdk.SafetyCameraWarningDelegate? {
     get
-    set(newValue)
+    set
+  }
+  public var safetyCameraWarningOptions: heresdk.SafetyCameraWarningOptions {
+    get
+    set
   }
   weak public var dangerZoneWarningListenerDelegate: heresdk.DangerZoneWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var dangerZoneWarningOptions: heresdk.DangerZoneWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var truckRestrictionsWarningDelegate: heresdk.TruckRestrictionsWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var truckRestrictionsWarningOptions: heresdk.TruckRestrictionsWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var postActionDelegate: heresdk.PostActionDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var speedLimitDelegate: heresdk.SpeedLimitDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var roadTextsDelegate: heresdk.RoadTextsDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var roadAttributesDelegate: heresdk.RoadAttributesDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var spatialManeuverNotificationDelegate: heresdk.SpatialManeuverNotificationDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var spatialManeuverAzimuthDelegate: heresdk.SpatialManeuverAzimuthDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var roadSignWarningDelegate: heresdk.RoadSignWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var roadSignWarningOptions: heresdk.RoadSignWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var schoolZoneWarningDelegate: heresdk.SchoolZoneWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var schoolZoneWarningOptions: heresdk.SchoolZoneWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var realisticViewWarningDelegate: heresdk.RealisticViewWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var realisticViewWarningOptions: heresdk.RealisticViewWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var borderCrossingWarningDelegate: heresdk.BorderCrossingWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var borderCrossingWarningOptions: heresdk.BorderCrossingWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var tollStopWarningDelegate: heresdk.TollStopWarningDelegate? {
     get
-    set(newValue)
+    set
+  }
+  weak public var railwayCrossingWarningDelegate: heresdk.RailwayCrossingWarningDelegate? {
+    get
+    set
+  }
+  public var railwayCrossingWarningOptions: heresdk.RailwayCrossingWarningOptions {
+    get
+    set
   }
   public var offRoadDestinationReachedDelegate: heresdk.OffRoadDestinationReachedDelegate? {
     get
-    set(newValue)
+    set
   }
   public var offRoadProgressDelegate: heresdk.OffRoadProgressDelegate? {
     get
-    set(newValue)
+    set
   }
   public var maneuverNotificationOptions: heresdk.ManeuverNotificationOptions {
     get
-    set(newValue)
+    set
+  }
+  public var eventTextOptions: heresdk.EventTextOptions {
+    get
+    set
   }
   public var speedWarningOptions: heresdk.SpeedWarningOptions {
     get
-    set(newValue)
+    set
   }
   public var isEnableTunnelExtrapolation: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var isPassthroughWaypointsHandlingEnabled: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func getManeuver(index: Swift.Int32) -> heresdk.Maneuver?
@@ -5060,6 +5331,7 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var routeProgressDelegate: heresdk.RouteProgressDelegate? { get set }
   var routeDeviationDelegate: heresdk.RouteDeviationDelegate? { get set }
   var maneuverNotificationDelegate: heresdk.ManeuverNotificationDelegate? { get set }
+  var eventTextDelegate: heresdk.EventTextDelegate? { get set }
   var milestoneStatusDelegate: heresdk.MilestoneStatusDelegate? { get set }
   var destinationReachedDelegate: heresdk.DestinationReachedDelegate? { get set }
   var speedWarningDelegate: heresdk.SpeedWarningDelegate? { get set }
@@ -5069,6 +5341,7 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var environmentalZoneWarningOptions: heresdk.EnvironmentalZoneWarningOptions { get set }
   var junctionViewLaneAssistanceDelegate: heresdk.JunctionViewLaneAssistanceDelegate? { get set }
   var safetyCameraWarningDelegate: heresdk.SafetyCameraWarningDelegate? { get set }
+  var safetyCameraWarningOptions: heresdk.SafetyCameraWarningOptions { get set }
   var dangerZoneWarningListenerDelegate: heresdk.DangerZoneWarningDelegate? { get set }
   var dangerZoneWarningOptions: heresdk.DangerZoneWarningOptions { get set }
   var truckRestrictionsWarningDelegate: heresdk.TruckRestrictionsWarningDelegate? { get set }
@@ -5088,13 +5361,16 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var borderCrossingWarningDelegate: heresdk.BorderCrossingWarningDelegate? { get set }
   var borderCrossingWarningOptions: heresdk.BorderCrossingWarningOptions { get set }
   var tollStopWarningDelegate: heresdk.TollStopWarningDelegate? { get set }
+  var railwayCrossingWarningDelegate: heresdk.RailwayCrossingWarningDelegate? { get set }
+  var railwayCrossingWarningOptions: heresdk.RailwayCrossingWarningOptions { get set }
   var offRoadDestinationReachedDelegate: heresdk.OffRoadDestinationReachedDelegate? { get set }
   var offRoadProgressDelegate: heresdk.OffRoadProgressDelegate? { get set }
   var maneuverNotificationOptions: heresdk.ManeuverNotificationOptions { get set }
+  var eventTextOptions: heresdk.EventTextOptions { get set }
   var speedWarningOptions: heresdk.SpeedWarningOptions { get set }
   var isEnableTunnelExtrapolation: Swift.Bool { get set }
   var isPassthroughWaypointsHandlingEnabled: Swift.Bool { get set }
-  override func onLocationUpdated(_ location: heresdk.Location)
+  func onLocationUpdated(_ location: heresdk.Location)
   func getManeuver(index: Swift.Int32) -> heresdk.Maneuver?
   func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType) -> heresdk.ManeuverNotificationTimingOptions
   @discardableResult
@@ -5135,6 +5411,31 @@ public protocol OffRoadProgressDelegate : AnyObject {
 public protocol PostActionDelegate : AnyObject {
   func onPostActions(_ postActions: [heresdk.PostAction])
 }
+public struct RailwayCrossingWarning : Swift.Hashable {
+  public var distanceToRailwayCrossingInMeters: Swift.Double
+  public var type: heresdk.RouteRailwayCrossingType
+  public var distanceType: heresdk.DistanceType
+  public init(distanceToRailwayCrossingInMeters: Swift.Double, type: heresdk.RouteRailwayCrossingType = RouteRailwayCrossingType.unknown, distanceType: heresdk.DistanceType)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.RailwayCrossingWarning, b: heresdk.RailwayCrossingWarning) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol RailwayCrossingWarningDelegate : AnyObject {
+  func onRailwayCrossingWarningUpdated(_ railwayCrossingWarning: heresdk.RailwayCrossingWarning)
+}
+public struct RailwayCrossingWarningOptions : Swift.Hashable {
+  public var highwayWarningDistanceInMeters: Swift.Int32
+  public var ruralWarningDistanceInMeters: Swift.Int32
+  public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.RailwayCrossingWarningOptions, b: heresdk.RailwayCrossingWarningOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct RealisticView : Swift.Hashable {
   public var junctionViewSvgImageContent: Swift.String
   public var signpostSvgImageContent: Swift.String
@@ -5162,7 +5463,10 @@ public protocol RealisticViewWarningDelegate : AnyObject {
 public struct RealisticViewWarningOptions : Swift.Hashable {
   public var aspectRatio: heresdk.AspectRatio
   public var darkTheme: Swift.Bool
-  public init(aspectRatio: heresdk.AspectRatio = AspectRatio.aspectRatio3X4, darkTheme: Swift.Bool = false)
+  public var highwayWarningDistanceInMeters: Swift.Int32
+  public var ruralWarningDistanceInMeters: Swift.Int32
+  public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(aspectRatio: heresdk.AspectRatio = AspectRatio.aspectRatio3X4, darkTheme: Swift.Bool = false, highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.RealisticViewWarningOptions, b: heresdk.RealisticViewWarningOptions) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -5325,7 +5629,10 @@ public struct RoadSignWarningOptions : Swift.Hashable {
   public var categoriesFilter: [heresdk.RoadSignCategory]
   public var generalWarningTypesFilter: [heresdk.GeneralWarningRoadSignType]
   public var vehicleTypesFilter: [heresdk.RoadSignVehicleType]
-  public init(typesFilter: [heresdk.RoadSignType] = [], categoriesFilter: [heresdk.RoadSignCategory] = [], generalWarningTypesFilter: [heresdk.GeneralWarningRoadSignType] = [], vehicleTypesFilter: [heresdk.RoadSignVehicleType] = [])
+  public var highwayWarningDistanceInMeters: Swift.Int32
+  public var ruralWarningDistanceInMeters: Swift.Int32
+  public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(typesFilter: [heresdk.RoadSignType] = [], categoriesFilter: [heresdk.RoadSignCategory] = [], generalWarningTypesFilter: [heresdk.GeneralWarningRoadSignType] = [], vehicleTypesFilter: [heresdk.RoadSignVehicleType] = [], highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.RoadSignWarningOptions, b: heresdk.RoadSignWarningOptions) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -5402,6 +5709,17 @@ public struct SafetyCameraWarning : Swift.Hashable {
 public protocol SafetyCameraWarningDelegate : AnyObject {
   func onSafetyCameraWarningUpdated(_ safetyCameraWarning: heresdk.SafetyCameraWarning)
 }
+public struct SafetyCameraWarningOptions : Swift.Hashable {
+  public var highwayWarningDistanceInMeters: Swift.Int32
+  public var ruralWarningDistanceInMeters: Swift.Int32
+  public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.SafetyCameraWarningOptions, b: heresdk.SafetyCameraWarningOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct SchoolZoneWarning : Swift.Hashable {
   public var distanceToSchoolZoneInMeters: Swift.Double
   public var speedLimitInMetersPerSecond: Swift.Double
@@ -5438,6 +5756,19 @@ public struct SectionProgress : Swift.Hashable {
     get
   }
 }
+@_hasMissingDesignatedInitializers public class SpatialAudioCuePanning {
+  public typealias onSpatialAzimuthStarterHandler = (heresdk.SpatialTrajectoryData) -> Swift.Void
+  @objc deinit
+  public func startAngularPanning(nextCustomPanningData: heresdk.CustomPanningData?, azimuthCallback: @escaping heresdk.SpatialAudioCuePanning.onSpatialAzimuthStarterHandler)
+}
+extension heresdk.SpatialAudioCuePanning : Swift.Hashable {
+  public static func == (lhs: heresdk.SpatialAudioCuePanning, rhs: heresdk.SpatialAudioCuePanning) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `SpatialNotificationDetails` class instead.")
 public struct SpatialManeuver : Swift.Hashable {
   public var voiceText: Swift.String
   public var maneuver: heresdk.Maneuver
@@ -5450,7 +5781,8 @@ public struct SpatialManeuver : Swift.Hashable {
     get
   }
 }
-@_hasMissingDesignatedInitializers public class SpatialManeuverAudioCuePanning {
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `SpatialAudioCuePanning` listener instead.")
+public class SpatialManeuverAudioCuePanning {
   @objc deinit
   public func startPanning(nextCustomPanningData: heresdk.CustomPanningData?)
 }
@@ -5461,11 +5793,26 @@ extension heresdk.SpatialManeuverAudioCuePanning : Swift.Hashable {
     get
   }
 }
+@available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `EventTextDelegate` class instead.")
 public protocol SpatialManeuverAzimuthDelegate : AnyObject {
+  @available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `EventTextDelegate` class instead.")
   func onAzimuthNotification(nextSpatialTrajectoryData: heresdk.SpatialTrajectoryData)
 }
+@available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `EventTextDelegate` listener instead.")
 public protocol SpatialManeuverNotificationDelegate : AnyObject {
+  @available(*, deprecated, message: "Will be removed in v4.20.0 Add version. Please use the method with `EventTextDelegate` class instead.")
   func onSpatialManeuverNotification(spatialManeuver: heresdk.SpatialManeuver, audioCuePanning: heresdk.SpatialManeuverAudioCuePanning)
+}
+public struct SpatialNotificationDetails : Swift.Hashable {
+  public var initialAzimuthInDegrees: Swift.Double
+  public var audioCuePanning: heresdk.SpatialAudioCuePanning
+  public var estimatedAudioCueDuration: Foundation.TimeInterval
+  public init(initialAzimuthInDegrees: Swift.Double, audioCuePanning: heresdk.SpatialAudioCuePanning, estimatedAudioCueDuration: Foundation.TimeInterval)
+  public static func == (lhs: heresdk.SpatialNotificationDetails, rhs: heresdk.SpatialNotificationDetails) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
 }
 public struct SpatialTrajectoryData : Swift.Hashable {
   public var azimuthInDegrees: Swift.Double
@@ -5533,6 +5880,19 @@ public enum SpeedWarningStatus : Swift.UInt32, Swift.CaseIterable, Swift.Codable
     get
   }
 }
+public enum TextNotificationType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case maneuver
+  case speedCameraWarning
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.TextNotificationType]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.TextNotificationType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
 public struct TollBooth : Swift.Hashable {
   public var tollCollectionMethods: [heresdk.TollCollectionMethod]
   public var paymentMethods: [heresdk.PaymentMethod]
@@ -5587,6 +5947,7 @@ public struct TruckRestrictionWarning : Swift.Hashable {
   public var weightRestriction: heresdk.WeightRestriction?
   public var dimensionRestriction: heresdk.DimensionRestriction?
   public var distanceType: heresdk.DistanceType
+  @available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
   public var type: heresdk.TruckRestrictionWarningType
   public var trailerCount: heresdk.IntegerRange?
   public var timeRule: heresdk.TimeRule?
@@ -5594,13 +5955,16 @@ public struct TruckRestrictionWarning : Swift.Hashable {
   public var hazardousMaterials: [heresdk.HazardousMaterial]
   public var tunnelCategory: heresdk.TunnelCategory?
   public var axleCount: heresdk.IntegerRange?
-  public init(distanceInMeters: Swift.Double, weightRestriction: heresdk.WeightRestriction? = nil, dimensionRestriction: heresdk.DimensionRestriction? = nil, distanceType: heresdk.DistanceType, type: heresdk.TruckRestrictionWarningType, trailerCount: heresdk.IntegerRange? = nil, timeRule: heresdk.TimeRule? = nil, truckRoadType: heresdk.TruckRoadType? = nil, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: heresdk.IntegerRange? = nil)
+  public init(distanceInMeters: Swift.Double, weightRestriction: heresdk.WeightRestriction? = nil, dimensionRestriction: heresdk.DimensionRestriction? = nil, distanceType: heresdk.DistanceType, trailerCount: heresdk.IntegerRange? = nil, timeRule: heresdk.TimeRule? = nil, truckRoadType: heresdk.TruckRoadType? = nil, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: heresdk.IntegerRange? = nil)
+  @available(*, deprecated)
+  public init(distanceInMeters: Swift.Double, weightRestriction: heresdk.WeightRestriction? = nil, dimensionRestriction: heresdk.DimensionRestriction? = nil, distanceType: heresdk.DistanceType, type: heresdk.TruckRestrictionWarningType = TruckRestrictionWarningType.general, trailerCount: heresdk.IntegerRange? = nil, timeRule: heresdk.TimeRule? = nil, truckRoadType: heresdk.TruckRoadType? = nil, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: heresdk.IntegerRange? = nil)
   public static func == (lhs: heresdk.TruckRestrictionWarning, rhs: heresdk.TruckRestrictionWarning) -> Swift.Bool
   public func hash(into hasher: inout Swift.Hasher)
   public var hashValue: Swift.Int {
     get
   }
 }
+@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
 public enum TruckRestrictionWarningType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case general
   case weight
@@ -5827,7 +6191,7 @@ public protocol PrefetchStatusListener : AnyObject {
   public init(_ sdkEngine: heresdk.SDKNativeEngine)
   public var prefetchCorridorLengthMeters: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   @available(*, deprecated, message: "Will be removed in v4.18.0. Please use `RoutePrefetcher.prefetchAroundLocationWithRadius(...)` instead.")
@@ -5852,6 +6216,8 @@ public struct RouteStop {
 @_hasMissingDesignatedInitializers public class RoutingEngine : heresdk.RoutingProtocol {
   public init() throws
   public init(_ sdkEngine: heresdk.SDKNativeEngine) throws
+  public init(connectionSettings: heresdk.RoutingConnectionSettings) throws
+  public init(_ sdkEngine: heresdk.SDKNativeEngine, connectionSettings: heresdk.RoutingConnectionSettings) throws
   @objc deinit
   @discardableResult
   public func calculateRoute(with waypoints: [heresdk.Waypoint], carOptions: heresdk.CarOptions, completion: @escaping heresdk.CalculateRouteCompletionHandler) -> heresdk.TaskHandle
@@ -6777,6 +7143,19 @@ public struct RouteTextOptions : Swift.Hashable {
     get
   }
 }
+public struct RoutingConnectionSettings : Swift.Hashable {
+  public var initialConnectionTimeout: Foundation.TimeInterval
+  public var connectionTimeoutRetryIncrease: Foundation.TimeInterval
+  public var initialTransferTimeout: Foundation.TimeInterval
+  public var transferTimeoutRetryIncrease: Foundation.TimeInterval
+  public var maxRetryCount: Swift.Int32
+  public init(initialConnectionTimeout: Foundation.TimeInterval = 5, connectionTimeoutRetryIncrease: Foundation.TimeInterval = 10, initialTransferTimeout: Foundation.TimeInterval = 10, transferTimeoutRetryIncrease: Foundation.TimeInterval = 2, maxRetryCount: Swift.Int32 = 3)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.RoutingConnectionSettings, b: heresdk.RoutingConnectionSettings) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public enum RoutingError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case internalError
   case invalidParameter
@@ -6954,15 +7333,22 @@ public enum SectionNoticeCode : Swift.UInt32, Swift.CaseIterable, Swift.Codable 
   case violatedAvoidSeasonalClosure
   case violatedAvoidTruckRoadType
   case violatedAvoidTollTransponder
+  case violatedChargingStationOpeningHours
+  case violatedAvoidDifficultTurns
   case seasonalClosure
   case tollTransponder
   case tollsDataUnavailable
+  case tollsDataTemporarilyUnavailable
   case chargingStopNotNeeded
   case noSchedule
   case noIntermediate
   case unwantedMode
   case scheduledTimes
   case simplePolyline
+  case potentialCarpool
+  case potentialTurnRestriction
+  case potentialVehicleRestriction
+  case potentialZoneRestriction
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.SectionNoticeCode]
   public typealias RawValue = Swift.UInt32
@@ -7004,8 +7390,8 @@ public struct SegmentReference : Swift.Hashable {
   public var localId: Swift.UInt32?
   public init(segmentId: Swift.String = "", travelDirection: heresdk.TravelDirection = TravelDirection.bidirectional, offsetStart: Swift.Double = 0.0, offsetEnd: Swift.Double = 1.0, tilePartitionId: Swift.UInt32 = 0, localId: Swift.UInt32? = 0)
   public static func fromString(segmentRef: Swift.String) -> heresdk.SegmentReference?
-  public static func == (a: heresdk.SegmentReference, b: heresdk.SegmentReference) -> Swift.Bool
   public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.SegmentReference, b: heresdk.SegmentReference) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -7204,9 +7590,10 @@ public struct TollFare : Swift.Hashable {
   public var currency: Swift.String
   public var price: Swift.Double
   public var paymentMethods: [heresdk.PaymentMethod]
-  public init(currency: Swift.String, price: Swift.Double, paymentMethods: [heresdk.PaymentMethod])
+  public var timeRule: heresdk.TimeRule?
+  public init(currency: Swift.String, price: Swift.Double, paymentMethods: [heresdk.PaymentMethod], timeRule: heresdk.TimeRule? = nil)
+  public static func == (lhs: heresdk.TollFare, rhs: heresdk.TollFare) -> Swift.Bool
   public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.TollFare, b: heresdk.TollFare) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -7465,9 +7852,10 @@ public struct ViolatedRestriction : Swift.Hashable {
     public var forbiddenTruckRoadTypes: [heresdk.TruckRoadType]
     public var routingZoneReference: Swift.String?
     public var maxPayloadCapacityInKilograms: Swift.Int32?
-    public init(maxGrossWeightInKilograms: Swift.Int32? = nil, maxWeightPerAxleInKilograms: Swift.Int32? = nil, maxWeightPerAxleGroupInKilograms: heresdk.MaxAxleGroupWeight? = nil, maxHeightInCentimeters: Swift.Int32? = nil, maxWidthInCentimeters: Swift.Int32? = nil, maxLengthInCentimeters: Swift.Int32? = nil, forbiddenAxleCount: heresdk.IntegerRange? = nil, forbiddenTrailerCount: heresdk.IntegerRange? = nil, forbiddenHazardousGoods: [heresdk.HazardousMaterial] = [], maxTunnelCategory: heresdk.TunnelCategory? = nil, forbiddenTruckType: heresdk.TruckType? = nil, forbiddenTruckRoadTypes: [heresdk.TruckRoadType] = [], routingZoneReference: Swift.String? = nil, maxPayloadCapacityInKilograms: Swift.Int32? = nil)
+    public var timeRule: heresdk.TimeRule?
+    public init(maxGrossWeightInKilograms: Swift.Int32? = nil, maxWeightPerAxleInKilograms: Swift.Int32? = nil, maxWeightPerAxleGroupInKilograms: heresdk.MaxAxleGroupWeight? = nil, maxHeightInCentimeters: Swift.Int32? = nil, maxWidthInCentimeters: Swift.Int32? = nil, maxLengthInCentimeters: Swift.Int32? = nil, forbiddenAxleCount: heresdk.IntegerRange? = nil, forbiddenTrailerCount: heresdk.IntegerRange? = nil, forbiddenHazardousGoods: [heresdk.HazardousMaterial] = [], maxTunnelCategory: heresdk.TunnelCategory? = nil, forbiddenTruckType: heresdk.TruckType? = nil, forbiddenTruckRoadTypes: [heresdk.TruckRoadType] = [], routingZoneReference: Swift.String? = nil, maxPayloadCapacityInKilograms: Swift.Int32? = nil, timeRule: heresdk.TimeRule? = nil)
+    public static func == (lhs: heresdk.ViolatedRestriction.Details, rhs: heresdk.ViolatedRestriction.Details) -> Swift.Bool
     public func hash(into hasher: inout Swift.Hasher)
-    public static func == (a: heresdk.ViolatedRestriction.Details, b: heresdk.ViolatedRestriction.Details) -> Swift.Bool
     public var hashValue: Swift.Int {
       get
     }
@@ -7619,7 +8007,7 @@ public enum IsolineRangeType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   public init(_ sdkEngine: heresdk.SDKNativeEngine, options: heresdk.OfflineRoutingEngineOptions) throws
   public var trafficDataProvider: heresdk.TrafficDataProvider? {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   @discardableResult
@@ -7745,7 +8133,8 @@ public struct Address : Swift.Hashable {
   public var subBlock: Swift.String
   public var addressText: Swift.String
   public var type: heresdk.AddressType?
-  public init(city: Swift.String = "", countryCode: Swift.String = "", country: Swift.String = "", district: Swift.String = "", subdistrict: Swift.String = "", houseNumOrName: Swift.String = "", postalCode: Swift.String = "", state: Swift.String = "", county: Swift.String = "", street: Swift.String = "", block: Swift.String = "", subBlock: Swift.String = "", addressText: Swift.String = "", type: heresdk.AddressType? = nil)
+  public var stateCode: Swift.String
+  public init(city: Swift.String = "", countryCode: Swift.String = "", country: Swift.String = "", district: Swift.String = "", subdistrict: Swift.String = "", houseNumOrName: Swift.String = "", postalCode: Swift.String = "", state: Swift.String = "", county: Swift.String = "", street: Swift.String = "", block: Swift.String = "", subBlock: Swift.String = "", addressText: Swift.String = "", type: heresdk.AddressType? = nil, stateCode: Swift.String = "")
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.Address, b: heresdk.Address) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -7831,6 +8220,7 @@ public struct CategoryQuery : Swift.Hashable {
     public init(near areaCenter: heresdk.GeoCoordinates, inBox boxArea: heresdk.GeoBox)
     public init(near areaCenter: heresdk.GeoCoordinates, inCircle circleArea: heresdk.GeoCircle)
     public init(inCorridor corridorArea: heresdk.GeoCorridor)
+    public init(inCorridor corridorArea: heresdk.GeoCorridor, near areaCenter: heresdk.GeoCoordinates)
     public func hash(into hasher: inout Swift.Hasher)
     public static func == (a: heresdk.CategoryQuery.Area, b: heresdk.CategoryQuery.Area) -> Swift.Bool
     public var hashValue: Swift.Int {
@@ -8083,22 +8473,22 @@ public struct POIPaymentDetails : Swift.Hashable {
   }
 }
 public struct POIPaymentMethod {
-  public static var amex: Swift.String
-  public static var ampol: Swift.String
-  public static var androidPay: Swift.String
-  public static var applePay: Swift.String
-  public static var cash: Swift.String
-  public static var cheque: Swift.String
-  public static var debitCard: Swift.String
-  public static var dinersClub: Swift.String
-  public static var discover: Swift.String
-  public static var dkv: Swift.String
-  public static var financing: Swift.String
-  public static var mastercard: Swift.String
-  public static var motorpass: Swift.String
-  public static var paypal: Swift.String
-  public static var shell: Swift.String
-  public static var visa: Swift.String
+  public static let amex: Swift.String
+  public static let ampol: Swift.String
+  public static let androidPay: Swift.String
+  public static let applePay: Swift.String
+  public static let cash: Swift.String
+  public static let cheque: Swift.String
+  public static let debitCard: Swift.String
+  public static let dinersClub: Swift.String
+  public static let discover: Swift.String
+  public static let dkv: Swift.String
+  public static let financing: Swift.String
+  public static let mastercard: Swift.String
+  public static let motorpass: Swift.String
+  public static let paypal: Swift.String
+  public static let shell: Swift.String
+  public static let visa: Swift.String
 }
 @_hasMissingDesignatedInitializers public class Place {
   public var title: Swift.String {
@@ -8150,76 +8540,76 @@ extension heresdk.Place : Swift.Hashable {
 }
 @_hasMissingDesignatedInitializers public class PlaceCategory {
   public init(id: Swift.String)
-  public static var eatAndDrink: Swift.String
-  public static var eatAndDrinkRestaurant: Swift.String
-  public static var eatAndDrinkCoffeeTea: Swift.String
-  public static var goingOutEntertainment: Swift.String
-  public static var goingOutNightlife: Swift.String
-  public static var goingOutCinema: Swift.String
-  public static var goingOutTheatreMusicCulture: Swift.String
-  public static var goingOutGamblingLotteryBetting: Swift.String
-  public static var sightsAndMuseums: Swift.String
-  public static var sightsLandmarkAttaction: Swift.String
-  public static var sightsMuseum: Swift.String
-  public static var sightsReligiousPlace: Swift.String
-  public static var naturalAndGeographical: Swift.String
-  public static var naturalAndGeographicalBodyOfWater: Swift.String
-  public static var naturalAndGeographicalMountainOrHill: Swift.String
-  public static var naturalAndGeographicalUnderseaFeature: Swift.String
-  public static var naturalAndGeographicalForestHealthOtherVegetation: Swift.String
-  public static var naturalAndGeographicalOther: Swift.String
-  public static var transport: Swift.String
-  public static var transportAirport: Swift.String
-  public static var transportPublic: Swift.String
-  public static var transportCargo: Swift.String
-  public static var transportRestArea: Swift.String
-  public static var accommodation: Swift.String
-  public static var accommodationHotelMotel: Swift.String
-  public static var accommodationLodging: Swift.String
-  public static var leisureAndOutdoor: Swift.String
-  public static var leisureOutdoorRecreation: Swift.String
-  public static var leisureOther: Swift.String
-  public static var shopping: Swift.String
-  public static var shoppingConvenienceStore: Swift.String
-  public static var shoppingMallComplex: Swift.String
-  public static var shoppingDepartmentStore: Swift.String
-  public static var shoppingFoodAndDrink: Swift.String
-  public static var shoppingDrugstorePharmacy: Swift.String
-  public static var shoppingElectronics: Swift.String
-  public static var shoppingHardwareHouseGarden: Swift.String
-  public static var shoppingBookstore: Swift.String
-  public static var shoppingClothingAndAccesories: Swift.String
-  public static var shoppingConsumerGoods: Swift.String
-  public static var shoppingHairAndBeauty: Swift.String
-  public static var businessAndServices: Swift.String
-  public static var businessAndServicesBanking: Swift.String
-  public static var businessAndServicesAtm: Swift.String
-  public static var businessAndServicesMoneyCash: Swift.String
-  public static var businessAndServicesCommunicationMedia: Swift.String
-  public static var businessAndCommercialServices: Swift.String
-  public static var businessAndServicesIndustry: Swift.String
-  public static var businessAndServicesPoliceFireEmergency: Swift.String
-  public static var businessAndConsumerServices: Swift.String
-  public static var businessAndServicesPostOffice: Swift.String
-  public static var businessAndServicesTouristInformation: Swift.String
-  public static var businessAndServicesFuelingStation: Swift.String
-  public static var businessAndServicesEvChargingStation: Swift.String
-  public static var businessAndServicesCarDealerSales: Swift.String
-  public static var businessAndServicesCarRepairServices: Swift.String
-  public static var businessAndServicesCarRental: Swift.String
-  public static var businessAndServicesTruckSemiDealer: Swift.String
-  public static var facilities: Swift.String
-  public static var facilitiesHospitalHealthcare: Swift.String
-  public static var facilitiesGovernmentCommunitty: Swift.String
-  public static var facilitiesEducation: Swift.String
-  public static var facilitiesLibrary: Swift.String
-  public static var facilitiesEventSpaces: Swift.String
-  public static var facilitiesParking: Swift.String
-  public static var facilitiesVenueSports: Swift.String
-  public static var facilitiesOther: Swift.String
-  public static var areasAndBuildings: Swift.String
-  public static var areasAndBuildingsOutdoorComplex: Swift.String
-  public static var areasAndBuildingsResidentalOffice: Swift.String
+  public static let eatAndDrink: Swift.String
+  public static let eatAndDrinkRestaurant: Swift.String
+  public static let eatAndDrinkCoffeeTea: Swift.String
+  public static let goingOutEntertainment: Swift.String
+  public static let goingOutNightlife: Swift.String
+  public static let goingOutCinema: Swift.String
+  public static let goingOutTheatreMusicCulture: Swift.String
+  public static let goingOutGamblingLotteryBetting: Swift.String
+  public static let sightsAndMuseums: Swift.String
+  public static let sightsLandmarkAttaction: Swift.String
+  public static let sightsMuseum: Swift.String
+  public static let sightsReligiousPlace: Swift.String
+  public static let naturalAndGeographical: Swift.String
+  public static let naturalAndGeographicalBodyOfWater: Swift.String
+  public static let naturalAndGeographicalMountainOrHill: Swift.String
+  public static let naturalAndGeographicalUnderseaFeature: Swift.String
+  public static let naturalAndGeographicalForestHealthOtherVegetation: Swift.String
+  public static let naturalAndGeographicalOther: Swift.String
+  public static let transport: Swift.String
+  public static let transportAirport: Swift.String
+  public static let transportPublic: Swift.String
+  public static let transportCargo: Swift.String
+  public static let transportRestArea: Swift.String
+  public static let accommodation: Swift.String
+  public static let accommodationHotelMotel: Swift.String
+  public static let accommodationLodging: Swift.String
+  public static let leisureAndOutdoor: Swift.String
+  public static let leisureOutdoorRecreation: Swift.String
+  public static let leisureOther: Swift.String
+  public static let shopping: Swift.String
+  public static let shoppingConvenienceStore: Swift.String
+  public static let shoppingMallComplex: Swift.String
+  public static let shoppingDepartmentStore: Swift.String
+  public static let shoppingFoodAndDrink: Swift.String
+  public static let shoppingDrugstorePharmacy: Swift.String
+  public static let shoppingElectronics: Swift.String
+  public static let shoppingHardwareHouseGarden: Swift.String
+  public static let shoppingBookstore: Swift.String
+  public static let shoppingClothingAndAccesories: Swift.String
+  public static let shoppingConsumerGoods: Swift.String
+  public static let shoppingHairAndBeauty: Swift.String
+  public static let businessAndServices: Swift.String
+  public static let businessAndServicesBanking: Swift.String
+  public static let businessAndServicesAtm: Swift.String
+  public static let businessAndServicesMoneyCash: Swift.String
+  public static let businessAndServicesCommunicationMedia: Swift.String
+  public static let businessAndCommercialServices: Swift.String
+  public static let businessAndServicesIndustry: Swift.String
+  public static let businessAndServicesPoliceFireEmergency: Swift.String
+  public static let businessAndConsumerServices: Swift.String
+  public static let businessAndServicesPostOffice: Swift.String
+  public static let businessAndServicesTouristInformation: Swift.String
+  public static let businessAndServicesFuelingStation: Swift.String
+  public static let businessAndServicesEvChargingStation: Swift.String
+  public static let businessAndServicesCarDealerSales: Swift.String
+  public static let businessAndServicesCarRepairServices: Swift.String
+  public static let businessAndServicesCarRental: Swift.String
+  public static let businessAndServicesTruckSemiDealer: Swift.String
+  public static let facilities: Swift.String
+  public static let facilitiesHospitalHealthcare: Swift.String
+  public static let facilitiesGovernmentCommunitty: Swift.String
+  public static let facilitiesEducation: Swift.String
+  public static let facilitiesLibrary: Swift.String
+  public static let facilitiesEventSpaces: Swift.String
+  public static let facilitiesParking: Swift.String
+  public static let facilitiesVenueSports: Swift.String
+  public static let facilitiesOther: Swift.String
+  public static let areasAndBuildings: Swift.String
+  public static let areasAndBuildingsOutdoorComplex: Swift.String
+  public static let areasAndBuildingsResidentalOffice: Swift.String
   public var id: Swift.String {
     get
   }
@@ -8253,7 +8643,8 @@ public struct PlaceFilter : Swift.Hashable {
   public struct Ev : Swift.Hashable {
     public var supplierNames: [Swift.String]
     public var connectorTypeIDs: [Swift.String]
-    public init(supplierNames: [Swift.String] = [], connectorTypeIDs: [Swift.String] = [])
+    public var minPowerInKilowatts: Swift.Double?
+    public init(supplierNames: [Swift.String] = [], connectorTypeIDs: [Swift.String] = [], minPowerInKilowatts: Swift.Double? = nil)
     public func hash(into hasher: inout Swift.Hasher)
     public static func == (a: heresdk.PlaceFilter.Ev, b: heresdk.PlaceFilter.Ev) -> Swift.Bool
     public var hashValue: Swift.Int {
@@ -8375,9 +8766,50 @@ public typealias SearchExtendedCompletionHandler = (heresdk.SearchError?, [heres
 public struct SearchOptions : Swift.Hashable {
   public var languageCode: heresdk.LanguageCode?
   public var maxItems: Swift.Int32?
-  public init(languageCode: heresdk.LanguageCode? = nil, maxItems: Swift.Int32? = nil)
+  public var highDensityEncodingEnabled: Swift.Bool
+  public init(languageCode: heresdk.LanguageCode? = nil, maxItems: Swift.Int32? = nil, highDensityEncodingEnabled: Swift.Bool = false)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.SearchOptions, b: heresdk.SearchOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct StructuredQuery : Swift.Hashable {
+  public var query: Swift.String
+  public var areaCenter: heresdk.GeoCoordinates
+  public var addressElements: heresdk.StructuredQuery.AddressElements
+  public var resultType: heresdk.StructuredQuery.ResultType?
+  public init(query: Swift.String, areaCenter: heresdk.GeoCoordinates, addressElements: heresdk.StructuredQuery.AddressElements = StructuredQuery.AddressElements(), resultType: heresdk.StructuredQuery.ResultType? = nil)
+  public enum ResultType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+    case country
+    case city
+    case postalCode
+    case district
+    case street
+    public init?(rawValue: Swift.UInt32)
+    public typealias AllCases = [heresdk.StructuredQuery.ResultType]
+    public typealias RawValue = Swift.UInt32
+    public static var allCases: [heresdk.StructuredQuery.ResultType] {
+      get
+    }
+    public var rawValue: Swift.UInt32 {
+      get
+    }
+  }
+  public struct AddressElements : Swift.Hashable {
+    public var country: Swift.String?
+    public var city: Swift.String?
+    public var postalCode: Swift.String?
+    public var district: Swift.String?
+    public init(country: Swift.String? = nil, city: Swift.String? = nil, postalCode: Swift.String? = nil, district: Swift.String? = nil)
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: heresdk.StructuredQuery.AddressElements, b: heresdk.StructuredQuery.AddressElements) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.StructuredQuery, b: heresdk.StructuredQuery) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -8579,7 +9011,11 @@ public struct WebsiteAddress : Swift.Hashable {
   @discardableResult
   public func search(placeIdQuery query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
+  public func search(structQuery query: heresdk.StructuredQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
   public func suggest(textQuery query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func suggest(structQuery query: heresdk.StructuredQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
   public static func setIndexOptions(sdkEngine: heresdk.SDKNativeEngine, options: heresdk.OfflineSearchIndex.Options, listener: heresdk.OfflineSearchIndexListener) -> heresdk.OfflineSearchIndex.Error?
 }
 extension heresdk.OfflineSearchEngine : Swift.Hashable {
@@ -9138,7 +9574,7 @@ public protocol CameraBehavior : AnyObject {
   public init()
   public var normalizedPrincipalPoint: heresdk.Anchor2D {
     get
-    set(newValue)
+    set
   }
   @objc deinit
 }
@@ -9153,19 +9589,19 @@ extension heresdk.DynamicCameraBehavior : Swift.Hashable {
   public init()
   public var normalizedPrincipalPoint: heresdk.Anchor2D {
     get
-    set(newValue)
+    set
   }
   public var cameraDistanceInMeters: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var cameraTiltInDegrees: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var cameraBearingInDegrees: Swift.Double? {
     get
-    set(newValue)
+    set
   }
   @objc deinit
 }
@@ -9191,7 +9627,7 @@ public struct RouteProgressColors {
   public init()
   public var normalizedPrincipalPoint: heresdk.Anchor2D {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public struct ProfileValue {
@@ -9218,210 +9654,230 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
   public init(sdkEngine: heresdk.SDKNativeEngine) throws
   public var route: heresdk.Route? {
     get
-    set(newValue)
+    set
   }
   public var trackingTransportProfile: heresdk.TransportProfile? {
     get
-    set(newValue)
+    set
   }
   weak public var navigableLocationDelegate: heresdk.NavigableLocationDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var routeProgressDelegate: heresdk.RouteProgressDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var routeDeviationDelegate: heresdk.RouteDeviationDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var maneuverNotificationDelegate: heresdk.ManeuverNotificationDelegate? {
     get
-    set(newValue)
+    set
+  }
+  weak public var eventTextDelegate: heresdk.EventTextDelegate? {
+    get
+    set
   }
   weak public var milestoneStatusDelegate: heresdk.MilestoneStatusDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var destinationReachedDelegate: heresdk.DestinationReachedDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var speedWarningDelegate: heresdk.SpeedWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var maneuverViewLaneAssistanceDelegate: heresdk.ManeuverViewLaneAssistanceDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var currentSituationLaneAssistanceViewDelegate: heresdk.CurrentSituationLaneAssistanceViewDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var environmentalZoneWarningListenerDelegate: heresdk.EnvironmentalZoneWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var environmentalZoneWarningOptions: heresdk.EnvironmentalZoneWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var junctionViewLaneAssistanceDelegate: heresdk.JunctionViewLaneAssistanceDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var safetyCameraWarningDelegate: heresdk.SafetyCameraWarningDelegate? {
     get
-    set(newValue)
+    set
+  }
+  public var safetyCameraWarningOptions: heresdk.SafetyCameraWarningOptions {
+    get
+    set
   }
   weak public var dangerZoneWarningListenerDelegate: heresdk.DangerZoneWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var dangerZoneWarningOptions: heresdk.DangerZoneWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var truckRestrictionsWarningDelegate: heresdk.TruckRestrictionsWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var truckRestrictionsWarningOptions: heresdk.TruckRestrictionsWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var postActionDelegate: heresdk.PostActionDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var speedLimitDelegate: heresdk.SpeedLimitDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var roadTextsDelegate: heresdk.RoadTextsDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var roadAttributesDelegate: heresdk.RoadAttributesDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var spatialManeuverNotificationDelegate: heresdk.SpatialManeuverNotificationDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var spatialManeuverAzimuthDelegate: heresdk.SpatialManeuverAzimuthDelegate? {
     get
-    set(newValue)
+    set
   }
   weak public var roadSignWarningDelegate: heresdk.RoadSignWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var roadSignWarningOptions: heresdk.RoadSignWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var schoolZoneWarningDelegate: heresdk.SchoolZoneWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var schoolZoneWarningOptions: heresdk.SchoolZoneWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var realisticViewWarningDelegate: heresdk.RealisticViewWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var realisticViewWarningOptions: heresdk.RealisticViewWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var borderCrossingWarningDelegate: heresdk.BorderCrossingWarningDelegate? {
     get
-    set(newValue)
+    set
   }
   public var borderCrossingWarningOptions: heresdk.BorderCrossingWarningOptions {
     get
-    set(newValue)
+    set
   }
   weak public var tollStopWarningDelegate: heresdk.TollStopWarningDelegate? {
     get
-    set(newValue)
+    set
+  }
+  weak public var railwayCrossingWarningDelegate: heresdk.RailwayCrossingWarningDelegate? {
+    get
+    set
+  }
+  public var railwayCrossingWarningOptions: heresdk.RailwayCrossingWarningOptions {
+    get
+    set
   }
   public var offRoadDestinationReachedDelegate: heresdk.OffRoadDestinationReachedDelegate? {
     get
-    set(newValue)
+    set
   }
   public var offRoadProgressDelegate: heresdk.OffRoadProgressDelegate? {
     get
-    set(newValue)
+    set
   }
   public var maneuverNotificationOptions: heresdk.ManeuverNotificationOptions {
     get
-    set(newValue)
+    set
+  }
+  public var eventTextOptions: heresdk.EventTextOptions {
+    get
+    set
   }
   public var speedWarningOptions: heresdk.SpeedWarningOptions {
     get
-    set(newValue)
+    set
   }
   public var isEnableTunnelExtrapolation: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var isPassthroughWaypointsHandlingEnabled: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var cameraBehavior: heresdk.CameraBehavior? {
     get
-    set(newValue)
+    set
   }
   public var isRouteVisible: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var isRouteProgressVisible: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var isManeuverArrowsVisible: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var isOffRoadDestinationVisible: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   public var customLocationIndicator: heresdk.LocationIndicator? {
     get
-    set(newValue)
+    set
   }
   weak public var interpolatedLocationDelegate: heresdk.InterpolatedLocationDelegate? {
     get
-    set(newValue)
+    set
   }
   public var isRendering: Swift.Bool {
     get
   }
   public var colors: heresdk.VisualNavigatorColors {
     get
-    set(newValue)
+    set
   }
   public var measureDependentWidth: [heresdk.MapMeasure : Swift.Double] {
     get
-    set(newValue)
+    set
   }
   public var maneuverArrowWidthFactor: Swift.Double {
     get
-    set(newValue)
+    set
   }
   public var isExtrapolationEnabled: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func getManeuver(index: Swift.Int32) -> heresdk.Maneuver?
@@ -9447,7 +9903,7 @@ extension heresdk.VisualNavigator : Swift.Hashable {
 @_hasMissingDesignatedInitializers public class VisualNavigatorColors {
   public var maneuverArrowColor: UIKit.UIColor {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func setRouteProgressColors(sectionTransportMode: heresdk.SectionTransportMode, routeProgressColors: heresdk.RouteProgressColors)
@@ -9471,23 +9927,23 @@ extension heresdk.VisualNavigatorColors : Swift.Hashable {
   }
   public var selectedDrawing: heresdk.VenueDrawing {
     get
-    set(newValue)
+    set
   }
   public var selectedLevel: heresdk.VenueLevel {
     get
-    set(newValue)
+    set
   }
   public var selectedLevelZIndex: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   public var selectedLevelIndex: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   public var isTopologyVisible: Swift.Bool {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func setCustomStyle(geometries: [heresdk.VenueGeometry], style: heresdk.VenueGeometryStyle?, labelStyle: heresdk.VenueLabelStyle?)
@@ -9542,7 +9998,7 @@ public typealias VenueLoadErrorHandler = (heresdk.VenueErrorCode?) -> Swift.Void
   }
   public var selectedVenue: heresdk.Venue? {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func addVenueAsync(venueId: Swift.Int32)
@@ -9645,6 +10101,7 @@ extension heresdk.Shapes : Swift.Hashable {
   public typealias LevelArray = [heresdk.VenueLevel]
   public typealias StringToGeometryArrayMap = [Swift.String : heresdk.VenueDrawing.GeometryArray]
   public typealias DoubleArray = [Swift.Double]
+  public typealias TopologyArray = [heresdk.VenueTopology]
   public var identifier: Swift.String {
     get
   }
@@ -9670,6 +10127,9 @@ extension heresdk.Shapes : Swift.Hashable {
     get
   }
   public var geometriesByIconNames: heresdk.VenueDrawing.StringToGeometryArrayMap {
+    get
+  }
+  public var topologies: heresdk.VenueDrawing.TopologyArray {
     get
   }
   @objc deinit
@@ -9887,12 +10347,13 @@ extension heresdk.VenueLevel : Swift.Hashable {
   public typealias StringToStringArrayMap = [Swift.String : heresdk.VenueModel.StringArray]
   public typealias StringArray = [Swift.String]
   public typealias DrawingArray = [heresdk.VenueDrawing]
+  public typealias TopologyArray = [heresdk.VenueTopology]
   public var id: Swift.Int32 {
     get
   }
   public var identifier: Swift.String {
     get
-    set(newValue)
+    set
   }
   public var center: heresdk.GeoCoordinates {
     get
@@ -9913,6 +10374,9 @@ extension heresdk.VenueLevel : Swift.Hashable {
     get
   }
   public var geometriesByIconNames: heresdk.VenueModel.StringToGeometryArrayMap {
+    get
+  }
+  public var topologies: heresdk.VenueModel.TopologyArray {
     get
   }
   @objc deinit
@@ -9958,7 +10422,7 @@ public protocol VenueDelegate : AnyObject {
   }
   public var language: Swift.String {
     get
-    set(newValue)
+    set
   }
   @objc deinit
   public func stop()
@@ -10059,11 +10523,11 @@ extension heresdk.VenueStyle : Swift.Hashable {
   }
 }
 extension UIKit.UIColor {
-  public convenience init(r red: CoreGraphics.CGFloat, g green: CoreGraphics.CGFloat, b blue: CoreGraphics.CGFloat, a alpha: CoreGraphics.CGFloat)
+  convenience public init(r red: CoreFoundation.CGFloat, g green: CoreFoundation.CGFloat, b blue: CoreFoundation.CGFloat, a alpha: CoreFoundation.CGFloat)
 }
 @_hasMissingDesignatedInitializers public class ConsentEngine : heresdk.Consent {
-  public convenience init(sdkEngine: heresdk.SDKNativeEngine) throws
-  public convenience init() throws
+  convenience public init(sdkEngine: heresdk.SDKNativeEngine) throws
+  convenience public init() throws
   public func requestUserConsent() -> heresdk.ConsentStatus
   public var userConsentState: heresdk.UserReply {
     get
@@ -10088,7 +10552,11 @@ extension heresdk.ProxySettings {
   @objc override dynamic public init()
   @objc deinit
 }
+@objc @_hasMissingDesignatedInitializers public class SDKNativeEngineHolder : ObjectiveC.NSObject {
+  @objc deinit
+}
 public func makeIOSPlatformThreading() -> heresdk.PlatformThreading
+public func synchronized<Result>(_ lock: Any, closure: () -> Result) -> Result
 public typealias IconProviderCallback = (_ icon: UIKit.UIImage?, _ iconDescription: Swift.String?, _ error: heresdk.IconProviderError?) -> Swift.Void
 public class IconProvider {
   public init(_ mapContext: heresdk.MapContext)
@@ -10103,7 +10571,7 @@ public class IconProvider {
     }
     public var geoCoordinates: heresdk.GeoCoordinates {
       get
-      set(value)
+      set
     }
     public func unpin()
     @objc deinit
@@ -10125,39 +10593,39 @@ public class IconProvider {
   }
   @_Concurrency.MainActor(unsafe) public var frameRate: Swift.Int32 {
     get
-    set(newValue)
+    set
   }
   @_Concurrency.MainActor(unsafe) public var viewportSize: heresdk.Size2D {
     get
   }
   @_Concurrency.MainActor(unsafe) public static var primaryLanguage: heresdk.LanguageCode? {
     get
-    set(newValue)
+    set
   }
   @_Concurrency.MainActor(unsafe) public static var secondaryLanguage: heresdk.LanguageCode? {
     get
-    set(newValue)
+    set
   }
   @_Concurrency.MainActor(unsafe) public static var shadowQuality: heresdk.ShadowQuality? {
     get
-    set(newValue)
+    set
   }
   @_Concurrency.MainActor(unsafe) public static func deinitialize()
   @_Concurrency.MainActor(unsafe) public static func pause()
   @_Concurrency.MainActor(unsafe) public func pause()
   @_Concurrency.MainActor(unsafe) public static func resume()
   @_Concurrency.MainActor(unsafe) public func resume()
-  @objc dynamic public convenience init()
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public convenience init(frame: CoreGraphics.CGRect)
-  @_Concurrency.MainActor(unsafe) public convenience init(options: heresdk.MapViewOptions)
-  @_Concurrency.MainActor(unsafe) public convenience init(frame: CoreGraphics.CGRect, options: heresdk.MapViewOptions)
-  @_Concurrency.MainActor(unsafe) public convenience init(frame: CoreGraphics.CGRect, withSdkEngine sdkEngine: heresdk.SDKNativeEngine, options: heresdk.MapViewOptions)
-  @_Concurrency.MainActor(unsafe) public convenience init(frame: CoreGraphics.CGRect, withSdkEngine sdkEngine: heresdk.SDKNativeEngine)
-  @_Concurrency.MainActor(unsafe) public init(frame: CoreGraphics.CGRect, withSdkEngine sdkEngine: heresdk.SDKNativeEngine, withOptions options: heresdk.MapViewOptions?)
+  @_Concurrency.MainActor(unsafe) @objc convenience dynamic public init()
+  @_Concurrency.MainActor(unsafe) @objc override convenience dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) convenience public init(options: heresdk.MapViewOptions)
+  @_Concurrency.MainActor(unsafe) convenience public init(frame: CoreFoundation.CGRect, options: heresdk.MapViewOptions)
+  @_Concurrency.MainActor(unsafe) convenience public init(frame: CoreFoundation.CGRect, withSdkEngine sdkEngine: heresdk.SDKNativeEngine, options: heresdk.MapViewOptions)
+  @_Concurrency.MainActor(unsafe) convenience public init(frame: CoreFoundation.CGRect, withSdkEngine sdkEngine: heresdk.SDKNativeEngine)
+  @_Concurrency.MainActor(unsafe) public init(frame: CoreFoundation.CGRect, withSdkEngine sdkEngine: heresdk.SDKNativeEngine, withOptions options: heresdk.MapViewOptions?)
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
   @objc deinit
   @_Concurrency.MainActor(unsafe) @objc override dynamic open class var layerClass: Swift.AnyClass {
-    @_Concurrency.MainActor(unsafe) @objc get
+    @objc get
   }
   @_Concurrency.MainActor(unsafe) public var isValid: Swift.Bool {
     get
@@ -10196,14 +10664,14 @@ public class IconProvider {
   @objc deinit
 }
 extension heresdk.MapImage {
-  public convenience init?(from uiImage: UIKit.UIImage) throws
-  public convenience init(named name: Swift.String, width: Swift.Int32, height: Swift.Int32, in bundle: Foundation.Bundle? = nil) throws
+  convenience public init?(from uiImage: UIKit.UIImage) throws
+  convenience public init(named name: Swift.String, width: Swift.Int32, height: Swift.Int32, in bundle: Foundation.Bundle? = nil) throws
 }
 @_hasMissingDesignatedInitializers public class LocationEngine : heresdk.LocationEngineBase {
   public var isStarted: Swift.Bool {
     get
   }
-  public convenience init() throws
+  convenience public init() throws
   public init(sdkEngine: heresdk.SDKNativeEngine) throws
   public func start(locationAccuracy: heresdk.LocationAccuracy) -> heresdk.LocationEngineStatus
   public func start(locationOptions: heresdk.LocationOptions) -> heresdk.LocationEngineStatus
@@ -10231,5 +10699,517 @@ extension heresdk.LocationEngine {
   public func onStatusChanged(locationEngineStatus: heresdk.LocationEngineStatus)
   public func onFeaturesNotAvailable(features: [heresdk.LocationFeature])
 }
+extension heresdk.MetadataType : Swift.Equatable {}
+extension heresdk.MetadataType : Swift.Hashable {}
+extension heresdk.MetadataType : Swift.RawRepresentable {}
+extension heresdk.RouteType : Swift.Equatable {}
+extension heresdk.RouteType : Swift.Hashable {}
+extension heresdk.RouteType : Swift.RawRepresentable {}
+extension heresdk.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.HazardousMaterial : Swift.Equatable {}
+extension heresdk.HazardousMaterial : Swift.Hashable {}
+extension heresdk.HazardousMaterial : Swift.RawRepresentable {}
+extension heresdk.TruckRoadType : Swift.Equatable {}
+extension heresdk.TruckRoadType : Swift.Hashable {}
+extension heresdk.TruckRoadType : Swift.RawRepresentable {}
+extension heresdk.TruckType : Swift.Equatable {}
+extension heresdk.TruckType : Swift.Hashable {}
+extension heresdk.TruckType : Swift.RawRepresentable {}
+extension heresdk.TunnelCategory : Swift.Equatable {}
+extension heresdk.TunnelCategory : Swift.Hashable {}
+extension heresdk.TunnelCategory : Swift.RawRepresentable {}
+extension heresdk.RasterDataSourceError : Swift.Equatable {}
+extension heresdk.RasterDataSourceError : Swift.Hashable {}
+extension heresdk.RasterDataSourceError : Swift.RawRepresentable {}
+extension heresdk.AnimationState : Swift.Equatable {}
+extension heresdk.AnimationState : Swift.Hashable {}
+extension heresdk.AnimationState : Swift.RawRepresentable {}
+extension heresdk.Easing.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.Easing.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.Easing.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.EasingFunction : Swift.Equatable {}
+extension heresdk.EasingFunction : Swift.Hashable {}
+extension heresdk.EasingFunction : Swift.RawRepresentable {}
+extension heresdk.KeyframeInterpolationMode : Swift.Equatable {}
+extension heresdk.KeyframeInterpolationMode : Swift.Hashable {}
+extension heresdk.KeyframeInterpolationMode : Swift.RawRepresentable {}
+extension heresdk.MapItemKeyFrameTrack.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapItemKeyFrameTrack.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapItemKeyFrameTrack.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapMarkerAnimation.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapMarkerAnimation.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapMarkerAnimation.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapPolylineAnimation.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapPolylineAnimation.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapPolylineAnimation.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.DrawOrderType : Swift.Equatable {}
+extension heresdk.DrawOrderType : Swift.Hashable {}
+extension heresdk.DrawOrderType : Swift.RawRepresentable {}
+extension heresdk.IconProviderError : Swift.Equatable {}
+extension heresdk.IconProviderError : Swift.Hashable {}
+extension heresdk.IconProviderError : Swift.RawRepresentable {}
+extension heresdk.ImageFormat : Swift.Equatable {}
+extension heresdk.ImageFormat : Swift.Hashable {}
+extension heresdk.ImageFormat : Swift.RawRepresentable {}
+extension heresdk.JsonStyleFactory.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.JsonStyleFactory.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.JsonStyleFactory.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.LineCap : Swift.Equatable {}
+extension heresdk.LineCap : Swift.Hashable {}
+extension heresdk.LineCap : Swift.RawRepresentable {}
+extension heresdk.MapCameraAnimation.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapCameraAnimation.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapCameraAnimation.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapCameraKeyframeTrack.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapCameraKeyframeTrack.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapCameraKeyframeTrack.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapCameraUpdate.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapCameraUpdate.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapCameraUpdate.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapContentCategory : Swift.Equatable {}
+extension heresdk.MapContentCategory : Swift.Hashable {}
+extension heresdk.MapContentCategory : Swift.RawRepresentable {}
+extension heresdk.MapContentType : Swift.Equatable {}
+extension heresdk.MapContentType : Swift.Hashable {}
+extension heresdk.MapContentType : Swift.RawRepresentable {}
+extension heresdk.MapError : Swift.Equatable {}
+extension heresdk.MapError : Swift.Hashable {}
+extension heresdk.MapError : Swift.RawRepresentable {}
+extension heresdk.MapLayerBuilder.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapLayerBuilder.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapLayerBuilder.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapMarker3DModel.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapMarker3DModel.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapMarker3DModel.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapMeasure.Kind : Swift.Equatable {}
+extension heresdk.MapMeasure.Kind : Swift.Hashable {}
+extension heresdk.MapMeasure.Kind : Swift.RawRepresentable {}
+extension heresdk.MapMeasureDependentRenderSize.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapMeasureDependentRenderSize.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapMeasureDependentRenderSize.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapPolyline.Representation.InstantiationErrorCode : Swift.Equatable {}
+extension heresdk.MapPolyline.Representation.InstantiationErrorCode : Swift.Hashable {}
+extension heresdk.MapPolyline.Representation.InstantiationErrorCode : Swift.RawRepresentable {}
+extension heresdk.MapProjection : Swift.Equatable {}
+extension heresdk.MapProjection : Swift.Hashable {}
+extension heresdk.MapProjection : Swift.RawRepresentable {}
+extension heresdk.MapScheme : Swift.Equatable {}
+extension heresdk.MapScheme : Swift.Hashable {}
+extension heresdk.MapScheme : Swift.RawRepresentable {}
+extension heresdk.RenderSize.Unit : Swift.Equatable {}
+extension heresdk.RenderSize.Unit : Swift.Hashable {}
+extension heresdk.RenderSize.Unit : Swift.RawRepresentable {}
+extension heresdk.ShadowQuality : Swift.Equatable {}
+extension heresdk.ShadowQuality : Swift.Hashable {}
+extension heresdk.ShadowQuality : Swift.RawRepresentable {}
+extension heresdk.VisibilityState : Swift.Equatable {}
+extension heresdk.VisibilityState : Swift.Hashable {}
+extension heresdk.VisibilityState : Swift.RawRepresentable {}
+extension heresdk.WatermarkStyle : Swift.Equatable {}
+extension heresdk.WatermarkStyle : Swift.Hashable {}
+extension heresdk.WatermarkStyle : Swift.RawRepresentable {}
+extension heresdk.DataAttributeValue.ValueType : Swift.Equatable {}
+extension heresdk.DataAttributeValue.ValueType : Swift.Hashable {}
+extension heresdk.DataAttributeValue.ValueType : Swift.RawRepresentable {}
+extension heresdk.TilingScheme : Swift.Equatable {}
+extension heresdk.TilingScheme : Swift.Hashable {}
+extension heresdk.TilingScheme : Swift.RawRepresentable {}
+extension heresdk.UserReply : Swift.Equatable {}
+extension heresdk.UserReply : Swift.Hashable {}
+extension heresdk.UserReply : Swift.RawRepresentable {}
+extension heresdk.ConsentFeature : Swift.Equatable {}
+extension heresdk.ConsentFeature : Swift.Hashable {}
+extension heresdk.ConsentFeature : Swift.RawRepresentable {}
+extension heresdk.ConsentState : Swift.Equatable {}
+extension heresdk.ConsentState : Swift.Hashable {}
+extension heresdk.ConsentState : Swift.RawRepresentable {}
+extension heresdk.ConsentStatus : Swift.Equatable {}
+extension heresdk.ConsentStatus : Swift.Hashable {}
+extension heresdk.ConsentStatus : Swift.RawRepresentable {}
+extension heresdk.AuthenticationError : Swift.Equatable {}
+extension heresdk.AuthenticationError : Swift.Hashable {}
+extension heresdk.AuthenticationError : Swift.RawRepresentable {}
+extension heresdk.CardinalDirection : Swift.Equatable {}
+extension heresdk.CardinalDirection : Swift.Hashable {}
+extension heresdk.CardinalDirection : Swift.RawRepresentable {}
+extension heresdk.CountryCode : Swift.Equatable {}
+extension heresdk.CountryCode : Swift.Hashable {}
+extension heresdk.CountryCode : Swift.RawRepresentable {}
+extension heresdk.LanguageCode : Swift.Equatable {}
+extension heresdk.LanguageCode : Swift.Hashable {}
+extension heresdk.LanguageCode : Swift.RawRepresentable {}
+extension heresdk.LocationTechnology : Swift.Equatable {}
+extension heresdk.LocationTechnology : Swift.Hashable {}
+extension heresdk.LocationTechnology : Swift.RawRepresentable {}
+@available(*, deprecated, message: "Will be removed in v4.19.0. Not needed as only plain text is supported.")
+extension heresdk.TextFormat : Swift.Equatable {}
+@available(*, deprecated, message: "Will be removed in v4.19.0. Not needed as only plain text is supported.")
+extension heresdk.TextFormat : Swift.Hashable {}
+@available(*, deprecated, message: "Will be removed in v4.19.0. Not needed as only plain text is supported.")
+extension heresdk.TextFormat : Swift.RawRepresentable {}
+extension heresdk.UnitSystem : Swift.Equatable {}
+extension heresdk.UnitSystem : Swift.Hashable {}
+extension heresdk.UnitSystem : Swift.RawRepresentable {}
+extension heresdk.CatalogType : Swift.Equatable {}
+extension heresdk.CatalogType : Swift.Hashable {}
+extension heresdk.CatalogType : Swift.RawRepresentable {}
+extension heresdk.EngineBaseURL : Swift.Equatable {}
+extension heresdk.EngineBaseURL : Swift.Hashable {}
+extension heresdk.EngineBaseURL : Swift.RawRepresentable {}
+extension heresdk.LayerConfiguration.Feature : Swift.Equatable {}
+extension heresdk.LayerConfiguration.Feature : Swift.Hashable {}
+extension heresdk.LayerConfiguration.Feature : Swift.RawRepresentable {}
+extension heresdk.LogLevel : Swift.Equatable {}
+extension heresdk.LogLevel : Swift.Hashable {}
+extension heresdk.LogLevel : Swift.RawRepresentable {}
+extension heresdk.PassThroughFeature : Swift.Equatable {}
+extension heresdk.PassThroughFeature : Swift.Hashable {}
+extension heresdk.PassThroughFeature : Swift.RawRepresentable {}
+extension heresdk.ProxySettings.ProxyType : Swift.Equatable {}
+extension heresdk.ProxySettings.ProxyType : Swift.Hashable {}
+extension heresdk.ProxySettings.ProxyType : Swift.RawRepresentable {}
+extension heresdk.UsageStats.Feature : Swift.Equatable {}
+extension heresdk.UsageStats.Feature : Swift.Hashable {}
+extension heresdk.UsageStats.Feature : Swift.RawRepresentable {}
+extension heresdk.TaskOutcome : Swift.Equatable {}
+extension heresdk.TaskOutcome : Swift.Hashable {}
+extension heresdk.TaskOutcome : Swift.RawRepresentable {}
+extension heresdk.EmissionStandard : Swift.Equatable {}
+extension heresdk.EmissionStandard : Swift.Hashable {}
+extension heresdk.EmissionStandard : Swift.RawRepresentable {}
+extension heresdk.FuelAdditiveType : Swift.Equatable {}
+extension heresdk.FuelAdditiveType : Swift.Hashable {}
+extension heresdk.FuelAdditiveType : Swift.RawRepresentable {}
+extension heresdk.FuelCategory : Swift.Equatable {}
+extension heresdk.FuelCategory : Swift.Hashable {}
+extension heresdk.FuelCategory : Swift.RawRepresentable {}
+extension heresdk.FuelType : Swift.Equatable {}
+extension heresdk.FuelType : Swift.Hashable {}
+extension heresdk.FuelType : Swift.RawRepresentable {}
+extension heresdk.PlateNumberType : Swift.Equatable {}
+extension heresdk.PlateNumberType : Swift.Hashable {}
+extension heresdk.PlateNumberType : Swift.RawRepresentable {}
+extension heresdk.TransportMode : Swift.Equatable {}
+extension heresdk.TransportMode : Swift.Hashable {}
+extension heresdk.TransportMode : Swift.RawRepresentable {}
+extension heresdk.TruckClass : Swift.Equatable {}
+extension heresdk.TruckClass : Swift.Hashable {}
+extension heresdk.TruckClass : Swift.RawRepresentable {}
+extension heresdk.TruckFuelType : Swift.Equatable {}
+extension heresdk.TruckFuelType : Swift.Hashable {}
+extension heresdk.TruckFuelType : Swift.RawRepresentable {}
+extension heresdk.VehicleType : Swift.Equatable {}
+extension heresdk.VehicleType : Swift.Hashable {}
+extension heresdk.VehicleType : Swift.RawRepresentable {}
+extension heresdk.GestureState : Swift.Equatable {}
+extension heresdk.GestureState : Swift.Hashable {}
+extension heresdk.GestureState : Swift.RawRepresentable {}
+extension heresdk.GestureType : Swift.Equatable {}
+extension heresdk.GestureType : Swift.Hashable {}
+extension heresdk.GestureType : Swift.RawRepresentable {}
+extension heresdk.LocalRoadCharacteristic : Swift.Equatable {}
+extension heresdk.LocalRoadCharacteristic : Swift.Hashable {}
+extension heresdk.LocalRoadCharacteristic : Swift.RawRepresentable {}
+extension heresdk.SegmentDataLoaderErrorCode : Swift.Equatable {}
+extension heresdk.SegmentDataLoaderErrorCode : Swift.Hashable {}
+extension heresdk.SegmentDataLoaderErrorCode : Swift.RawRepresentable {}
+extension heresdk.CatalogUpdateState : Swift.Equatable {}
+extension heresdk.CatalogUpdateState : Swift.Hashable {}
+extension heresdk.CatalogUpdateState : Swift.RawRepresentable {}
+extension heresdk.InstalledRegionStatus : Swift.Equatable {}
+extension heresdk.InstalledRegionStatus : Swift.Hashable {}
+extension heresdk.InstalledRegionStatus : Swift.RawRepresentable {}
+extension heresdk.MapLoaderError : Swift.Equatable {}
+extension heresdk.MapLoaderError : Swift.Hashable {}
+extension heresdk.MapLoaderError : Swift.RawRepresentable {}
+extension heresdk.MapLoaderError.Key : Swift.Equatable {}
+extension heresdk.MapLoaderError.Key : Swift.Hashable {}
+extension heresdk.MapLoaderError.CodingError : Swift.Equatable {}
+extension heresdk.MapLoaderError.CodingError : Swift.Hashable {}
+extension heresdk.MapUpdater.MapUpdateVersionCommitPolicy : Swift.Equatable {}
+extension heresdk.MapUpdater.MapUpdateVersionCommitPolicy : Swift.Hashable {}
+extension heresdk.MapUpdater.MapUpdateVersionCommitPolicy : Swift.RawRepresentable {}
+extension heresdk.PersistentMapRepairError : Swift.Equatable {}
+extension heresdk.PersistentMapRepairError : Swift.Hashable {}
+extension heresdk.PersistentMapRepairError : Swift.RawRepresentable {}
+extension heresdk.PersistentMapStatus : Swift.Equatable {}
+extension heresdk.PersistentMapStatus : Swift.Hashable {}
+extension heresdk.PersistentMapStatus : Swift.RawRepresentable {}
+extension heresdk.ExternalMapDataSourceErrorCode : Swift.Equatable {}
+extension heresdk.ExternalMapDataSourceErrorCode : Swift.Hashable {}
+extension heresdk.ExternalMapDataSourceErrorCode : Swift.RawRepresentable {}
+extension heresdk.LocationIndicator.IndicatorStyle : Swift.Equatable {}
+extension heresdk.LocationIndicator.IndicatorStyle : Swift.Hashable {}
+extension heresdk.LocationIndicator.IndicatorStyle : Swift.RawRepresentable {}
+extension heresdk.LocationIndicator.MarkerType : Swift.Equatable {}
+extension heresdk.LocationIndicator.MarkerType : Swift.Hashable {}
+extension heresdk.LocationIndicator.MarkerType : Swift.RawRepresentable {}
+extension heresdk.MapContentSettings.TrafficRefreshPeriodErrorCode : Swift.Equatable {}
+extension heresdk.MapContentSettings.TrafficRefreshPeriodErrorCode : Swift.Hashable {}
+extension heresdk.MapContentSettings.TrafficRefreshPeriodErrorCode : Swift.RawRepresentable {}
+extension heresdk.AspectRatio : Swift.Equatable {}
+extension heresdk.AspectRatio : Swift.Hashable {}
+extension heresdk.AspectRatio : Swift.RawRepresentable {}
+extension heresdk.BorderCrossingType : Swift.Equatable {}
+extension heresdk.BorderCrossingType : Swift.Hashable {}
+extension heresdk.BorderCrossingType : Swift.RawRepresentable {}
+extension heresdk.DimensionRestrictionType : Swift.Equatable {}
+extension heresdk.DimensionRestrictionType : Swift.Hashable {}
+extension heresdk.DimensionRestrictionType : Swift.RawRepresentable {}
+extension heresdk.DirectionInformationUsageOption : Swift.Equatable {}
+extension heresdk.DirectionInformationUsageOption : Swift.Hashable {}
+extension heresdk.DirectionInformationUsageOption : Swift.RawRepresentable {}
+extension heresdk.DistanceType : Swift.Equatable {}
+extension heresdk.DistanceType : Swift.Hashable {}
+extension heresdk.DistanceType : Swift.RawRepresentable {}
+extension heresdk.GeneralWarningRoadSignType : Swift.Equatable {}
+extension heresdk.GeneralWarningRoadSignType : Swift.Hashable {}
+extension heresdk.GeneralWarningRoadSignType : Swift.RawRepresentable {}
+extension heresdk.LaneRecommendationState : Swift.Equatable {}
+extension heresdk.LaneRecommendationState : Swift.Hashable {}
+extension heresdk.LaneRecommendationState : Swift.RawRepresentable {}
+extension heresdk.LocalizedTextUsageOption : Swift.Equatable {}
+extension heresdk.LocalizedTextUsageOption : Swift.Hashable {}
+extension heresdk.LocalizedTextUsageOption : Swift.RawRepresentable {}
+extension heresdk.ManeuverNotificationType : Swift.Equatable {}
+extension heresdk.ManeuverNotificationType : Swift.Hashable {}
+extension heresdk.ManeuverNotificationType : Swift.RawRepresentable {}
+extension heresdk.MilestoneStatus : Swift.Equatable {}
+extension heresdk.MilestoneStatus : Swift.Hashable {}
+extension heresdk.MilestoneStatus : Swift.RawRepresentable {}
+extension heresdk.MilestoneType : Swift.Equatable {}
+extension heresdk.MilestoneType : Swift.Hashable {}
+extension heresdk.MilestoneType : Swift.RawRepresentable {}
+extension heresdk.NaturalGuidanceType : Swift.Equatable {}
+extension heresdk.NaturalGuidanceType : Swift.Hashable {}
+extension heresdk.NaturalGuidanceType : Swift.RawRepresentable {}
+extension heresdk.NotificationFormatOption : Swift.Equatable {}
+extension heresdk.NotificationFormatOption : Swift.Hashable {}
+extension heresdk.NotificationFormatOption : Swift.RawRepresentable {}
+extension heresdk.RoadSignCategory : Swift.Equatable {}
+extension heresdk.RoadSignCategory : Swift.Hashable {}
+extension heresdk.RoadSignCategory : Swift.RawRepresentable {}
+extension heresdk.RoadSignType : Swift.Equatable {}
+extension heresdk.RoadSignType : Swift.Hashable {}
+extension heresdk.RoadSignType : Swift.RawRepresentable {}
+extension heresdk.RoadSignVehicleType : Swift.Equatable {}
+extension heresdk.RoadSignVehicleType : Swift.Hashable {}
+extension heresdk.RoadSignVehicleType : Swift.RawRepresentable {}
+extension heresdk.SafetyCameraType : Swift.Equatable {}
+extension heresdk.SafetyCameraType : Swift.Hashable {}
+extension heresdk.SafetyCameraType : Swift.RawRepresentable {}
+extension heresdk.SpeedWarningStatus : Swift.Equatable {}
+extension heresdk.SpeedWarningStatus : Swift.Hashable {}
+extension heresdk.SpeedWarningStatus : Swift.RawRepresentable {}
+extension heresdk.TextNotificationType : Swift.Equatable {}
+extension heresdk.TextNotificationType : Swift.Hashable {}
+extension heresdk.TextNotificationType : Swift.RawRepresentable {}
+extension heresdk.TollCollectionMethod : Swift.Equatable {}
+extension heresdk.TollCollectionMethod : Swift.Hashable {}
+extension heresdk.TollCollectionMethod : Swift.RawRepresentable {}
+@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
+extension heresdk.TruckRestrictionWarningType : Swift.Equatable {}
+@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
+extension heresdk.TruckRestrictionWarningType : Swift.Hashable {}
+@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
+extension heresdk.TruckRestrictionWarningType : Swift.RawRepresentable {}
+extension heresdk.WeatherType : Swift.Equatable {}
+extension heresdk.WeatherType : Swift.Hashable {}
+extension heresdk.WeatherType : Swift.RawRepresentable {}
+extension heresdk.WeightRestrictionType : Swift.Equatable {}
+extension heresdk.WeightRestrictionType : Swift.Hashable {}
+extension heresdk.WeightRestrictionType : Swift.RawRepresentable {}
+extension heresdk.LocationAccuracy : Swift.Equatable {}
+extension heresdk.LocationAccuracy : Swift.Hashable {}
+extension heresdk.LocationAccuracy : Swift.RawRepresentable {}
+extension heresdk.LocationEngineStatus : Swift.Equatable {}
+extension heresdk.LocationEngineStatus : Swift.Hashable {}
+extension heresdk.LocationEngineStatus : Swift.RawRepresentable {}
+extension heresdk.LocationFeature : Swift.Equatable {}
+extension heresdk.LocationFeature : Swift.Hashable {}
+extension heresdk.LocationFeature : Swift.RawRepresentable {}
+extension heresdk.AccessAttributes : Swift.Equatable {}
+extension heresdk.AccessAttributes : Swift.Hashable {}
+extension heresdk.AccessAttributes : Swift.RawRepresentable {}
+extension heresdk.AttributionType : Swift.Equatable {}
+extension heresdk.AttributionType : Swift.Hashable {}
+extension heresdk.AttributionType : Swift.RawRepresentable {}
+extension heresdk.ChargingConnectorType : Swift.Equatable {}
+extension heresdk.ChargingConnectorType : Swift.Hashable {}
+extension heresdk.ChargingConnectorType : Swift.RawRepresentable {}
+extension heresdk.ChargingSupplyType : Swift.Equatable {}
+extension heresdk.ChargingSupplyType : Swift.Hashable {}
+extension heresdk.ChargingSupplyType : Swift.RawRepresentable {}
+extension heresdk.FarePriceType : Swift.Equatable {}
+extension heresdk.FarePriceType : Swift.Hashable {}
+extension heresdk.FarePriceType : Swift.RawRepresentable {}
+extension heresdk.FareReason : Swift.Equatable {}
+extension heresdk.FareReason : Swift.Hashable {}
+extension heresdk.FareReason : Swift.RawRepresentable {}
+extension heresdk.FunctionalRoadClass : Swift.Equatable {}
+extension heresdk.FunctionalRoadClass : Swift.Hashable {}
+extension heresdk.FunctionalRoadClass : Swift.RawRepresentable {}
+extension heresdk.ManeuverAction : Swift.Equatable {}
+extension heresdk.ManeuverAction : Swift.Hashable {}
+extension heresdk.ManeuverAction : Swift.RawRepresentable {}
+extension heresdk.MatchSideOfStreet : Swift.Equatable {}
+extension heresdk.MatchSideOfStreet : Swift.Hashable {}
+extension heresdk.MatchSideOfStreet : Swift.RawRepresentable {}
+extension heresdk.NoticeSeverity : Swift.Equatable {}
+extension heresdk.NoticeSeverity : Swift.Hashable {}
+extension heresdk.NoticeSeverity : Swift.RawRepresentable {}
+extension heresdk.OptimizationMode : Swift.Equatable {}
+extension heresdk.OptimizationMode : Swift.Hashable {}
+extension heresdk.OptimizationMode : Swift.RawRepresentable {}
+extension heresdk.PaymentMethod : Swift.Equatable {}
+extension heresdk.PaymentMethod : Swift.Hashable {}
+extension heresdk.PaymentMethod : Swift.RawRepresentable {}
+extension heresdk.PostActionType : Swift.Equatable {}
+extension heresdk.PostActionType : Swift.Hashable {}
+extension heresdk.PostActionType : Swift.RawRepresentable {}
+extension heresdk.PreActionType : Swift.Equatable {}
+extension heresdk.PreActionType : Swift.Hashable {}
+extension heresdk.PreActionType : Swift.RawRepresentable {}
+extension heresdk.RoadFeatures : Swift.Equatable {}
+extension heresdk.RoadFeatures : Swift.Hashable {}
+extension heresdk.RoadFeatures : Swift.RawRepresentable {}
+extension heresdk.RoadType : Swift.Equatable {}
+extension heresdk.RoadType : Swift.Hashable {}
+extension heresdk.RoadType : Swift.RawRepresentable {}
+extension heresdk.RoutePlaceDirection : Swift.Equatable {}
+extension heresdk.RoutePlaceDirection : Swift.Hashable {}
+extension heresdk.RoutePlaceDirection : Swift.RawRepresentable {}
+extension heresdk.RoutePlaceType : Swift.Equatable {}
+extension heresdk.RoutePlaceType : Swift.Hashable {}
+extension heresdk.RoutePlaceType : Swift.RawRepresentable {}
+extension heresdk.RouteRailwayCrossingType : Swift.Equatable {}
+extension heresdk.RouteRailwayCrossingType : Swift.Hashable {}
+extension heresdk.RouteRailwayCrossingType : Swift.RawRepresentable {}
+extension heresdk.RoutingError : Swift.Equatable {}
+extension heresdk.RoutingError : Swift.Hashable {}
+extension heresdk.RoutingError : Swift.RawRepresentable {}
+extension heresdk.SectionNoticeCode : Swift.Equatable {}
+extension heresdk.SectionNoticeCode : Swift.Hashable {}
+extension heresdk.SectionNoticeCode : Swift.RawRepresentable {}
+extension heresdk.SectionTransportMode : Swift.Equatable {}
+extension heresdk.SectionTransportMode : Swift.Hashable {}
+extension heresdk.SectionTransportMode : Swift.RawRepresentable {}
+extension heresdk.SideOfDestination : Swift.Equatable {}
+extension heresdk.SideOfDestination : Swift.Hashable {}
+extension heresdk.SideOfDestination : Swift.RawRepresentable {}
+extension heresdk.StreetAttributes : Swift.Equatable {}
+extension heresdk.StreetAttributes : Swift.Hashable {}
+extension heresdk.StreetAttributes : Swift.RawRepresentable {}
+extension heresdk.StreetAttributes.Key : Swift.Equatable {}
+extension heresdk.StreetAttributes.Key : Swift.Hashable {}
+extension heresdk.StreetAttributes.CodingError : Swift.Equatable {}
+extension heresdk.StreetAttributes.CodingError : Swift.Hashable {}
+extension heresdk.TrafficOptimizationMode : Swift.Equatable {}
+extension heresdk.TrafficOptimizationMode : Swift.Hashable {}
+extension heresdk.TrafficOptimizationMode : Swift.RawRepresentable {}
+extension heresdk.TransitDepartureStatus : Swift.Equatable {}
+extension heresdk.TransitDepartureStatus : Swift.Hashable {}
+extension heresdk.TransitDepartureStatus : Swift.RawRepresentable {}
+extension heresdk.TransitIncidentEffect : Swift.Equatable {}
+extension heresdk.TransitIncidentEffect : Swift.Hashable {}
+extension heresdk.TransitIncidentEffect : Swift.RawRepresentable {}
+extension heresdk.TransitIncidentType : Swift.Equatable {}
+extension heresdk.TransitIncidentType : Swift.Hashable {}
+extension heresdk.TransitIncidentType : Swift.RawRepresentable {}
+extension heresdk.TransitMode : Swift.Equatable {}
+extension heresdk.TransitMode : Swift.Hashable {}
+extension heresdk.TransitMode : Swift.RawRepresentable {}
+extension heresdk.TransitModeFilter : Swift.Equatable {}
+extension heresdk.TransitModeFilter : Swift.Hashable {}
+extension heresdk.TransitModeFilter : Swift.RawRepresentable {}
+extension heresdk.TravelDirection : Swift.Equatable {}
+extension heresdk.TravelDirection : Swift.Hashable {}
+extension heresdk.TravelDirection : Swift.RawRepresentable {}
+extension heresdk.WalkAttributes : Swift.Equatable {}
+extension heresdk.WalkAttributes : Swift.Hashable {}
+extension heresdk.WalkAttributes : Swift.RawRepresentable {}
+extension heresdk.WaypointType : Swift.Equatable {}
+extension heresdk.WaypointType : Swift.Hashable {}
+extension heresdk.WaypointType : Swift.RawRepresentable {}
+extension heresdk.ZoneCategory : Swift.Equatable {}
+extension heresdk.ZoneCategory : Swift.Hashable {}
+extension heresdk.ZoneCategory : Swift.RawRepresentable {}
+extension heresdk.IsolineCalculationMode : Swift.Equatable {}
+extension heresdk.IsolineCalculationMode : Swift.Hashable {}
+extension heresdk.IsolineCalculationMode : Swift.RawRepresentable {}
+extension heresdk.IsolineRangeType : Swift.Equatable {}
+extension heresdk.IsolineRangeType : Swift.Hashable {}
+extension heresdk.IsolineRangeType : Swift.RawRepresentable {}
+extension heresdk.AddressType : Swift.Equatable {}
+extension heresdk.AddressType : Swift.Hashable {}
+extension heresdk.AddressType : Swift.RawRepresentable {}
+extension heresdk.AreaType : Swift.Equatable {}
+extension heresdk.AreaType : Swift.Hashable {}
+extension heresdk.AreaType : Swift.RawRepresentable {}
+extension heresdk.HighlightType : Swift.Equatable {}
+extension heresdk.HighlightType : Swift.Hashable {}
+extension heresdk.HighlightType : Swift.RawRepresentable {}
+extension heresdk.PlaceSerializationError : Swift.Equatable {}
+extension heresdk.PlaceSerializationError : Swift.Hashable {}
+extension heresdk.PlaceSerializationError : Swift.RawRepresentable {}
+extension heresdk.PlaceType : Swift.Equatable {}
+extension heresdk.PlaceType : Swift.Hashable {}
+extension heresdk.PlaceType : Swift.RawRepresentable {}
+extension heresdk.SearchError : Swift.Equatable {}
+extension heresdk.SearchError : Swift.Hashable {}
+extension heresdk.SearchError : Swift.RawRepresentable {}
+extension heresdk.StructuredQuery.ResultType : Swift.Equatable {}
+extension heresdk.StructuredQuery.ResultType : Swift.Hashable {}
+extension heresdk.StructuredQuery.ResultType : Swift.RawRepresentable {}
+extension heresdk.SuggestionType : Swift.Equatable {}
+extension heresdk.SuggestionType : Swift.Hashable {}
+extension heresdk.SuggestionType : Swift.RawRepresentable {}
+extension heresdk.OfflineSearchIndex.Operation : Swift.Equatable {}
+extension heresdk.OfflineSearchIndex.Operation : Swift.Hashable {}
+extension heresdk.OfflineSearchIndex.Operation : Swift.RawRepresentable {}
+extension heresdk.OfflineSearchIndex.Error : Swift.Equatable {}
+extension heresdk.OfflineSearchIndex.Error : Swift.Hashable {}
+extension heresdk.OfflineSearchIndex.Error : Swift.RawRepresentable {}
+extension heresdk.DynamicRoutingEngine.StartError : Swift.Equatable {}
+extension heresdk.DynamicRoutingEngine.StartError : Swift.Hashable {}
+extension heresdk.DynamicRoutingEngine.StartError : Swift.RawRepresentable {}
+extension heresdk.JunctionsTraversability : Swift.Equatable {}
+extension heresdk.JunctionsTraversability : Swift.Hashable {}
+extension heresdk.JunctionsTraversability : Swift.RawRepresentable {}
+extension heresdk.TrafficIncident.RestrictedVehicleCategory : Swift.Equatable {}
+extension heresdk.TrafficIncident.RestrictedVehicleCategory : Swift.Hashable {}
+extension heresdk.TrafficIncident.RestrictedVehicleCategory : Swift.RawRepresentable {}
+extension heresdk.TrafficQueryError : Swift.Equatable {}
+extension heresdk.TrafficQueryError : Swift.Hashable {}
+extension heresdk.TrafficQueryError : Swift.RawRepresentable {}
+extension heresdk.TrafficIncidentImpact : Swift.Equatable {}
+extension heresdk.TrafficIncidentImpact : Swift.Hashable {}
+extension heresdk.TrafficIncidentImpact : Swift.RawRepresentable {}
+extension heresdk.TrafficIncidentType : Swift.Equatable {}
+extension heresdk.TrafficIncidentType : Swift.Hashable {}
+extension heresdk.TrafficIncidentType : Swift.RawRepresentable {}
+extension heresdk.Traversability : Swift.Equatable {}
+extension heresdk.Traversability : Swift.Hashable {}
+extension heresdk.Traversability : Swift.RawRepresentable {}
+extension heresdk.VenueErrorCode : Swift.Equatable {}
+extension heresdk.VenueErrorCode : Swift.Hashable {}
+extension heresdk.VenueErrorCode : Swift.RawRepresentable {}
+extension heresdk.Property.PropertyType : Swift.Equatable {}
+extension heresdk.Property.PropertyType : Swift.Hashable {}
+extension heresdk.Property.PropertyType : Swift.RawRepresentable {}
+extension heresdk.VenueGeometry.GeometryType : Swift.Equatable {}
+extension heresdk.VenueGeometry.GeometryType : Swift.Hashable {}
+extension heresdk.VenueGeometry.GeometryType : Swift.RawRepresentable {}
+extension heresdk.VenueGeometry.LookupType : Swift.Equatable {}
+extension heresdk.VenueGeometry.LookupType : Swift.Hashable {}
+extension heresdk.VenueGeometry.LookupType : Swift.RawRepresentable {}
+extension heresdk.VenueGeometryFilterType : Swift.Equatable {}
+extension heresdk.VenueGeometryFilterType : Swift.Hashable {}
+extension heresdk.VenueGeometryFilterType : Swift.RawRepresentable {}
+extension heresdk.VenueServiceInitStatus : Swift.Equatable {}
+extension heresdk.VenueServiceInitStatus : Swift.Hashable {}
+extension heresdk.VenueServiceInitStatus : Swift.RawRepresentable {}
 extension heresdk.LocationEngine : heresdk.LocationStatusDelegate {}
 extension heresdk.LocationEngine : heresdk.LocationDelegate {}

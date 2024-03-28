@@ -27,8 +27,8 @@ function natural_guidance.get_element(order, trigger, instruction_class, distanc
     end
 
     attributes = {trigger = trigger}
-    local natural_guidance_distance_treshold = common.get_config_value(natural_guidance_distance_limit, attributes)
-    if (natural_guidance_distance_treshold ~= nil) and (distance_in_meters > natural_guidance_distance_treshold) then
+    local natural_guidance_distance_threshold = common.get_config_value(natural_guidance_distance_limit, attributes)
+    if (natural_guidance_distance_threshold ~= nil) and (distance_in_meters > natural_guidance_distance_threshold) then
         return nil
     end
 

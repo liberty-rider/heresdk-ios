@@ -10,6 +10,7 @@ function common.extract_common_content(input)
     message_content.vp_marc_lang_code = common.attributes.get_vp_marc_lang_code(input)
     message_content.use_road_information_for_action_notification = input.use_road_information_for_action_notification
     message_content.use_signpost_direction_for_action_notification = input.use_signpost_direction_for_action_notification
+    message_content.use_ssml = input.use_ssml
     return message_content
 end
 

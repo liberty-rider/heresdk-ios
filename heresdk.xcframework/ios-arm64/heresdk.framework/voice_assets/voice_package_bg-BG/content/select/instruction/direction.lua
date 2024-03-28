@@ -5,10 +5,14 @@ local common = require 'content.select.common'
 local direction = {}
 
 function direction.get_direction_information(order, trigger, instruction_class, road_class,
-                                             street, route, signpost,
+                                             street, route, signpost, intersection, marc_code,
                                              direction_information_rules, action, purpose,
                                              country_code, use_road_information_for_action_notification,
                                              use_signpost_direction_for_action_notification, continue_road_change)
+    if common.is_enabled_japan_direction_for_japanese(country_code, marc_code, trigger, intersection) then
+        return _create_jpn_direction_info_with_intersection(intersection)
+    end
+
     if trigger == 'action' and (order == 'single' or order == 'first') then
         if use_road_information_for_action_notification ~= nil and use_road_information_for_action_notification == true then
             trigger = 'distance'
@@ -18,10 +22,10 @@ function direction.get_direction_information(order, trigger, instruction_class, 
         end
     end
 
-    local direction_information_key = direction.get_direction_information_key(street, route, signpost)
-    if not direction_information_key then return {} end
-
     local adjusted_route = _adjust_route_name_for_japan(street, route, country_code, instruction_class, road_class)
+
+    local direction_information_key = direction.get_direction_information_key(street, adjusted_route, signpost)
+    if not direction_information_key then return {} end
 
     local attributes = {instruction_order = order, trigger = trigger, instruction_class = instruction_class, road_class = road_class, direction_info = direction_information_key}
     local selected_direction_element_names = common.get_config_value(direction_information_rules, attributes)
@@ -99,6 +103,14 @@ function direction.get_exit_key(exit_name)
 end
 
 
+function _create_jpn_direction_info_with_intersection(intersection)
+    local direction_information = {}
+    direction_information.intersection = utils.copy_table(intersection)
+    direction_information.intersection.preposition_id = 'at'
+    return direction_information
+end
+
+
 function _get_preposition_id(direction_element_name, action, purpose, continue_road_change)
     -- towards 'signpost'
     if direction_element_name == 'signpost' then return 'towards' end
@@ -148,20 +160,13 @@ function _get_first_segment(text, separator)
 end
 
 
--- For Japan, on highways, the highway name and number must be combined, that is why for highway roads
--- and highway related maneuvers like 'enter_highway' the street and route are being combined to street
+-- For Japan, on highways, the highway name should be used instead of highway number
 function _adjust_route_name_for_japan(street, route, country_code, instruction_class, road_class)
     local adjusted_route = route
     if (country_code == 'jpn') and ((road_class == 'highway') or
        (road_class == 'street' and instruction_class == 'enter_highway')) then
-        if (street ~= nil and route ~= nil) then
-            if (street['orthographic_language'] == route['orthographic_language']) then
-                adjusted_route['name'] = street['name'] .. " ( " .. route['name'] .. " )"
-            end
-            if (street['phonetic_language'] ~= nil and route['phonetic_language'] ~= nil) and
-                (street['phonetic_language'] == route['phonetic_language']) then
-                adjusted_route['phonetic_form'] = street['phonetic_form'] .. " " .. route['phonetic_form']
-            end
+        if street ~= nil then
+            adjusted_route = street
         end
     end
 
