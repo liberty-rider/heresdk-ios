@@ -14,35 +14,35 @@
 		</data>
 		<key>Headers/heresdk-Swift.h</key>
 		<data>
-		Y0DgYGfLlYYCBG2D3IfJALd3gDk=
+		02vbE8qXHYWuq/mYeoX8bt2kiSs=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Tq0CjdHvxF+S0NbOwWfZmgWwWGA=
+		lWnvxegLcTpFIwaZoWzFozajGYY=
 		</data>
 		<key>Modules/heresdk.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<data>
-		oXKYdW86z9Z9/uCzICYBeVGXV1c=
+		M2ZHewAiK/zZHHZvCVthRB8dSDs=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		P/QpnSzhL+R/6Hi1vsuCXN/XZfM=
+		bi8FDyKdcV3JblWrcRSgmMzfYgk=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		GlEQM3jPfCqot/cmIOlFArdVM18=
+		rbRBZTeRAdmomuTANudiSXArsNg=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		HoiHKvohmszpIqb9iV1q2Hjyn3U=
+		+fTfghdA+wo1G25DJrGFi3X8gxw=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		GlEQM3jPfCqot/cmIOlFArdVM18=
+		rbRBZTeRAdmomuTANudiSXArsNg=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		wAcYvRRiicKnIg9nNPpmwOOJfsg=
+		rE3kgrQVB1BXa10quNrHn6bMR+s=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -342,7 +342,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-baht.svg</key>
 		<data>
-		7lyQx6Jshf0p/FOuiLhHxXZ+dww=
+		f+vJsfWFitF3Dphvk8hL1rjkNvk=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-dollar.svg</key>
 		<data>
@@ -350,7 +350,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-dong.svg</key>
 		<data>
-		H0f+X/+61OOsoJdghQkk58bw9g0=
+		WJ6iU1FMgI5doS6bA32gsk7K5Is=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-euro.svg</key>
 		<data>
@@ -358,19 +358,19 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-franc.svg</key>
 		<data>
-		C9F+j3Ae4N7KHRpGLV0K3vRIctM=
+		9x6wXWYXcFELftY8sAxJjw0ZH2E=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-krone.svg</key>
 		<data>
-		wmqX0WpjIaq9oVctxDadiXnkqBs=
+		npoGxnvilhgAbomof4T9z+7MpS4=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-lira.svg</key>
 		<data>
-		JK0rfukwMYFJZ5rnlLi+DobSvgo=
+		W2G9AjQEQotWfVVmqYVFS8gqOCM=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-naira.svg</key>
 		<data>
-		awg4XfkEGzy2vKVZcwzC5NXbdcU=
+		uDQ/xumk64t4q7CP+u7Jc0PaQaY=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-pound.svg</key>
 		<data>
@@ -378,31 +378,31 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-ruble.svg</key>
 		<data>
-		iTC2+82loro7LCo8xDu9LINOj58=
+		kJPXjgMpM1Y4VCZuJt2UIEl2JgM=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-rupee.svg</key>
 		<data>
-		nLWnGLSMM0ckoms6ecENgeNq3mM=
+		Oz/6GykmUS44gXSswG9CyktygXY=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-rupees.svg</key>
 		<data>
-		CgvVUKaoYeYnxkBaNk2jj0N8yyI=
+		IvW+c7jcDfNKEqDd6knuwrZoMOo=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-rupiah.svg</key>
 		<data>
-		XhrGSmRlXS1CsGHtAfGxo/bMVvQ=
+		e33X0A+Bmjt5RveSgYiAayULxFw=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-shekel.svg</key>
 		<data>
-		c1JVDTKYRNhUVhNg2DU8ilRn1KM=
+		brsLJK5uHKYothtJkMIcKnP9mPE=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-taka.svg</key>
 		<data>
-		bwXIIwJVNg2Yj6y9ZfDdl7lIyQ8=
+		iBSb15TSBwSmr4P+FoEyC8ux56c=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-won.svg</key>
 		<data>
-		ItzDsRxjfeIFIy5OeSAfbdKYNdo=
+		CL1m0SjsGXPa2cM+QeUq0QpkvaE=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/currency-yen.svg</key>
 		<data>
@@ -626,7 +626,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/day/parking.svg</key>
 		<data>
-		mJygAStJF9U59wk32L+jqVDWV+0=
+		ct7N/GYc59DW6yYom3hBXLolDvU=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/petrol-station.svg</key>
 		<data>
@@ -858,7 +858,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/day/travel-agent-ticketing.svg</key>
 		<data>
-		sice80DIrCvU2IBvTRTo0n2GcNw=
+		P3T+Qqk919claHsSootTfMrfb8c=
 		</data>
 		<key>geoviz/assets/oslo/poi/day/truck-dealership.svg</key>
 		<data>
@@ -1038,7 +1038,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-baht.svg</key>
 		<data>
-		72Q33Y2JPfOlmhtuTejvkEzS2bI=
+		jBLBUS0T0wvSuOc3yCSf0njI1JE=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-dollar.svg</key>
 		<data>
@@ -1046,7 +1046,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-dong.svg</key>
 		<data>
-		UZZbNZ0imrMDc52Ze4srveYYys4=
+		TalncFV4837WnCwOItDflyRRcSc=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-euro.svg</key>
 		<data>
@@ -1054,19 +1054,19 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-franc.svg</key>
 		<data>
-		tLcOLK6nZLqQTSiqTZouMv6y9Aw=
+		ZbNjk8+CG0uVNHrFwWpYMaAtLS0=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-krone.svg</key>
 		<data>
-		uleiZIAO9EtLxeN9A2D+Gs86OYE=
+		2hYJkal5vxeXqyWTwt4XcI9CcQQ=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-lira.svg</key>
 		<data>
-		rYCf4dZDd/TqsjIjRtwLoeQRK/U=
+		1vWEIFxJZdj/DTqzeH4viKF1gCg=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-naira.svg</key>
 		<data>
-		WXVhX98japJwWjI3sHJkybUq/6U=
+		+dRCYreFumKz3E0S28T6NqbLDCo=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-pound.svg</key>
 		<data>
@@ -1074,31 +1074,31 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-ruble.svg</key>
 		<data>
-		p4vlG6plMDmZPM+dUpd3/tJypSo=
+		QLaYdHQwX1u3nGpmegK1+jk2jKE=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-rupee.svg</key>
 		<data>
-		Ov5swmcTGg77IFNMyyG1cPnNb3Q=
+		/osOKvx9dvLfktrfDgkK1o6e4lQ=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-rupees.svg</key>
 		<data>
-		7gEWXXiszdnr+9XiPnhMF3DbNcc=
+		bzkAEg9W+KS3fPSSj/3XVdxQLlY=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-rupiah.svg</key>
 		<data>
-		RWjXzukE60mG5x48vqTu1kYhpT4=
+		MjTQ1udJ4fKdplqI7qyPFZh/C9Y=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-shekel.svg</key>
 		<data>
-		SYtyMrDgAbrX1r1rk6gKad38yBQ=
+		6E26k26BkPt7mE/0DcN3oR/CW4c=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-taka.svg</key>
 		<data>
-		CV8WPek32TgHdpzsmz9jKnvVsTk=
+		tgInmDmeC7tUicWY6OzeW2rDcSg=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-won.svg</key>
 		<data>
-		EQjh4kYy/QDssClNnsVozjflEnU=
+		R8u5U5hU0w3CnZDj7ZkQhdgjvAE=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-yen.svg</key>
 		<data>
@@ -1322,7 +1322,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/parking.svg</key>
 		<data>
-		JMoDJ+ilNVxYsFNbu6K5vllz/r0=
+		FBjkDPkjNQm5Mh5IEruaEEGuaYc=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/petrol-station.svg</key>
 		<data>
@@ -1554,7 +1554,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/travel-agent-ticketing.svg</key>
 		<data>
-		6CmnJtPUJriMfZh0Hum3pz7+/T0=
+		Q8+bG826x75sPWv4s3iYWZ+JP0I=
 		</data>
 		<key>geoviz/assets/oslo/poi/hybrid/truck-dealership.svg</key>
 		<data>
@@ -1878,7 +1878,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-baht.svg</key>
 		<data>
-		q9NBQ4ibvZXRD4bOgZkAAE+7h3g=
+		NyXuOpuR4W8tNUAk6Y/R2vBb9xM=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-dollar.svg</key>
 		<data>
@@ -1886,7 +1886,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-dong.svg</key>
 		<data>
-		6i1GD7HV61XIV58S5Dcl35JV50I=
+		agdbhf0RhG4jnFfgq90nUVK3WTs=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-euro.svg</key>
 		<data>
@@ -1894,19 +1894,19 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-franc.svg</key>
 		<data>
-		OgxnPbSnK5Z6esz6dO4/AvTje9c=
+		l/5FhKH14Hp3i6dBjXxLJpYzNNI=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-krone.svg</key>
 		<data>
-		JSyQvniz0UPPa2QR49KO1cbYtC8=
+		Q8d2p7vDiTQtZGO/Zv9mDb1cm10=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-lira.svg</key>
 		<data>
-		/0NF7SL7TpeCdsHOdoOQ2vMP1tQ=
+		/A1PRfrJJvwlUstBvoDwJuwChH4=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-naira.svg</key>
 		<data>
-		XTrHQlrSmS+MrssJ8Wly75cF7Jk=
+		As1uPILcUuuGqodm+mnOjDoa8kk=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-pound.svg</key>
 		<data>
@@ -1914,31 +1914,31 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-ruble.svg</key>
 		<data>
-		owKI3dhDQMDGuvgZGhIY9f3u/fQ=
+		3GaGKXkyhYg75PlKM50akrq1kXQ=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-rupee.svg</key>
 		<data>
-		bNo3qvwoZLjLPqHpOckcdMsQtHE=
+		nkVy2HhoNzk6XVw6gFUHLlpyLWc=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-rupees.svg</key>
 		<data>
-		94s6BFThVzTGl1CuYAfWmlJ9pdg=
+		LcsH3K7bVVh2r6nVTU+fMKpmXCA=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-rupiah.svg</key>
 		<data>
-		xRXqIlrS150PrNLEXNdpgjsK6J0=
+		M9Tx6r4bR5QlK6tuIEMHeedTecU=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-shekel.svg</key>
 		<data>
-		jIRLZpJ6+yy3aHQD8INz/r5MXaU=
+		KXq4xVFWuEpLefH2w41Zpxa5Hac=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-taka.svg</key>
 		<data>
-		qLfaEkWfmK69oz+/X5OOeHmB8rU=
+		FLrYsYBGsm1GuwZGrTiomH7KdqY=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-won.svg</key>
 		<data>
-		gkCSSInDOLjYpl500FZOHbAN6yg=
+		1/TZQ/cIm6CL2+Q1oNyqKlIvYsg=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/currency-yen.svg</key>
 		<data>
@@ -2162,7 +2162,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/night/parking.svg</key>
 		<data>
-		b8NXbqs3ka1e7LhJoaEDUUO6LFU=
+		LFo135S1xo9cgrzb/pc1Mn1jko8=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/petrol-station.svg</key>
 		<data>
@@ -2394,7 +2394,7 @@
 		</data>
 		<key>geoviz/assets/oslo/poi/night/travel-agent-ticketing.svg</key>
 		<data>
-		j/z7gPYagxaTtZGWWXDcdcaeEV0=
+		8/ZCYVgDSQD46QhOK45bwjvpPFU=
 		</data>
 		<key>geoviz/assets/oslo/poi/night/truck-dealership.svg</key>
 		<data>
@@ -6462,7 +6462,7 @@
 		</data>
 		<key>geoviz/common/ocm/common.json</key>
 		<data>
-		miDAdyGZs/5W3bF9mxd6wZvyn2U=
+		WacTGANCpkop9xb/K0UwMalBhmU=
 		</data>
 		<key>geoviz/common/ocm/datasource.configuration.json</key>
 		<data>
@@ -6474,19 +6474,27 @@
 		</data>
 		<key>geoviz/common/ocm/hybrid.scene.json</key>
 		<data>
-		jadaQo1jD1W1LXR/1tM7ADKd2sE=
+		OJmX2iJCUApK2oBSde+1yOAvdyA=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.features.common.json</key>
 		<data>
-		30VyuTG+bqWsIRS8ja8tp57yQMc=
+		V1NMRTyc0Q2K/qyoJZB4egJWLV8=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.features.json</key>
 		<data>
 		TdCCLsS6DEfFPrLvw9UrDJQC2jA=
 		</data>
+		<key>geoviz/common/ocm/list/ocm.hybrid.features.common.json</key>
+		<data>
+		f2t9BvM7YuYuMb6hX5KGgcUzfx0=
+		</data>
+		<key>geoviz/common/ocm/list/ocm.hybrid.features.json</key>
+		<data>
+		jEqfQw/0T8EXbPIoe42UTVK6QGs=
+		</data>
 		<key>geoviz/common/ocm/list/ocm.hybrid.layer.priorities.json</key>
 		<data>
-		D2lSCcF7KCxUlEKvRsnxzeuOqFw=
+		BNz6ppYT9TQ2amCJBow7WhtV/30=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.hybrid.objects.json</key>
 		<data>
@@ -6494,7 +6502,7 @@
 		</data>
 		<key>geoviz/common/ocm/list/ocm.layer.priorities.json</key>
 		<data>
-		jRnpANj6Pvo0nCaHgroqiZHH4F0=
+		buG/8UHY/6EKjVeXwoKvBzU+15g=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.layer.properties.json</key>
 		<data>
@@ -6506,7 +6514,7 @@
 		</data>
 		<key>geoviz/common/ocm/list/ocm.objects.json</key>
 		<data>
-		SKW9coPTQiL0WfvkTEN67yqBMM0=
+		NUTnPJPmdjYJGWgrqGXCgL+lkeg=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.road.network.objects.json</key>
 		<data>
@@ -6519,6 +6527,10 @@
 		<key>geoviz/common/ocm/list/ocm.tko.features.json</key>
 		<data>
 		rbENFyG/ZZkI+ZvFnIRi2JqPZZ4=
+		</data>
+		<key>geoviz/common/ocm/list/ocm.tko.hybrid.features.json</key>
+		<data>
+		O5GfxzWf/AZw9Y2/lE2gbl8HWJ8=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.tko.hybrid.objects.json</key>
 		<data>
@@ -6538,7 +6550,7 @@
 		</data>
 		<key>geoviz/common/ocm/list/ocm.visibility-ranges.json</key>
 		<data>
-		R25Fh9MNvAhfmaOiIa4e9BXAJ/Y=
+		G5S+AhqZ9Ca4j3XdmkQ1pu/or5o=
 		</data>
 		<key>geoviz/common/ocm/logistics.scene.json</key>
 		<data>
@@ -6591,6 +6603,14 @@
 		<key>geoviz/common/ocm/template/exit-info.conditions.json</key>
 		<data>
 		tmcqm48yOkGEdUu441+g52ChVAo=
+		</data>
+		<key>geoviz/common/ocm/template/hd-roads-stylesets.style.json</key>
+		<data>
+		jqN+erJ79iKYdP37M8Law/7KInU=
+		</data>
+		<key>geoviz/common/ocm/template/hd-roads.definitions.json</key>
+		<data>
+		BeY8YJxfqiWvRVehqQ/Ke8o3NzI=
 		</data>
 		<key>geoviz/common/ocm/template/japan.boundary-stylesets.style.json</key>
 		<data>
@@ -6670,7 +6690,7 @@
 		</data>
 		<key>geoviz/common/ocm/template/linetype.conditions.json</key>
 		<data>
-		tR/7sjBJaVbiapZBJMKGY0NkRhs=
+		QuJ1dmtgsbcHkJFfTYEu6TcnO1I=
 		</data>
 		<key>geoviz/common/ocm/template/places-stylesets.style.json</key>
 		<data>
@@ -6750,7 +6770,7 @@
 		</data>
 		<key>geoviz/common/ocm/tko.hybrid.scene.json</key>
 		<data>
-		MKidsfuQYI42pMnmsKADHZppb5c=
+		Fj7oJg8NI4LtV9XY0YRjhLGvg+c=
 		</data>
 		<key>geoviz/common/ocm/tko.logistics.scene.json</key>
 		<data>
@@ -6846,11 +6866,11 @@
 		</data>
 		<key>geoviz/common/shared/list/label.priorities.json</key>
 		<data>
-		cDWK3LedTL7xRrDT4XM+Kta2+CE=
+		zwwnw4TTh7yTu9X9VfZojMU0pUY=
 		</data>
 		<key>geoviz/common/shared/list/label.reserve-priority-overlap.json</key>
 		<data>
-		HmyxAgXezZvG0a3g97rD8/EJdpw=
+		oCKBtO4RUXmYcp/fxkqVEIBcJZ4=
 		</data>
 		<key>geoviz/common/shared/list/label.truck-icons.json</key>
 		<data>
@@ -7030,23 +7050,23 @@
 		</data>
 		<key>geoviz/common/shared/template/roads-category-0.style.json</key>
 		<data>
-		kKF9ngNzQwsbkgQU3dqLCBQqIyY=
+		Dxq06XD4FCJ8VQ97JV3g5oNDEI8=
 		</data>
 		<key>geoviz/common/shared/template/roads-category-1.style.json</key>
 		<data>
-		B+cI7/RttQOSALgBoIO7HP7257I=
+		h/SQvV4rmpED/x+sZlgXlZ6sIiM=
 		</data>
 		<key>geoviz/common/shared/template/roads-category-2.style.json</key>
 		<data>
-		I9wVwl6tkD2JVbiruVtSEuwbwno=
+		VwMLCJmqfYWNwByiwSwHv5TzN7k=
 		</data>
 		<key>geoviz/common/shared/template/roads-category-3.style.json</key>
 		<data>
-		HkjBHCGSKkeCAWMZ8KdufVSp9RE=
+		XbSc58Y+Vjzk82SjqoNDRia4hNU=
 		</data>
 		<key>geoviz/common/shared/template/roads-category-4.style.json</key>
 		<data>
-		uK18bjsJlDIkjiuAud2VMVNNmJw=
+		SpovXMVx/g+feQgcsrF8phGNdvU=
 		</data>
 		<key>geoviz/common/shared/template/roads-pedestrian.style.json</key>
 		<data>
@@ -7058,7 +7078,7 @@
 		</data>
 		<key>geoviz/common/shared/template/roads.definitions.json</key>
 		<data>
-		p3QM/2WLMSNUCB9uIxP+hnQEeVY=
+		rACJ2vMULD0Q4rWHq3vos4wjPYM=
 		</data>
 		<key>geoviz/common/shared/template/roads.style.json</key>
 		<data>
@@ -7086,11 +7106,11 @@
 		</data>
 		<key>geoviz/common/shared/template/terrain-common.definitions.json</key>
 		<data>
-		/p6FmD6zbeHZQE7ZPK+ssv7VVNI=
+		bx30N247Y+JN0DLaTszxO8/ZAEE=
 		</data>
 		<key>geoviz/common/shared/template/terrain-common.style.json</key>
 		<data>
-		Ou0/lYMfJs8PwdKa2LYYTNCfJ4M=
+		3ls5HeOOsDT6UDlJflnRPvpdOaE=
 		</data>
 		<key>geoviz/common/shared/template/terrain-depth.style.json</key>
 		<data>
@@ -7174,7 +7194,7 @@
 		</data>
 		<key>geoviz/miami/schemes/normal.day.definitions.json</key>
 		<data>
-		KnJv0ZOyCeUHAfvqV1QA0yTp7Ms=
+		sxZQgZdnqT0PZc98QNFqBXZxEwo=
 		</data>
 		<key>geoviz/oslo/assets/assets.day.json</key>
 		<data>
@@ -7218,7 +7238,7 @@
 		</data>
 		<key>geoviz/oslo/masterlist/poi.icon.masterlist.json</key>
 		<data>
-		QS5HX9JkG7LEz6ZuQSehm+ee1po=
+		/xxdeca+1PgG+6aeLYjIJqq0xy8=
 		</data>
 		<key>geoviz/oslo/masterlist/poi.pt.icon.masterlist.json</key>
 		<data>
@@ -7342,7 +7362,7 @@
 		</data>
 		<key>geoviz/oslo/schemes/lite.day.definitions.json</key>
 		<data>
-		wtq1oTXNeE0m63p0/ujAfwkd/kA=
+		+QwFiP/3WIjRi4gbT2Nxyj5vMf0=
 		</data>
 		<key>geoviz/oslo/schemes/lite.hybrid.day.definitions.json</key>
 		<data>
@@ -7350,7 +7370,7 @@
 		</data>
 		<key>geoviz/oslo/schemes/lite.night.definitions.json</key>
 		<data>
-		w4ozl1dkPfrt6+7k6tAGMgMJXtw=
+		y2XV3aYZFOH9a2lP3E6m3YZ8czI=
 		</data>
 		<key>geoviz/oslo/schemes/logistics.day.definitions.json</key>
 		<data>
@@ -7362,11 +7382,11 @@
 		</data>
 		<key>geoviz/oslo/schemes/normal.day.definitions.json</key>
 		<data>
-		gCFISTHBzpXlZgJHE90ZqGoL69c=
+		AU8KMeI71iwvxkwqAZFC4M2TbtM=
 		</data>
 		<key>geoviz/oslo/schemes/normal.night.definitions.json</key>
 		<data>
-		El9Tp66TqSSFWeVJwtlZpdfUG5Y=
+		xSbhzG8j0S97ycYl8PWE4+8pVTM=
 		</data>
 		<key>geoviz/oslo/schemes/road.network.day.definitions.json</key>
 		<data>
@@ -7418,87 +7438,87 @@
 		</data>
 		<key>geoviz/shaders/metal_ios/BlendScreenQuad.shaderb</key>
 		<data>
-		qIGfLYW+UkkksSw9sVPH8MC49Uk=
+		8A1ZT6ztS32AFy7inR9ASSGBzbg=
 		</data>
 		<key>geoviz/shaders/metal_ios/DepthSky.shaderb</key>
 		<data>
-		2/hdbobZE96ud0QFyUlsf1PsCVk=
+		viQdhRGLNIRP1XBiEvuxYYhUVWU=
 		</data>
 		<key>geoviz/shaders/metal_ios/GeoHalo.shaderb</key>
 		<data>
-		ivrZJ7PEi3sXb6GwWv1G0mx2aPo=
+		JXD+AgI3OAXkpmz0UYbqkcxMljA=
 		</data>
 		<key>geoviz/shaders/metal_ios/GeoSkyBox.shaderb</key>
 		<data>
-		shfH4Qv1asaq/Guo7MWPeQlUTz4=
+		Jf7QAPxH0PkqDgdICBwlwn5X1cY=
 		</data>
 		<key>geoviz/shaders/metal_ios/LabelIcon.shaderb</key>
 		<data>
-		4gug7EtUn082zBbSim8fCYVLJGY=
+		IXgSqKwblBqJK8AopBuUXEP90O8=
 		</data>
 		<key>geoviz/shaders/metal_ios/LocalTangentPlane.shaderb</key>
 		<data>
-		S5ej5ZUi9uOt/SQ3elOtRl+++1w=
+		wUbaM5r9VO8wyo/XAEjONGrRurA=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dExtrudedBuilding.shaderb</key>
 		<data>
-		m7ZPoPdMn3LnFYJ5Degw/Tryl5I=
+		8lu6GgbBcEF2s3wjKYwMuH03ApM=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dFastLine.shaderb</key>
 		<data>
-		1WPp2/7O6gkfRH3uRzALTW+YTB8=
+		KJwmC1ctvAi7n3eMMPPtIpkAiVU=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dLandmark.shaderb</key>
 		<data>
-		/aQaeWGel50rriVTdMM6fPaS8NA=
+		sDlvV3ZIKpDj0hLgssP18h1f5AU=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dLine.shaderb</key>
 		<data>
-		ut3xRwellak6xV1xYmGsTbpEpAo=
+		wej/Up+pE1q0ZPTk3ksundI1hJE=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dLineProgress.shaderb</key>
 		<data>
-		lg5/RSKwcWRcim/ypitQdRefu84=
+		PGgW4xaX/Xze6AZ6+n637J9Lfqk=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dPoint.shaderb</key>
 		<data>
-		472fIa9cKxzfJ4XT+BKJ2P7q4TM=
+		3bpFIp8bX8UKP08ZG/H82itmMaY=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dPoint3d.shaderb</key>
 		<data>
-		ThowhzXkWHRxi0nZyM+GW0ib0MQ=
+		1avP/+0FIdo3+PwKUlFgPkWfGVc=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dPolygon.shaderb</key>
 		<data>
-		WKLj4R+9NWJxiGOoH8osmUFvbyc=
+		jsGEwbAQwLyCcTm/z2FT2po3zqQ=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dRasterTerrain.shaderb</key>
 		<data>
-		kDftI181P2mRASe+JZYGqIkEDpo=
+		9jDhVuIutpeCE2580XOdUSFXUjM=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dSimpleLine.shaderb</key>
 		<data>
-		RPv46YJz3Ixo6swtP0AWdWwwoZo=
+		5ygQWAHMfRbOmhiQ5DWS+kXiU0Q=
 		</data>
 		<key>geoviz/shaders/metal_ios/Map2dTerrain.shaderb</key>
 		<data>
-		jg/J1NFCgOgTuHIk30DwWTPmaBg=
+		Ez76nvKHNEwiXiCTuaV2aZ7/OWk=
 		</data>
 		<key>geoviz/shaders/metal_ios/ScreenQuad.shaderb</key>
 		<data>
-		mW2rtEO/KBdsns8+fZq2DhU3wXk=
+		DFuD5M2ttCdsCveSUTaBwmXD7xc=
 		</data>
 		<key>geoviz/shaders/metal_ios/SpaceBackground.shaderb</key>
 		<data>
-		4H3J1x8ph4Av67kM2h7yUQXExqE=
+		Vba0NwF7ZxpklEv0IL1dDenWXXI=
 		</data>
 		<key>geoviz/shaders/metal_ios/VenueGeometryFace.shaderb</key>
 		<data>
-		fNPGA2NqPloQGvr36tbcI3wiFLg=
+		Q0w6LyCT+iceeCNxCv59j7Jy0wg=
 		</data>
 		<key>geoviz/shaders/metal_ios/VenueGeometryLine.shaderb</key>
 		<data>
-		MuG8bvj0MspP79wMP5GKuoUWSFY=
+		W6AI0bOyfJpOBOTM3bVCkftEl7A=
 		</data>
 		<key>localization/tmcevents.bg-BG</key>
 		<data>
@@ -7802,19 +7822,19 @@
 		</data>
 		<key>magma/shaders/metal_ios/Default.shaderb</key>
 		<data>
-		W3DQGdbghYgRYti3JYggLNO+Eis=
+		114ncje7TcDBj5iPBJDv2Aj/eKk=
 		</data>
 		<key>magma/shaders/metal_ios/FogParameters.shaderb</key>
 		<data>
-		SHb46zqN67q4YqlRbhMdC7tp7iE=
+		JQ8ylPIYy0wf8dL8qGaLeuaUFns=
 		</data>
 		<key>magma/shaders/metal_ios/Font.shaderb</key>
 		<data>
-		x3iRHXUA4nRMlh9BdoaexG+WmqY=
+		skxcr60CNwvMwG94o1GfNuPPsZs=
 		</data>
 		<key>magma/shaders/metal_ios/Primitive.shaderb</key>
 		<data>
-		KGwUPQ/PbVwVIJPdKZXU/8Ik34g=
+		VV4W3u58OP1puUZggT3aimWpzFU=
 		</data>
 		<key>svg_assets/JV_TREES_FUTURISTIC_DAY_DECIDUOUS_4_23.png</key>
 		<data>
@@ -13757,49 +13777,49 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Y6/uW+mNg9TuFHFvCqQftaUqEQD5RthrKt63zlWKX3w=
+			1uCSIObnPLcnL4eQxYNcal2PTekSmEiEpDiIxmTA7n8=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			oIrwRGWDFZ0rLnU2eIWf+IqiXoD5uUhrpm+cb5On7ZA=
+			Y1iiZnaK6a9cXcD4cTWFCunamv7cIlkHQacYSuQ9ZJY=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vMS2dfj9eiO0uJ/3YM+sMnokCQu9hSMTKkEq5biSuGg=
+			wGloZ+Qva0uGjCh8nmdwXhHNuT9AI2OFyoPGHmTcKH4=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			K2tb0s6Ye327zlkL7ow0rEKnNj9/yO329W7mof5uJug=
+			uZtqlKRunmNeIKBETqUQvCK9E/vmOKyOxeDIpV6oGOA=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			isF7EV1dr1Vp1CIEjky1yb3ST4fQQ6/9TRKlVsY2sWo=
+			gtDOmY0HETFsyke73xBZkILa0Ufa2NYUhgBwxFY28i8=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			K2tb0s6Ye327zlkL7ow0rEKnNj9/yO329W7mof5uJug=
+			uZtqlKRunmNeIKBETqUQvCK9E/vmOKyOxeDIpV6oGOA=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			h5Q9/4oDv+wvxcQU3rphvbvOWb6nB1gIIl/b0MMypAQ=
+			2tzsbB32ArhFAY9EXpaidSEr2DTm5GDzU7k3QseG5J0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -14324,7 +14344,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			w3CejqBeaxH0EOpRtGgph9ljQmDCvs2B43ElgMLCjgg=
+			lqjp1oJeW1iYDcvRR75+x0iBfsZUZaBDgc4dYlv+nsQ=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-dollar.svg</key>
@@ -14338,7 +14358,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			po16SHtuXmnXF5VsnqSzCOPFVlRzuErcCMve/BMOJYE=
+			r/wyL3hjnLulIanw7ztRwgDQFoDe0JWMWpax9dKzx5M=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-euro.svg</key>
@@ -14352,28 +14372,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			J2py4E12BmOteqdNrKxZWrLP0540qQQWkA/zKmnpbX0=
+			Ii0W8TTOAwSumqbhvZChY7SUYqteKlCcBwct/EqSkbw=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-krone.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dRzjcsqJ21BT/h+fXgghtbCLtOj49pBWX0mkeVi7hJo=
+			xjbHaWLM+e6oKEmynpQ9P5pZVLWn1EaqxsQpc6GJ0gk=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-lira.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5QfNhVOoPwCULOkV9lGGZJSNGqnKcuYfyWFPw2e34eA=
+			XxsdRZYIO0WcLyi1X6/HCu6K/karP+i1XsR0K9oEGN4=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-naira.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			rEaAjwiIVdwUdoz1sAXtectgUNq6ZBq5PKI6qdZMNck=
+			kfdOKIds0lyA2HXekXWeSVovsIuvT6jzrTLAcKXKhZc=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-pound.svg</key>
@@ -14387,49 +14407,49 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fxirMSeLHT/Gr19fxIc5sZeICPCdu0IdE0gOPbAt0RA=
+			L0aqfrbjDwANATG06mVgbGDE/D0H/GNIKbxWATvgeDU=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-rupee.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pHOT5sKAwpBnyOjOXKdAjQPsxkd9QrWR3NIMAMia7ss=
+			W7/OTAYythaIISdCgm2eS4s6rsNT9mb+rtboWnmAeSg=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-rupees.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zH1aMTvRA28UA96gT2bCTTVGzfHbS2vOkqvbOlJlpZw=
+			hs+Mnv141e8RXgi1QwCBvrSlF5GQGUrSd3D2ID7qR/Y=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-rupiah.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XUmkkSg5YJgyfSoGheU5GmmiqEc3rByoc2lZouWgtAU=
+			QgsBOyPcrnGzY8xq1Ro0fGV6wbn5urTcr71rXHPA6Ok=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-shekel.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7QLvG8eqWmfGZ1F/Moqf0kmhprQB5dsOpvXBtgPdAas=
+			X7c20E+cAI7o0vjAm4QOWOODtUEgOE60JbrKd15fpkM=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-taka.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Im/T8KzsCUQwlQQ8zDyT57EQUH2TtyUrRCggD174+bU=
+			qJZZcU7pMIG001S9VieK+eVwVVJujY2XV8V+DLAzqvw=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-won.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			huuBdF2EPoHI0dfazUft5AyNOkuvma9cEdu8tCpsEU4=
+			SWqjd39PlG9tsJancCMLPsBgqS89x+iar3W3Yco9+tg=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/currency-yen.svg</key>
@@ -14821,7 +14841,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9a9YscPZmxPXBZVhNVd0eQVLtE0MeGvvmdwLfbnRupY=
+			CuaMg3yQRx+EBWr4sbDh0NUoopVKujdOMT2FbiYL+LE=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/petrol-station.svg</key>
@@ -15227,7 +15247,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			94964Q7UAcvsPpuWqgDUnmhQufFz5h6Yh/su0AYaQXQ=
+			Tvmve9goqciCQ8QK00vsDFd2pExLSgQSXjJjg2YpPQg=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/day/truck-dealership.svg</key>
@@ -15542,7 +15562,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			PA3fuClS3eJXuSnAHZRhab9PS3YVwu6PSh2Vhgi+1Mw=
+			zXhjdj+vbjSZCMASkp+6JyyKEkdbzE4FgNNKuA3lmFw=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-dollar.svg</key>
@@ -15556,7 +15576,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5mRxEwZsnWkcH1KLirZxWmby1mr7bNn75YhpqRI0wCo=
+			+Yr009ajCi4ELGBTSBBPkBZA6L1qk1ZzSFFwniFDdGA=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-euro.svg</key>
@@ -15570,28 +15590,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Lpi53Ld5mB3+dmZ3gmjkiZkxkT8qqncXu3BA7lpHvEI=
+			HIQ2ktVHR7PQnpmmZn5r4+7nc3eHGRxkMH31LZhA9ew=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-krone.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			HcuyGiTsJXOFqEMg9xN5/+IAVVLbdtoQXnJYnfOm3n0=
+			YG7qqPMaArbWVLuiwhDV6USboN6VMmSlSLFWuvH3kgQ=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-lira.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WHwgIDjzZA993TZWa4WqksE48uuqJI65s8IcDBC6Bw0=
+			vnRrqtqUWRM5o2FW20dNlUmkLBvh50dKUz+0eRsYSUE=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-naira.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			U/ZfWnITHVjIMDiRDlKJckhDaiSJOCtNXFnL1m6Vt/Q=
+			pbStqmBZW0UXe8icrpEtnmeJ1fsrdtkZ1fMssslsZeQ=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-pound.svg</key>
@@ -15605,49 +15625,49 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			R7vf+ZueiIvqbcRWrzraDqQMj2MINY+X52ClC3xKBw0=
+			dUD7vDv2dzznqQ20d/9o6y9y+s7VbHAubr+j3vOUTD0=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-rupee.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7d6CnZcEUPNii/YhaWUBx3vcvgS703m1wr60VmrsSU4=
+			dOJe50YFCz3y5RVqv4dNWvTDKvZF+PNoRaVEcjbqJy8=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-rupees.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			pHujAynUzuf2fDHk8jE6OIP68gVdyxOm62+v/kfNHYs=
+			kJr/b2vGdChcbB64rFCMnyZYiGM/jP9Hjz9N4qVliW4=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-rupiah.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gK6sRMqjVmijIIZQ3G+8/BAWMrn8xHp+GHIwmFQB9Go=
+			7bNxgUuIarYVVS6NblHwdLM2GQxUt7NAaQ0i8iEeQro=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-shekel.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			g5CJEY2CHNkBub2kRzLEz9IHtjMkIbw7DXVRHNaYsWk=
+			1DSxb1tdcUS7NaaEt+K6PKz9UdjfRuPAIc2H6mI07Ms=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-taka.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YP9ExIPAvNooDGhaHn5GXuT2TKrdkf0WEqYJqJx4r2w=
+			DHa0UNwE8gxmNk3GXKvtOyGhvgBSgL+f2sda7pPB9Ho=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-won.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WsxmKCC+feMdb5bR5ApkrWyIOC7wQ2b4dgprYgVecU0=
+			42Md14gMsn72OcOsPJd0lRLpREaMy/Z73Io2TM660Xc=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/currency-yen.svg</key>
@@ -16039,7 +16059,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dianh6Xt1JRMD3zTIL1DdSDdIjl7IGXGKMf+R3RQQHs=
+			aIGV3hRMERK7GwkTaMLvpVo4+qz1BEszCgz3mIAg7SY=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/petrol-station.svg</key>
@@ -16445,7 +16465,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8D5gOmbkQ52bWI4HwIyLAPLzy2sN41XZXsUuVm49BT4=
+			txsqt9YkmGywfVh9i0GC3DXMYHru0rLe1yTL2ZFYkkA=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/hybrid/truck-dealership.svg</key>
@@ -17012,7 +17032,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tV9khY5//UvWUUuBrj8+qTRzQE/O2EsyV1NMbwT5fm4=
+			Y7B9oEhPgCAp+ivYSueqN4GrOvHNP2vB088Yd0G7itg=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-dollar.svg</key>
@@ -17026,7 +17046,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jaH7+56agi4MGKKQI685Mkf0nb2J2Q5BkKXAfEO+qyQ=
+			nplYJOMIXa4Zavwpig+kIte+0mn16qP4bdow105dAwA=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-euro.svg</key>
@@ -17040,28 +17060,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AXQ/qXx25ozqwOpx07WTvAn2shdmasCbE2hhDaDTOt0=
+			UbcNKoGjqc0cWhWkySRMZqLktYgLEWtOgTyzLsL5WbY=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-krone.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			uu6hAbMSOBfUWHkM+Owkd3DeXt86ZkXt1V3c95gu2Sk=
+			86pPGkdeO5vwlGW08Af1ISYDlYOTQ4j3HEpZu+x61f4=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-lira.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			alcGYwcq6RqbmJxlGsyRnvUVYYqXXmR2CmkF5KFnO8c=
+			6atEDcltJHPhWASslBOeTYzBxAECAppgl/rkajC5Ny8=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-naira.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nGPc1q8Hrx70eyntO3W0vBJ+eppXlbjHi9ejwbZsL/k=
+			GhjnsM8gRgv6doLmQ8Xm3+kot7QqDbiyEgHfjWkRTv0=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-pound.svg</key>
@@ -17075,49 +17095,49 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lge5LGVzMcyzKEPpXiGSljw8MgnkrgbFqvsJa8hQbTQ=
+			mu41fUX/jw8YsPBGX6jeMstTldtScGGP7Dtqr/kWjHE=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-rupee.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			RAo74SGTA5r7ZH7p+UDzOjfthI7B0VJP6szVptjHPNY=
+			lC7Lwk/OWqXq3qBhgSaSPR2GmN1aYxSCBANjILszVXc=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-rupees.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			juRkBCW3UmklRHRs66at9vguvZh0gBsT2uZcTMKffto=
+			bIHF3HE7FzhbTD0ed6XWIk/qRwtOD3mqOlaTWgnNzwY=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-rupiah.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ETruhz7KItKkvtaxdA5xHfXVK1p8CqUayp4srTnlUEM=
+			KThVmLAp1LLgKZEbSsloYxf9+KT1UzGkJjK56G8GuIM=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-shekel.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			s0ULPrFs3u0MzWXK0yW9/9tRq7+7JiB6QnYZOuI5lbQ=
+			oXz4+C/GiJMUY4W8xXwfaktRk8hPQoFnRo+zZLpbPIA=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-taka.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mCwdIwhyh0I2gLw8O0nO4VS0GAImzxhl2zc77UXvKts=
+			Ji0ZVJQhlAIYwPV846GmgET/Zp11jna6SoczEdqZorY=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-won.svg</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2wK0MaIXa5WscqWsRbhju1unDZk/DpDV2MSmH+ffxsg=
+			MFtfWKQJicQI+/Ib7Dum8FfxhjbPZ58PqVW7D9YnjDU=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/currency-yen.svg</key>
@@ -17509,7 +17529,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			nZiHr24bhXvjHsSYKSFlxFD1GtHEiXwAvNvoyRfzEvo=
+			DW0/EI5kKybYrCJBPUwR8k2XSWW5LcXGmErO8g5xhpQ=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/petrol-station.svg</key>
@@ -17915,7 +17935,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			p0AJrXmVnOii4r1znpUMNE9gwEkJQUKcp8RU3+U5Uwg=
+			MCFw5mPkw5HvJ4oabOC4QTPpS0/wTePnBVlrMBOa/hQ=
 			</data>
 		</dict>
 		<key>geoviz/assets/oslo/poi/night/truck-dealership.svg</key>
@@ -25034,7 +25054,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lVlv+6rrwzkBGAfrczc0YYO5SN7xOsBOBj1WNR1IntQ=
+			PiQtOJ5B/jIv+RYXBJodZY3kooMTWbtmtmF0rDWqi8U=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/datasource.configuration.json</key>
@@ -25055,14 +25075,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TIqaG17ljUdl1Dk1hV6qYe4fKlDAenfI44efTSX9pIo=
+			mWuWGpbc7NLOlsGOemSDN08EzNUHs57wimZiGPWB37U=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.features.common.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Lw+/lxh0wXU9GBjdE7lXl3xczaI5rOq/fd/gNDybXlE=
+			hWREZNKeneM63To7ZnQ2yccdmitHl6O8JfRTRIHQxGM=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.features.json</key>
@@ -25072,11 +25092,25 @@
 			J7nBKlci7W7odzhDVPLZ3g7czbrVghu6Et/mqNvdnQU=
 			</data>
 		</dict>
+		<key>geoviz/common/ocm/list/ocm.hybrid.features.common.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HENc5rNwekUb8JN94LN31Z/1lh8DFks256QW6OPPDzI=
+			</data>
+		</dict>
+		<key>geoviz/common/ocm/list/ocm.hybrid.features.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			71iQPLgvvJls7P4QJbzL9qyy+YSqT4ijQ5U9+GPGeow=
+			</data>
+		</dict>
 		<key>geoviz/common/ocm/list/ocm.hybrid.layer.priorities.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lw0A6aAoP62TuGVDAEBvhvseXCD11bTsOMLwPL4coFQ=
+			4wp8Q3ffht2L0oeGBBeGh2s21AAS4Kqi4oT/rnTuFtQ=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.hybrid.objects.json</key>
@@ -25090,7 +25124,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JmEdUEBMXVMQyHhKSsxwuuExJByB5B1eYfs29g8lO00=
+			7nS/r0AeMfAZuy5Xi30ZCBk7I3BNdYJiaiUvAPtIIXA=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.layer.properties.json</key>
@@ -25111,7 +25145,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			uCfuSZokryVBUdIGUqs1jDOFOkNIL8fhfuBIKaB3n0c=
+			us+352jk2iY/MJZ1EZHAXgpz+ZEo0jiG+f/xy41VXug=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.road.network.objects.json</key>
@@ -25133,6 +25167,13 @@
 			<key>hash2</key>
 			<data>
 			kOTyIbCcZOAv6fzurMywc+zTbly4YpYC2bn6MQOAQT4=
+			</data>
+		</dict>
+		<key>geoviz/common/ocm/list/ocm.tko.hybrid.features.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pnhBu57kk2q7Ee+u8KVwrTAlU9Sy108elAyNCCv0UCo=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.tko.hybrid.objects.json</key>
@@ -25167,7 +25208,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TWp3F40/D3oTXqIjKCWGmP5oJJ7mcXr+0TrF8++IVlo=
+			1ip7HaNCQDXmux4FVR/cZfjU0yXkqtRz02rkTTLjYFU=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/logistics.scene.json</key>
@@ -25259,6 +25300,20 @@
 			<key>hash2</key>
 			<data>
 			t6ns+psGdBDN+GitGucVwNpBc5l61pUfQ3h/IgiB2Ho=
+			</data>
+		</dict>
+		<key>geoviz/common/ocm/template/hd-roads-stylesets.style.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OS6v94jrT9zJYOXI+Vo10angfqOoUmKHW2CGAtwB6BI=
+			</data>
+		</dict>
+		<key>geoviz/common/ocm/template/hd-roads.definitions.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jl6kiwmXmpz4Otdu9HVXLyZVjqWJbF5O4bF4UGBil70=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/template/japan.boundary-stylesets.style.json</key>
@@ -25398,7 +25453,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pewRuP5mWO4iHG4H8u5Hre2dzaEeM6PxtvvGSf5zql0=
+			hrOfmG1TsVzust3wrHwy+HbAYg8bJ3fZtyLyeGGNGVI=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/template/places-stylesets.style.json</key>
@@ -25538,7 +25593,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6W2b3+9kfzaCVlln9IpzOmk60dnkD1S1s/JzSHC7nWA=
+			929mTSz7Ttn2lmeCKWyquEMR9po7yLUr7qoxiedN0/w=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/tko.logistics.scene.json</key>
@@ -25706,14 +25761,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			V5klPD29djHLMfoLv7SBDACme1UR5Byt9CRd6RMajYI=
+			ryj/FoG4iS2zTAzihqezttdcIAhg/gCH+kBGxkG8Y+I=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/list/label.reserve-priority-overlap.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Oakdgdub5kifKwIbfak3yJbjTJT1l2SrUimgHM/yOSI=
+			uhfx6f0Tb4kZiLEd2zG++J8agxdW21Em/CS/BP7+8fA=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/list/label.truck-icons.json</key>
@@ -26028,35 +26083,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			x7YsFH44ns2hn7Ii7ziJpvdSGd09H5YIkeepChaAQ8g=
+			rmyvK16zIfiThdvnVy6ODmiZrTiIdRWVNXsQD0RW/l0=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/roads-category-1.style.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5iZEnD6Kwou5VKN0EsOLvMSnLCEOV22OxobiD+NVvhY=
+			9ChbWH4zLUItN3KAJl+eFSbML02OX/R3Z+7xkgxeQBQ=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/roads-category-2.style.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KPSgWx+G4ytmuQ537DogB1NY17OSeoma1TpoAhqnN1c=
+			goXg2rvCYp62RoIuvsz3WIBpN/r6IdVMWOCrlce/Msw=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/roads-category-3.style.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DvXccZkxrVDgfTg2G7c43bLtsMweqc/s8s9DzxrtTHI=
+			I8B/AJUbFQjf+yIy3/bOPGb1kPlwg0ujWielBXWEo0w=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/roads-category-4.style.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aZG6umy0QyAwv3JOhJpiv44Ns7AWrOgsgYK1/FK7hX0=
+			XybTP+BgOiH3GMxJIxv9s+wrgeiXg8NBUADXGvbCnFw=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/roads-pedestrian.style.json</key>
@@ -26077,7 +26132,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EQdtN2Taiy4Mt2o2YKtfXvgTeTC2DX5+6JS7FWUod/w=
+			181JEfwM+gWu/xVvq/ve4ZVRcprJ+OSdjDzosEc9sAE=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/roads.style.json</key>
@@ -26126,14 +26181,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZWXurGB8X1TspsojaG00HgPmH9WIzx+2UbhpeK/4jqc=
+			2Sy3Uu1TX/rvVCtkZ851aJqSjNPmeJ9eeNpRpfRQuEQ=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/terrain-common.style.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LGAqSLU4qu293d0N6JimO9S5OzT2dQ+kDfAwpdzPOGM=
+			KsYn4ZCc/hQaiJ4LfSrAY4/yxy550+QCiHYP5ODstnM=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/terrain-depth.style.json</key>
@@ -26280,7 +26335,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			y/+qPFBuuhy8eW476kH4KSzRBXB2y+PGGo4du1l0weY=
+			NlqR2oD8c9QKCex+FKc0+3MIFHk8xtNTCPhMsHtrA0c=
 			</data>
 		</dict>
 		<key>geoviz/oslo/assets/assets.day.json</key>
@@ -26357,7 +26412,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8/JxO6fjvvUpTyFEZZwTFgNLPx/41pK9zoAGz9pCGa4=
+			Uczoqkxce+94BTXWosAY3Q9PZFFJJOctTiSnQEQKHQM=
 			</data>
 		</dict>
 		<key>geoviz/oslo/masterlist/poi.pt.icon.masterlist.json</key>
@@ -26574,7 +26629,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qy4pPDWwisPZqA7+4GwsI70AQSe6xVHUNtNUfw6ssUU=
+			hQRlNsM/KUnLSAc+IEWWV215QJgRTtOszGgkwb+RKHY=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/lite.hybrid.day.definitions.json</key>
@@ -26588,7 +26643,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2zgb156dc/sxITojY9jA1FWuJMutFnfQ5tpc5AWU3uU=
+			Oxx55/QPifQuksm3WykKzuFGaH1OSyFSsYLCTiv2fnM=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/logistics.day.definitions.json</key>
@@ -26609,14 +26664,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mVUHGh5mvcYIZvbPVQo9ceokd5IeCe6gbKictCFIm78=
+			sUXeRgpdo+nZHYec3cdNao/LA8heC67zqR0lxu2i3fc=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/normal.night.definitions.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gUI2edJJjjZbsBamCtP1kumVQXq0M6Cf4i8Hjnkuu9I=
+			T0G5Gl3LkuDuzkE38/4Seh/fZ6BVvmxruqic+T8OlEw=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/road.network.day.definitions.json</key>
@@ -26707,147 +26762,147 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LmgURAW8Yy27vr4e3PZTdkhDoAsXtx/10oOTXP5H2L4=
+			034GlV2vPyJq9LmO08l05S7FKWcdKxZVMQsIsN+9Kk4=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/DepthSky.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			23WfnambX2L90a8bLmb3HnPzYYT86VxPVITkxfcHyfI=
+			H6Aimn71NmrMt+nbVwQYfowzX1iZmh4VE6aHLtlLnCg=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/GeoHalo.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ab0laEIMJmAg1VfEPlLDvLlx/ZWdmeIu/ZZOQ9o8Fzs=
+			JQVqLMfvJ0NDOgMyNUIfMlf5YbAXvQ9Jyml43fBkURo=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/GeoSkyBox.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6S+SbTRXbqdFeY5qC4RDLGjYLm/cvttKuSCy9dF748s=
+			zGgZ9QugUPexhSZxmwf4x5RkaphbZKH7wtAgNf5UQGU=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/LabelIcon.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xsMxy7zf4RjUl1dNzYOW6nHO/qW+cu/xdPZOKR0arSs=
+			QLbJUkFVC9JCRsiukK+26LbNILDsJMkAo8dzuDKYuPU=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/LocalTangentPlane.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UscDvbebVU962CkhqxvBTMdiqhI3gx9ORVY2VVj/uVY=
+			C39gtyu6w2mLe/ZMMRSGKfEDGWMEFArgAamq4QfAJA8=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dExtrudedBuilding.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6niofFiK+QSVDtOw/6t046v5pClDGNXVSFOhq461FqE=
+			YRX50elezA9pOzHTpprJL85086zoRMwtRj6xQLt1TSs=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dFastLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			H4QIx9FNxR/j1kQZdOIC5CCoDZIwcHkP9y96LXQDdSQ=
+			QB97YErnPWYrDalvLNGxDOkuG0HESTDueJ+w1HibjKM=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dLandmark.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			54KR7Oiiva4IKtJqTo8Y7lUeX6epBf1y1z1jV74vPTQ=
+			vYJJuDtq/LuxkCBjpJMsDqj0frSdLOtQ4848j0UEe1I=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mZUr2scLJ5btYwp/kRI4sWlgDUEIy+4+TE9lYWJ5CUc=
+			04Fg/Sc9+h58jMX4X5VTUEn6ou/5NEp4Zpkw2P8BO1c=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dLineProgress.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FR84jV8dtvv0y33g8zQvNXNxFK+bNLwvkoVxMKbz7TU=
+			aCUvNR7nQQ9g4qrMu2b0XKuD1mdV/3IB7Psafp6vVkE=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dPoint.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jy2CzofbNEWaHV2HlWiZpVon5sG8gXWRmcK78IZbFwE=
+			gVRuwAWlP1PWOCtcWGvfp6Gv7YN1IlhscubnupL3gPs=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dPoint3d.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2hnLxZY6tdF7mQPNDp5zV/l5/7aHpKC1QkPIigdtkjc=
+			+1gaquCW8A31NCDbnciKVbICmQVNSzzEuQCmqoipchU=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dPolygon.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IyMS84am3PiIT+bGeQI2873MKlzrGzBPOl9wZA6P1Qk=
+			ZeiHIT5715kccfExRk+8Dt5rveyk3iYMUY5Vnum3a9Y=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dRasterTerrain.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+kQ06P2SbE/6vN144UIlwy8zUtqqHZr3tiFxPcG7Csw=
+			lH/moqhkZpA6BeWajHwl5VFIgISXuxAPwJKwaUeCI9Y=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dSimpleLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ixfZ3CO9KrHZTddZNNNRpmR4DqLOEsVK0hkiFXdcN7c=
+			WszT/B1/Bav0bWVa6XlWZC9574yI1kSO9TEgPSjPzzY=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/Map2dTerrain.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SPf9ejPHtVmNga8YCfFwt1rqB1pAU/7iG4qlU3xGy1I=
+			WhBLTnDZZV24zHMRhypz52tfunettfOulEP24w7mk4k=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/ScreenQuad.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			QHbUSa6BcVEkHRGOmxRDqEPbnwhLxKX22uWpyizvcW4=
+			al1yne6VcWBPyCCOFm1c/B6eRIcdknQTbtgUSJupXf4=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/SpaceBackground.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			uUVV5wfJdG4KPFwBOdvjH4lzADNRpyqahQgbxAGgpYE=
+			ZljCy1O5ygvHIoYofmSx4yB0D8Vx3R6j/Vb4FI7o2pk=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/VenueGeometryFace.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZYyWOMQ1dPGx6LhSPr/pYqwytL43K1wI0tjIfATPge4=
+			yZGtW8NidPzZGeeBp3YhlZyFxSIJBv2H6ZbQ1pYcK10=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios/VenueGeometryLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yNNMiP2a3U0/ThRnrErS4uCNdeaoeFfyArEs4OIHe4o=
+			YIviyBhW+6eHs9rUWntwcyV0xP3LB6eG8FIp7QDWQqk=
 			</data>
 		</dict>
 		<key>localization/tmcevents.bg-BG</key>
@@ -27379,28 +27434,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			jBwavYd6pk1f92g9rutQgXdi8aNha5rB16vwLT3Oiws=
+			BVNSY/IbSdjiG0m5/Z9Sl+SqB5J6DmMyqPZ9vZMWu7k=
 			</data>
 		</dict>
 		<key>magma/shaders/metal_ios/FogParameters.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Nkx4yQbovPdxGmxFF6y5dL06aNozis9uSIn8wXz6jy0=
+			Sgb2UXd5k842xxB/gOjr5+JKbBm/FEFCAsJxCXYpjaw=
 			</data>
 		</dict>
 		<key>magma/shaders/metal_ios/Font.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hGVWtKmhxC3VbSSGChAb48XF6ag5sWTtaXDMoKXTx/s=
+			9v+mtXCsgGSj4LiLbbZtqYyjBB7LSlr68vMNY+pF98w=
 			</data>
 		</dict>
 		<key>magma/shaders/metal_ios/Primitive.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WEF6zG7y484O9i/WpJfPU66514oxRu/eWaNY32Sv++8=
+			EhdH0xFYd/m0VBXkpBEdPXU8qmejgt70tXcTd00PUTo=
 			</data>
 		</dict>
 		<key>svg_assets/JV_TREES_FUTURISTIC_DAY_DECIDUOUS_4_23.png</key>

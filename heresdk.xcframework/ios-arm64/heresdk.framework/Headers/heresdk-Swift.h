@@ -314,6 +314,14 @@ SWIFT_CLASS("_TtC7heresdk21SDKNativeEngineHolder")
 @end
 
 
+/// Do not use this. This class is used to initialize internals of the SDK.
+SWIFT_CLASS("_TtC7heresdk24SDKNavigationInitializer")
+@interface SDKNavigationInitializer : NSObject
+- (void)initializeInternalsIfNecessary;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
 #endif
 #if defined(__cplusplus)
 #endif
