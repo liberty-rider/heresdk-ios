@@ -14,4 +14,6 @@ Pour ajouter tous les fichiers d'un type spécifique de manière récursive à G
   - `git add .`
   - `git commit -m "update Heremaps to v4.X.Y.Z"` puis `git push`
   - `git tag -a 4.X.Y.Z -m "4.X.Y.Z"` puis `git push origin --tags`
-- Dans le projet angel-ios, ne pas oublier de mettre à jour le fichier `heresdk.podspec` en mettant à jour la nouvelle version.
+- Dans le projet angel-ios :
+  - ne pas oublier de mettre à jour le fichier `heresdk.podspec` en mettant à jour la nouvelle version
+  - dans la console, d'exécuter `pod update heresdk --no-repo-update`
