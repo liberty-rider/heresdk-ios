@@ -47,6 +47,7 @@ function mods.apply_language_specific_mods(original_sentence)
     sentence = sentence:gsub("mailia jälkeen", "mailin jälkeen")
     sentence = sentence:gsub("jalkaa jälkeen", "jalan jälkeen")
     sentence = sentence:gsub("jaardia jälkeen", "jaardin jälkeen")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     -- Handling numbers in accusative form
     local i, j = string.find(sentence, "^[0-9]+%s+[^%s]+%s+jälkeen")

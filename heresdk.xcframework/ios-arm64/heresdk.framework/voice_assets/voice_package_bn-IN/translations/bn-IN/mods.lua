@@ -1,6 +1,7 @@
 local mods = require('translations.mods')
 
 function mods.apply_language_specific_mods(sentence)
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
     sentence = sentence:gsub("{DIRECTION} নিন", "")
     sentence = sentence:gsub("{NEXT_DIRECTION} নিন", "")
     sentence = sentence:gsub("{DIRECTION} এ যান", "")

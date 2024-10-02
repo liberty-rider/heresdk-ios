@@ -20,6 +20,7 @@ function mods.apply_language_specific_mods(original_sentence)
                                                "la destinația dumneavoastră")
 
     modified_sentence = modified_sentence:gsub("spre {ORIENTATION} ", "")
+    modified_sentence = modified_sentence:gsub(", {SIGNPOST}", "" )
 
     return modified_sentence
 end

@@ -8,6 +8,7 @@ end
 
 function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("verso {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
     sentence = sentence:gsub(" 1 chilometro", " un chilometro")
     sentence = sentence:gsub("poi immediatamente (%w+) ", "poi %1 immediatamente ")
 

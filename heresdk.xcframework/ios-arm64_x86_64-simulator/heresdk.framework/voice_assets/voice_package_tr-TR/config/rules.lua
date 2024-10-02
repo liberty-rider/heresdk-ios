@@ -437,9 +437,6 @@ rules.use_lane_information = { Setting = true }
 -- if limit set to -1, lane information is never included, since the distance is always greater than -1
 rules.lane_information_limit = { Attribute = 'trigger',
                                       Values = { ['distance'] = { Setting = nil },
-                                                 ['range'] = { Attribute = 'road_class',
-                                                               Values = { ['street'] = { Setting = 350 },
-                                                                          ['*'] = { Setting = 800 }}},
                                                  ['*'] = { Setting = -1 }}}
 
 

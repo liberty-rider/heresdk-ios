@@ -19,6 +19,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("immediatament useu", "useu immediatament")
 
     sentence = sentence:gsub("en sentit {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     return sentence
 end

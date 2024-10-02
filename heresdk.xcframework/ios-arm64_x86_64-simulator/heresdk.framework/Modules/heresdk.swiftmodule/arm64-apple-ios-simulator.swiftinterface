@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
-// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name heresdk
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name heresdk
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import CoreGraphics
 import CoreLocation
@@ -319,7 +319,10 @@ public struct CarSpecifications : Swift.Hashable {
   public var heightInCentimeters: Swift.Int32?
   public var widthInCentimeters: Swift.Int32?
   public var lengthInCentimeters: Swift.Int32?
-  public init(grossWeightInKilograms: Swift.Int32? = nil, heightInCentimeters: Swift.Int32? = nil, widthInCentimeters: Swift.Int32? = nil, lengthInCentimeters: Swift.Int32? = nil)
+  public var axleCount: Swift.Int32?
+  public var trailerCount: Swift.Int32?
+  public var trailerAxleCount: Swift.Int32?
+  public init(grossWeightInKilograms: Swift.Int32? = nil, heightInCentimeters: Swift.Int32? = nil, widthInCentimeters: Swift.Int32? = nil, lengthInCentimeters: Swift.Int32? = nil, axleCount: Swift.Int32? = nil, trailerCount: Swift.Int32? = nil, trailerAxleCount: Swift.Int32? = nil)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.CarSpecifications, b: heresdk.CarSpecifications) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -383,7 +386,8 @@ public struct TruckSpecifications : Swift.Hashable {
   public var truckType: heresdk.TruckType
   public var isTruckLight: Swift.Bool
   public var payloadCapacityInKilograms: Swift.Int32?
-  public init(grossWeightInKilograms: Swift.Int32? = nil, weightPerAxleInKilograms: Swift.Int32? = nil, weightPerAxleGroup: heresdk.WeightPerAxleGroup? = nil, heightInCentimeters: Swift.Int32? = nil, widthInCentimeters: Swift.Int32? = nil, lengthInCentimeters: Swift.Int32? = nil, axleCount: Swift.Int32? = nil, trailerCount: Swift.Int32? = nil, truckType: heresdk.TruckType = TruckType.straight, isTruckLight: Swift.Bool = false, payloadCapacityInKilograms: Swift.Int32? = nil)
+  public var trailerAxleCount: Swift.Int32?
+  public init(grossWeightInKilograms: Swift.Int32? = nil, weightPerAxleInKilograms: Swift.Int32? = nil, weightPerAxleGroup: heresdk.WeightPerAxleGroup? = nil, heightInCentimeters: Swift.Int32? = nil, widthInCentimeters: Swift.Int32? = nil, lengthInCentimeters: Swift.Int32? = nil, axleCount: Swift.Int32? = nil, trailerCount: Swift.Int32? = nil, truckType: heresdk.TruckType = TruckType.straight, isTruckLight: Swift.Bool = false, payloadCapacityInKilograms: Swift.Int32? = nil, trailerAxleCount: Swift.Int32? = nil)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.TruckSpecifications, b: heresdk.TruckSpecifications) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -434,6 +438,8 @@ public struct WeightPerAxleGroup : Swift.Hashable {
 @_hasMissingDesignatedInitializers public class RasterDataSource {
   public init(context: heresdk.MapContext, configuration: heresdk.RasterDataSourceConfiguration)
   public init(context: heresdk.MapContext, configuration: heresdk.RasterDataSourceConfiguration, delegate: heresdk.RasterDataSourceDelegate)
+  public init(context: heresdk.MapContext, name: Swift.String, tileSource: heresdk.RasterTileSource)
+  public init(context: heresdk.MapContext, name: Swift.String, tileSource: heresdk.RasterTileSource, delegate: heresdk.RasterDataSourceDelegate)
   @objc deinit
   public func changeConfiguration(_ configuration: heresdk.RasterDataSourceConfigurationUpdate)
   public func addDelegate(_ listener: heresdk.RasterDataSourceDelegate)
@@ -489,6 +495,18 @@ public enum RasterDataSourceError : Swift.UInt32, Swift.CaseIterable, Swift.Coda
   public var rawValue: Swift.UInt32 {
     get
   }
+}
+public protocol RasterTileSource : heresdk.TileSource {
+  var tilingScheme: heresdk.TilingScheme { get }
+  var storageLevels: [Swift.Int32] { get }
+  func getDataVersion(tileKey: heresdk.TileKey) -> heresdk.TileSourceDataVersion
+  func addDelegate(_ delegate: heresdk.TileSourceDelegate)
+  func removeDelegate(_ delegate: heresdk.TileSourceDelegate)
+  func loadTile(tileKey: heresdk.TileKey, completionHandler: heresdk.RasterTileSourceLoadResultHandler) -> heresdk.TileSourceLoadTileRequestHandle?
+}
+public protocol RasterTileSourceLoadResultHandler : AnyObject {
+  func loaded(tileKey: heresdk.TileKey, data: Foundation.Data, metadata: heresdk.TileSourceTileMetadata)
+  func failed(_ tileKey: heresdk.TileKey)
 }
 public struct Anchor2DKeyframe : Swift.Hashable {
   public let value: heresdk.Anchor2D
@@ -759,6 +777,9 @@ public enum DrawOrderType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   }
 }
 @_hasMissingDesignatedInitializers public class HereMap {
+  public var style: heresdk.Style {
+    get
+  }
   @objc deinit
   public func addMapIdleDelegate(_ delegate: heresdk.MapIdleDelegate)
   public func removeMapIdleDelegate(_ delegate: heresdk.MapIdleDelegate)
@@ -1201,6 +1222,7 @@ public struct MapFeatureModes {
   public static let roadExitLabelsNumbersOnly: Swift.String
   public static let roadExitLabelsAll: Swift.String
   public static let shadowsAll: Swift.String
+  public static let contoursAll: Swift.String
 }
 public struct MapFeatures {
   public static let extrudedBuildings: Swift.String
@@ -1216,6 +1238,7 @@ public struct MapFeatures {
   public static let terrain: Swift.String
   public static let roadExitLabels: Swift.String
   public static let shadows: Swift.String
+  public static let contours: Swift.String
 }
 public protocol MapIdleDelegate : AnyObject {
   func onMapBusy()
@@ -1327,8 +1350,10 @@ extension heresdk.MapLayerBuilder : Swift.Hashable {
 extension heresdk.MapLayerBuilder.InstantiationErrorDetails : Swift.Error {
 }
 @_hasMissingDesignatedInitializers public class MapLayerMapMeasureDependentStorageLevels {
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use `MapLayerMapMeasureDependentStorageLevels.withStorageLevelOffset(...)` to\ncreate `MapLayerMapMeasureDependentStorageLevels` instance instead.")
   public init(storageLevelOffset: Swift.Int32)
   @objc deinit
+  public static func withStorageLevelOffset(_ offset: Swift.Int32) -> heresdk.MapLayerMapMeasureDependentStorageLevels
 }
 extension heresdk.MapLayerMapMeasureDependentStorageLevels : Swift.Hashable {
   public static func == (lhs: heresdk.MapLayerMapMeasureDependentStorageLevels, rhs: heresdk.MapLayerMapMeasureDependentStorageLevels) -> Swift.Bool
@@ -1933,6 +1958,7 @@ public enum MapProjection : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   public func getSupportedFeatures() -> [Swift.String : [Swift.String]]
   public func enableFeatures(_ features: [Swift.String : Swift.String])
   public func disableFeatures(_ features: [Swift.String])
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use MapContentSettings.setPoiCategoriesVisibility API instead.")
   public static func setPoiVisibility(categoryIds: [Swift.String], visibility: heresdk.VisibilityState)
   public func reloadScene()
 }
@@ -1969,7 +1995,6 @@ extension heresdk.MapScene.MapPickFilter : Swift.Hashable {
   }
   public enum AttributeSettingError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     case noLights
-    case uninitializedLights
     public init?(rawValue: Swift.UInt32)
     public typealias AllCases = [heresdk.MapSceneLights.AttributeSettingError]
     public typealias RawValue = Swift.UInt32
@@ -2021,6 +2046,8 @@ public enum MapScheme : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case logisticsHybridNight
   case roadNetworkDay
   case roadNetworkNight
+  case topoDay
+  case topoNight
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.MapScheme]
   public typealias RawValue = Swift.UInt32
@@ -2126,6 +2153,7 @@ public enum ShadowQuality : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
 }
 @_hasMissingDesignatedInitializers public class Style {
   @objc deinit
+  public func update(_ style: heresdk.Style)
 }
 extension heresdk.Style : Swift.Hashable {
   public static func == (lhs: heresdk.Style, rhs: heresdk.Style) -> Swift.Bool
@@ -2486,6 +2514,40 @@ extension heresdk.PolygonDataSourceBuilder : Swift.Hashable {
   public var hashValue: Swift.Int {
     get
   }
+}
+public struct TileKey : Swift.Hashable {
+  public var x: Swift.Int32
+  public var y: Swift.Int32
+  public var level: Swift.Int32
+  public init(x: Swift.Int32, y: Swift.Int32, level: Swift.Int32)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TileKey, b: heresdk.TileKey) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol TileSource : AnyObject {
+  var tilingScheme: heresdk.TilingScheme { get }
+  var storageLevels: [Swift.Int32] { get }
+  func getDataVersion(tileKey: heresdk.TileKey) -> heresdk.TileSourceDataVersion
+  func addDelegate(_ delegate: heresdk.TileSourceDelegate)
+  func removeDelegate(_ delegate: heresdk.TileSourceDelegate)
+}
+public protocol TileSourceDelegate : AnyObject {
+  func onDataVersionChanged(_ dataVersion: heresdk.TileSourceDataVersion)
+}
+public protocol TileSourceLoadTileRequestHandle : AnyObject {
+  func cancel()
+}
+public struct TileSourceDataVersion {
+  public var majorVersion: Swift.Int32
+  public var minorVersion: Swift.Int32
+  public init(majorVersion: Swift.Int32, minorVersion: Swift.Int32)
+}
+public struct TileSourceTileMetadata {
+  public var dataVersion: heresdk.TileSourceDataVersion
+  public var dataExpiryTimestamp: Foundation.Date
+  public init(dataVersion: heresdk.TileSourceDataVersion, dataExpiryTimestamp: Foundation.Date)
 }
 @_hasMissingDesignatedInitializers public class TileUrlProviderFactory {
   @objc deinit
@@ -3230,7 +3292,7 @@ extension heresdk.TimeRule : Swift.Hashable {
 public struct TransportProfile : Swift.Hashable {
   public var pedestrianProfile: heresdk.PedestrianProfile
   public var vehicleProfile: heresdk.VehicleProfile?
-  public init(pedestrianProfile: heresdk.PedestrianProfile = PedestrianProfile(), vehicleProfile: heresdk.VehicleProfile? = nil)
+  public init(pedestrianProfile: heresdk.PedestrianProfile = PedestrianProfile(), vehicleProfile: heresdk.VehicleProfile? = VehicleProfile(vehicleType: VehicleType.car))
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.TransportProfile, b: heresdk.TransportProfile) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -3350,6 +3412,16 @@ public enum EngineBaseURL : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     get
   }
 }
+public struct EngineOptions : Swift.Hashable {
+  public var customBaseUrl: Swift.String?
+  public var customAuthenticationMode: heresdk.AuthenticationMode?
+  public init(customBaseUrl: Swift.String? = nil, customAuthenticationMode: heresdk.AuthenticationMode? = nil)
+  public static func == (lhs: heresdk.EngineOptions, rhs: heresdk.EngineOptions) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct LayerConfiguration : Swift.Hashable {
   public var enabledFeatures: [heresdk.LayerConfiguration.Feature]
   public var implicitlyPrefetchedFeatures: [heresdk.LayerConfiguration.Feature]
@@ -3443,6 +3515,7 @@ public enum PassThroughFeature : Swift.UInt32, Swift.CaseIterable, Swift.Codable
   case trafficData
   case trafficTilesFlow
   case trafficTilesIncidents
+  case onlineRouting
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.PassThroughFeature]
   public typealias RawValue = Swift.UInt32
@@ -3553,7 +3626,9 @@ public struct SDKOptions : Swift.Hashable {
   public var layerConfiguration: heresdk.LayerConfiguration
   public var catalogConfigurations: [heresdk.CatalogConfiguration]
   public var autoUpdateOfOnlineCache: Swift.Bool
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `SDKOptions.customEngineOptions` instead")
   public var customEngineBaseUrls: [heresdk.EngineBaseURL : Swift.String]
+  public var customEngineOptions: [heresdk.EngineBaseURL : heresdk.EngineOptions]
   public var authenticationMode: heresdk.AuthenticationMode
   public var networkSettings: heresdk.NetworkSettings
   public var billingTag: Swift.String?
@@ -3595,7 +3670,6 @@ public struct UsageStats {
     case detailedRendering
     case evRendering
     case evSearch
-    case interop
     case navigation
     case places
     case rdsTraffic
@@ -3690,6 +3764,140 @@ public enum WeatherType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   public typealias AllCases = [heresdk.WeatherType]
   public typealias RawValue = Swift.UInt32
   public static var allCases: [heresdk.WeatherType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum AccessAttributes : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case open
+  case noThrough
+  case tollRoad
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.AccessAttributes]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.AccessAttributes] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public struct DynamicSpeedInfo : Swift.Hashable {
+  public var baseSpeedInMetersPerSecond: Swift.Double
+  public var trafficSpeedInMetersPerSecond: Swift.Double
+  public var turnTimeInSeconds: Swift.Int32
+  public init(baseSpeedInMetersPerSecond: Swift.Double, trafficSpeedInMetersPerSecond: Swift.Double, turnTimeInSeconds: Swift.Int32)
+  public func calculateJamFactor() -> Swift.Double
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.DynamicSpeedInfo, b: heresdk.DynamicSpeedInfo) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum FunctionalRoadClass : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case functionalRoadClass1
+  case functionalRoadClass2
+  case functionalRoadClass3
+  case functionalRoadClass4
+  case functionalRoadClass5
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.FunctionalRoadClass]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.FunctionalRoadClass] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public struct LocalizedRoadNumber : Swift.Hashable {
+  public var localizedNumber: heresdk.LocalizedText
+  public var direction: heresdk.CardinalDirection?
+  public var routeType: heresdk.RouteType
+  public init(localizedNumber: heresdk.LocalizedText, direction: heresdk.CardinalDirection? = nil, routeType: heresdk.RouteType)
+  public func completeRoadNumber() -> Swift.String
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.LocalizedRoadNumber, b: heresdk.LocalizedRoadNumber) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct LocalizedRoadNumbers : Swift.Hashable {
+  public var items: [heresdk.LocalizedRoadNumber]
+  public init()
+  public func preferredValue(for locales: [Foundation.Locale]) -> Swift.String?
+  public func defaultValue() -> Swift.String?
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.LocalizedRoadNumbers, b: heresdk.LocalizedRoadNumbers) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct SegmentReference : Swift.Hashable {
+  public var segmentId: Swift.String
+  public var travelDirection: heresdk.TravelDirection
+  public var offsetStart: Swift.Double
+  public var offsetEnd: Swift.Double
+  public var tilePartitionId: Swift.UInt32
+  public var localId: Swift.UInt32?
+  public init(segmentId: Swift.String = "", travelDirection: heresdk.TravelDirection = TravelDirection.bidirectional, offsetStart: Swift.Double = 0.0, offsetEnd: Swift.Double = 1.0, tilePartitionId: Swift.UInt32 = 0, localId: Swift.UInt32? = 0)
+  public static func fromString(segmentRef: Swift.String) -> heresdk.SegmentReference?
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.SegmentReference, b: heresdk.SegmentReference) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum StreetAttributes : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case rightDrivingSide
+  case dirtRoad
+  case tunnel
+  case bridge
+  case ramp
+  case roundabout
+  case underConstruction
+  case dividedRoad
+  case motorway
+  case privateRoad
+  case builtUpArea
+  case controlledAccessHighway
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.StreetAttributes]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.StreetAttributes] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum TravelDirection : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case positive
+  case negative
+  case bidirectional
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.TravelDirection]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.TravelDirection] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum WalkAttributes : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case stairs
+  case park
+  case indoor
+  case open
+  case noThrough
+  case tollRoad
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.WalkAttributes]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.WalkAttributes] {
     get
   }
   public var rawValue: Swift.UInt32 {
@@ -3840,12 +4048,17 @@ public enum RestrictionType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     get
   }
 }
-public struct SpecificRestriction {
+public struct SpecificRestriction : Swift.Hashable {
   public var type: heresdk.RestrictionType
   public var value: heresdk.IntegerRange
   public init(type: heresdk.RestrictionType, value: heresdk.IntegerRange)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.SpecificRestriction, b: heresdk.SpecificRestriction) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
 }
-public struct TimeRestriction {
+public struct TimeRestriction : Swift.Hashable {
   public var category: heresdk.TimeRestriction.Category
   public var applicability: [heresdk.TransportType]
   public var timeRule: heresdk.TimeRule?
@@ -3862,6 +4075,11 @@ public struct TimeRestriction {
     public var rawValue: Swift.UInt32 {
       get
     }
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TimeRestriction, b: heresdk.TimeRestriction) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
   }
 }
 public enum TransportMode : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
@@ -3956,14 +4174,14 @@ public struct VehicleProfile : Swift.Hashable {
   public var lengthInCentimeters: Swift.Int32?
   public var widthInCentimeters: Swift.Int32?
   public var weightPerAxleInKilograms: Swift.Int32?
-  public init(vehicleType: heresdk.VehicleType, truckType: heresdk.TruckType? = nil, trailerCount: Swift.Int32 = 0, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: Swift.Int32? = nil, grossWeightInKilograms: Swift.Int32? = nil, heightInCentimeters: Swift.Int32? = nil, lengthInCentimeters: Swift.Int32? = nil, widthInCentimeters: Swift.Int32? = nil, weightPerAxleInKilograms: Swift.Int32? = nil)
+  public init(vehicleType: heresdk.VehicleType = VehicleType.car, truckType: heresdk.TruckType? = nil, trailerCount: Swift.Int32 = 0, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: Swift.Int32? = nil, grossWeightInKilograms: Swift.Int32? = nil, heightInCentimeters: Swift.Int32? = nil, lengthInCentimeters: Swift.Int32? = nil, widthInCentimeters: Swift.Int32? = nil, weightPerAxleInKilograms: Swift.Int32? = nil)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.VehicleProfile, b: heresdk.VehicleProfile) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
 }
-public struct VehicleRestriction {
+public struct VehicleRestriction : Swift.Hashable {
   public var restriction: heresdk.SpecificRestriction?
   public var hazmatRestriction: heresdk.HazardousMaterialRestriction?
   public var timeRestriction: heresdk.TimeRestriction?
@@ -3973,6 +4191,11 @@ public struct VehicleRestriction {
   public var axleCount: heresdk.IntegerRange?
   public var axleCountInGroup: heresdk.IntegerRange?
   public init(restriction: heresdk.SpecificRestriction? = nil, hazmatRestriction: heresdk.HazardousMaterialRestriction? = nil, timeRestriction: heresdk.TimeRestriction? = nil, weather: heresdk.WeatherType? = nil, truckType: heresdk.TruckType? = nil, trailerCount: heresdk.IntegerRange? = nil, axleCount: heresdk.IntegerRange? = nil, axleCountInGroup: heresdk.IntegerRange? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.VehicleRestriction, b: heresdk.VehicleRestriction) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
 }
 public enum VehicleType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case car
@@ -4457,6 +4680,7 @@ public enum MapLoaderError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case timeOut
   case serviceUnavailable
   case accessDenied
+  case requestLimitReached
   case networkConnectionError
   case forbidden
   case mapDataError
@@ -4479,7 +4703,6 @@ public enum MapLoaderError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case proxyServerUnreachable
   case notEnoughSpace
   case onlineNavigateOnly
-  case requestLimitReached
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.MapLoaderError]
   public typealias RawValue = Swift.UInt32
@@ -4747,6 +4970,8 @@ extension heresdk.LocationIndicator : Swift.Hashable {
   }
   public static func filterVehicleRestrictions(truckSpecifications: heresdk.TruckSpecifications, hazardousMaterials: [heresdk.HazardousMaterial]?, tunnelCategory: heresdk.TunnelCategory?)
   public static func resetVehicleRestrictionFilter()
+  public static func setPoiCategoriesVisibility(categoryIds: [Swift.String], visibility: heresdk.VisibilityState)
+  public static func resetPoiCategoriesVisibility()
   public static func filterTrafficIncidents(trafficIncidents: [heresdk.TrafficIncidentType])
   public static func resetTrafficIncidentFilter()
   public static func setTrafficRefreshPeriod(_ value: Foundation.TimeInterval) throws
@@ -4860,13 +5085,20 @@ public struct MapViewOptions : Swift.Hashable {
     @objc deinit
   }
   public struct VehicleRestrictionResult {
+    @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `PickMapContentResult.VehicleRestrictionResult.vehicleRestriction` instead.")
     public var text: Swift.String
     public var coordinates: heresdk.GeoCoordinates
+    @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `PickMapContentResult.VehicleRestrictionResult.vehicleRestriction` instead.")
     public var restrictionType: Swift.String
+    @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `PickMapContentResult.VehicleRestrictionResult.vehicleRestriction` instead.")
     public var restrictionCategory: Swift.String
     public var countryCode: Swift.String
+    @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `PickMapContentResult.VehicleRestrictionResult.vehicleRestriction` instead.")
     public var timeIntervals: Swift.String
-    public init(text: Swift.String, coordinates: heresdk.GeoCoordinates, restrictionType: Swift.String, restrictionCategory: Swift.String = "", countryCode: Swift.String = "", timeIntervals: Swift.String)
+    public var vehicleRestriction: heresdk.VehicleRestriction?
+    public init(coordinates: heresdk.GeoCoordinates, countryCode: Swift.String = "", vehicleRestriction: heresdk.VehicleRestriction? = nil)
+    @available(*, deprecated)
+    public init(text: Swift.String = "", coordinates: heresdk.GeoCoordinates, restrictionType: Swift.String = "", restrictionCategory: Swift.String = "", countryCode: Swift.String = "", timeIntervals: Swift.String = "", vehicleRestriction: heresdk.VehicleRestriction? = nil)
   }
 }
 extension heresdk.PickMapContentResult : Swift.Hashable {
@@ -4933,9 +5165,14 @@ public protocol BorderCrossingWarningDelegate : AnyObject {
 }
 public struct BorderCrossingWarningOptions : Swift.Hashable {
   public var filterOutStateBorderWarnings: Swift.Bool
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(filterOutStateBorderWarnings: Swift.Bool = false)
+  @available(*, deprecated)
   public init(filterOutStateBorderWarnings: Swift.Bool = false, highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.BorderCrossingWarningOptions, b: heresdk.BorderCrossingWarningOptions) -> Swift.Bool
@@ -4991,10 +5228,16 @@ public struct DangerZoneWarning : Swift.Hashable {
 public protocol DangerZoneWarningDelegate : AnyObject {
   func onDangerZoneWarningsUpdated(_ dangerZonesWarning: heresdk.DangerZoneWarning)
 }
+@available(*, deprecated, message: "Will be removed in v4.23.0. For getting and setting the warning notification distances use the methods `getWarningNotificationDistances` and `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
 public struct DangerZoneWarningOptions : Swift.Hashable {
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init()
+  @available(*, deprecated)
   public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.DangerZoneWarningOptions, b: heresdk.DangerZoneWarningOptions) -> Swift.Bool
@@ -5074,10 +5317,16 @@ public struct EnvironmentalZoneWarning : Swift.Hashable {
 public protocol EnvironmentalZoneWarningDelegate : AnyObject {
   func onEnvironmentalZoneWarningsUpdated(_ environmentalZonesWarning: [heresdk.EnvironmentalZoneWarning])
 }
+@available(*, deprecated, message: "Will be removed in v4.23.0. For getting and setting the warning notification distances use the methods `getWarningNotificationDistances` and `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
 public struct EnvironmentalZoneWarningOptions : Swift.Hashable {
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init()
+  @available(*, deprecated)
   public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.EnvironmentalZoneWarningOptions, b: heresdk.EnvironmentalZoneWarningOptions) -> Swift.Bool
@@ -5330,6 +5579,7 @@ public struct LocationSimulatorOptions : Swift.Hashable {
     get
   }
 }
+@available(*, deprecated, message: "Will be removed in v4.23.0. For getting and setting the warning notification distances use the methods `getWarningNotificationDistances` and `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
 public struct LowSpeedZoneWarning : Swift.Hashable {
   public var distanceToLowSpeedZoneInMeters: Swift.Double
   public var speedLimitInMetersPerSecond: Swift.Double
@@ -5345,20 +5595,20 @@ public protocol LowSpeedZoneWarningDelegate : AnyObject {
   func onLowSpeedZoneWarningUpdated(_ lowSpeedZoneWarning: heresdk.LowSpeedZoneWarning)
 }
 public struct LowSpeedZoneWarningOptions : Swift.Hashable {
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init()
+  @available(*, deprecated)
   public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.LowSpeedZoneWarningOptions, b: heresdk.LowSpeedZoneWarningOptions) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
-}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `EventTextDelegate` listener instead.")
-public protocol ManeuverNotificationDelegate : AnyObject {
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `EventTextDelegate` class instead.")
-  func onManeuverNotification(_ text: Swift.String)
 }
 public struct ManeuverNotificationDetails : Swift.Hashable {
   public var maneuver: heresdk.Maneuver
@@ -5390,10 +5640,15 @@ public struct ManeuverNotificationOptions : Swift.Hashable {
   public var enableHighwayExit: Swift.Bool
   public var includedNaturalGuidanceTypes: [heresdk.NaturalGuidanceType]
   public var directionInformationUsageForActionNotificationOption: heresdk.DirectionInformationUsageOption
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the default constructor instead.")
   public init()
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the default constructor instead.")
   public init(language: heresdk.LanguageCode, unitSystem: heresdk.UnitSystem)
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the default constructor instead.")
   public init(language: heresdk.LanguageCode, unitSystem: heresdk.UnitSystem, includedNotificationTypes: [heresdk.ManeuverNotificationType], enableRoundaboutNotification: Swift.Bool, enableDestinationReachedNotification: Swift.Bool, enableDoubleNotification: Swift.Bool, enablePhoneme: Swift.Bool, textUsageOptions: heresdk.TextUsageOptions, enableHighwayExit: Swift.Bool)
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the default constructor instead.")
   public init(language: heresdk.LanguageCode, unitSystem: heresdk.UnitSystem, includedNotificationTypes: [heresdk.ManeuverNotificationType], enableRoundaboutNotification: Swift.Bool, enableDestinationReachedNotification: Swift.Bool, enableDoubleNotification: Swift.Bool, enablePhoneme: Swift.Bool, streetNameUsageOption: heresdk.LocalizedTextUsageOption, roadNumberUsageOption: heresdk.LocalizedTextUsageOption, signpostDirectionUsageOption: heresdk.LocalizedTextUsageOption, enableHighwayExit: Swift.Bool)
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the default constructor instead.")
   public init(language: heresdk.LanguageCode, unitSystem: heresdk.UnitSystem, includedNotificationTypes: [heresdk.ManeuverNotificationType], enableRoundaboutNotification: Swift.Bool, enableDestinationReachedNotification: Swift.Bool, enableDoubleNotification: Swift.Bool, enablePhoneme: Swift.Bool, notificationFormatOption: heresdk.NotificationFormatOption, streetNameUsageOption: heresdk.LocalizedTextUsageOption, roadNumberUsageOption: heresdk.LocalizedTextUsageOption, signpostDirectionUsageOption: heresdk.LocalizedTextUsageOption, enableHighwayExit: Swift.Bool)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.ManeuverNotificationOptions, b: heresdk.ManeuverNotificationOptions) -> Swift.Bool
@@ -5563,11 +5818,6 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Use `eventTextDelegate` property instead.")
-  weak public var maneuverNotificationDelegate: heresdk.ManeuverNotificationDelegate? {
-    get
-    set
-  }
   weak public var eventTextDelegate: heresdk.EventTextDelegate? {
     get
     set
@@ -5596,6 +5846,7 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var environmentalZoneWarningOptions: heresdk.EnvironmentalZoneWarningOptions {
     get
     set
@@ -5608,6 +5859,7 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var safetyCameraWarningOptions: heresdk.SafetyCameraWarningOptions {
     get
     set
@@ -5616,6 +5868,7 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var dangerZoneWarningOptions: heresdk.DangerZoneWarningOptions {
     get
     set
@@ -5641,14 +5894,6 @@ public protocol NavigableLocationDelegate : AnyObject {
     set
   }
   weak public var roadAttributesDelegate: heresdk.RoadAttributesDelegate? {
-    get
-    set
-  }
-  weak public var spatialManeuverNotificationDelegate: heresdk.SpatialManeuverNotificationDelegate? {
-    get
-    set
-  }
-  weak public var spatialManeuverAzimuthDelegate: heresdk.SpatialManeuverAzimuthDelegate? {
     get
     set
   }
@@ -5688,6 +5933,7 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var tollStopWarningOptions: heresdk.TollStopWarningOptions {
     get
     set
@@ -5696,6 +5942,7 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var railwayCrossingWarningOptions: heresdk.RailwayCrossingWarningOptions {
     get
     set
@@ -5704,6 +5951,7 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var lowSpeedZoneWarningOptions: heresdk.LowSpeedZoneWarningOptions {
     get
     set
@@ -5736,11 +5984,23 @@ public protocol NavigableLocationDelegate : AnyObject {
     get
     set
   }
+  public var trafficOnRoute: heresdk.TrafficOnRoute? {
+    get
+    set
+  }
   @objc deinit
   public func getManeuver(index: Swift.Int32) -> heresdk.Maneuver?
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use the `getManeuverNotificationTimingOptions()` function with `TimingProfile` parameter instead.")
   public func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType) -> heresdk.ManeuverNotificationTimingOptions
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use the `setManeuverNotificationTimingOptions()` function with `TimingProfile` parameter instead.")
   @discardableResult
   public func setManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType, options: heresdk.ManeuverNotificationTimingOptions) -> Swift.Bool
+  public func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, timingProfile: heresdk.TimingProfile) -> heresdk.ManeuverNotificationTimingOptions
+  @discardableResult
+  public func setManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, timingProfile: heresdk.TimingProfile, options: heresdk.ManeuverNotificationTimingOptions) -> Swift.Bool
+  public func getWarningNotificationDistances(warningType: heresdk.WarningType) -> heresdk.WarningNotificationDistances
+  @discardableResult
+  public func setWarningNotificationDistances(warningType: heresdk.WarningType, warningNotificationDistances: heresdk.WarningNotificationDistances) -> Swift.Bool
   public func repeatLastManeuverNotification()
   public func calculateRemainingDistanceInMeters(coordinates: heresdk.GeoCoordinates) -> Swift.Int32?
   public func setCustomOption(key: Swift.String, value: Swift.String)
@@ -5760,8 +6020,6 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var navigableLocationDelegate: heresdk.NavigableLocationDelegate? { get set }
   var routeProgressDelegate: heresdk.RouteProgressDelegate? { get set }
   var routeDeviationDelegate: heresdk.RouteDeviationDelegate? { get set }
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Use `eventTextDelegate` property instead.")
-  var maneuverNotificationDelegate: heresdk.ManeuverNotificationDelegate? { get set }
   var eventTextDelegate: heresdk.EventTextDelegate? { get set }
   var milestoneStatusDelegate: heresdk.MilestoneStatusDelegate? { get set }
   var destinationReachedDelegate: heresdk.DestinationReachedDelegate? { get set }
@@ -5769,11 +6027,14 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var maneuverViewLaneAssistanceDelegate: heresdk.ManeuverViewLaneAssistanceDelegate? { get set }
   var currentSituationLaneAssistanceViewDelegate: heresdk.CurrentSituationLaneAssistanceViewDelegate? { get set }
   var environmentalZoneWarningListenerDelegate: heresdk.EnvironmentalZoneWarningDelegate? { get set }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   var environmentalZoneWarningOptions: heresdk.EnvironmentalZoneWarningOptions { get set }
   var junctionViewLaneAssistanceDelegate: heresdk.JunctionViewLaneAssistanceDelegate? { get set }
   var safetyCameraWarningDelegate: heresdk.SafetyCameraWarningDelegate? { get set }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   var safetyCameraWarningOptions: heresdk.SafetyCameraWarningOptions { get set }
   var dangerZoneWarningListenerDelegate: heresdk.DangerZoneWarningDelegate? { get set }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   var dangerZoneWarningOptions: heresdk.DangerZoneWarningOptions { get set }
   var truckRestrictionsWarningDelegate: heresdk.TruckRestrictionsWarningDelegate? { get set }
   var truckRestrictionsWarningOptions: heresdk.TruckRestrictionsWarningOptions { get set }
@@ -5781,8 +6042,6 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var speedLimitDelegate: heresdk.SpeedLimitDelegate? { get set }
   var roadTextsDelegate: heresdk.RoadTextsDelegate? { get set }
   var roadAttributesDelegate: heresdk.RoadAttributesDelegate? { get set }
-  var spatialManeuverNotificationDelegate: heresdk.SpatialManeuverNotificationDelegate? { get set }
-  var spatialManeuverAzimuthDelegate: heresdk.SpatialManeuverAzimuthDelegate? { get set }
   var roadSignWarningDelegate: heresdk.RoadSignWarningDelegate? { get set }
   var roadSignWarningOptions: heresdk.RoadSignWarningOptions { get set }
   var schoolZoneWarningDelegate: heresdk.SchoolZoneWarningDelegate? { get set }
@@ -5792,10 +6051,13 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var borderCrossingWarningDelegate: heresdk.BorderCrossingWarningDelegate? { get set }
   var borderCrossingWarningOptions: heresdk.BorderCrossingWarningOptions { get set }
   var tollStopWarningDelegate: heresdk.TollStopWarningDelegate? { get set }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   var tollStopWarningOptions: heresdk.TollStopWarningOptions { get set }
   var railwayCrossingWarningDelegate: heresdk.RailwayCrossingWarningDelegate? { get set }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   var railwayCrossingWarningOptions: heresdk.RailwayCrossingWarningOptions { get set }
   var lowSpeedZoneWarningDelegate: heresdk.LowSpeedZoneWarningDelegate? { get set }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   var lowSpeedZoneWarningOptions: heresdk.LowSpeedZoneWarningOptions { get set }
   var offRoadDestinationReachedDelegate: heresdk.OffRoadDestinationReachedDelegate? { get set }
   var offRoadProgressDelegate: heresdk.OffRoadProgressDelegate? { get set }
@@ -5804,11 +6066,20 @@ public protocol NavigatorProtocol : heresdk.LocationDelegate {
   var speedWarningOptions: heresdk.SpeedWarningOptions { get set }
   var isEnableTunnelExtrapolation: Swift.Bool { get set }
   var isPassthroughWaypointsHandlingEnabled: Swift.Bool { get set }
+  var trafficOnRoute: heresdk.TrafficOnRoute? { get set }
   func onLocationUpdated(_ location: heresdk.Location)
   func getManeuver(index: Swift.Int32) -> heresdk.Maneuver?
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use the `getManeuverNotificationTimingOptions()` function with `TimingProfile` parameter instead.")
   func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType) -> heresdk.ManeuverNotificationTimingOptions
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use the `setManeuverNotificationTimingOptions()` function with `TimingProfile` parameter instead.")
   @discardableResult
   func setManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType, options: heresdk.ManeuverNotificationTimingOptions) -> Swift.Bool
+  func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, timingProfile: heresdk.TimingProfile) -> heresdk.ManeuverNotificationTimingOptions
+  @discardableResult
+  func setManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, timingProfile: heresdk.TimingProfile, options: heresdk.ManeuverNotificationTimingOptions) -> Swift.Bool
+  func getWarningNotificationDistances(warningType: heresdk.WarningType) -> heresdk.WarningNotificationDistances
+  @discardableResult
+  func setWarningNotificationDistances(warningType: heresdk.WarningType, warningNotificationDistances: heresdk.WarningNotificationDistances) -> Swift.Bool
   func repeatLastManeuverNotification()
   func calculateRemainingDistanceInMeters(coordinates: heresdk.GeoCoordinates) -> Swift.Int32?
   func setCustomOption(key: Swift.String, value: Swift.String)
@@ -5859,10 +6130,16 @@ public struct RailwayCrossingWarning : Swift.Hashable {
 public protocol RailwayCrossingWarningDelegate : AnyObject {
   func onRailwayCrossingWarningUpdated(_ railwayCrossingWarning: heresdk.RailwayCrossingWarning)
 }
+@available(*, deprecated, message: "Will be removed in v4.23.0. For getting and setting the warning notification distances use the methods `getWarningNotificationDistances` and `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
 public struct RailwayCrossingWarningOptions : Swift.Hashable {
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init()
+  @available(*, deprecated)
   public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.RailwayCrossingWarningOptions, b: heresdk.RailwayCrossingWarningOptions) -> Swift.Bool
@@ -5922,9 +6199,14 @@ public protocol RealisticViewWarningDelegate : AnyObject {
 public struct RealisticViewWarningOptions : Swift.Hashable {
   public var aspectRatio: heresdk.AspectRatio
   public var darkTheme: Swift.Bool
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(aspectRatio: heresdk.AspectRatio = AspectRatio.aspectRatio3X4, darkTheme: Swift.Bool = false)
+  @available(*, deprecated)
   public init(aspectRatio: heresdk.AspectRatio = AspectRatio.aspectRatio3X4, darkTheme: Swift.Bool = false, highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.RealisticViewWarningOptions, b: heresdk.RealisticViewWarningOptions) -> Swift.Bool
@@ -6091,9 +6373,14 @@ public struct RoadSignWarningOptions : Swift.Hashable {
   public var categoriesFilter: [heresdk.RoadSignCategory]
   public var generalWarningTypesFilter: [heresdk.GeneralWarningRoadSignType]
   public var vehicleTypesFilter: [heresdk.RoadSignVehicleType]
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(typesFilter: [heresdk.RoadSignType] = [], categoriesFilter: [heresdk.RoadSignCategory] = [], generalWarningTypesFilter: [heresdk.GeneralWarningRoadSignType] = [], vehicleTypesFilter: [heresdk.RoadSignVehicleType] = [])
+  @available(*, deprecated)
   public init(typesFilter: [heresdk.RoadSignType] = [], categoriesFilter: [heresdk.RoadSignCategory] = [], generalWarningTypesFilter: [heresdk.GeneralWarningRoadSignType] = [], vehicleTypesFilter: [heresdk.RoadSignVehicleType] = [], highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.RoadSignWarningOptions, b: heresdk.RoadSignWarningOptions) -> Swift.Bool
@@ -6167,10 +6454,16 @@ public struct SafetyCameraWarning : Swift.Hashable {
 public protocol SafetyCameraWarningDelegate : AnyObject {
   func onSafetyCameraWarningUpdated(_ safetyCameraWarning: heresdk.SafetyCameraWarning)
 }
+@available(*, deprecated, message: "Will be removed in v4.23.0. For getting and setting the warning notification distances use the methods `getWarningNotificationDistances` and `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
 public struct SafetyCameraWarningOptions : Swift.Hashable {
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init()
+  @available(*, deprecated)
   public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.SafetyCameraWarningOptions, b: heresdk.SafetyCameraWarningOptions) -> Swift.Bool
@@ -6225,41 +6518,6 @@ extension heresdk.SpatialAudioCuePanning : Swift.Hashable {
   public var hashValue: Swift.Int {
     get
   }
-}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `SpatialNotificationDetails` class instead.")
-public struct SpatialManeuver : Swift.Hashable {
-  public var voiceText: Swift.String
-  public var maneuver: heresdk.Maneuver
-  public var initialAzimuthInDegrees: Swift.Double
-  public var estimatedAudioCueDuration: Foundation.TimeInterval
-  public init(voiceText: Swift.String, maneuver: heresdk.Maneuver, initialAzimuthInDegrees: Swift.Double, estimatedAudioCueDuration: Foundation.TimeInterval)
-  public static func == (lhs: heresdk.SpatialManeuver, rhs: heresdk.SpatialManeuver) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `SpatialAudioCuePanning` listener instead.")
-public class SpatialManeuverAudioCuePanning {
-  @objc deinit
-  public func startPanning(nextCustomPanningData: heresdk.CustomPanningData?)
-}
-extension heresdk.SpatialManeuverAudioCuePanning : Swift.Hashable {
-  public static func == (lhs: heresdk.SpatialManeuverAudioCuePanning, rhs: heresdk.SpatialManeuverAudioCuePanning) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `EventTextDelegate` class instead.")
-public protocol SpatialManeuverAzimuthDelegate : AnyObject {
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `EventTextDelegate` class instead.")
-  func onAzimuthNotification(nextSpatialTrajectoryData: heresdk.SpatialTrajectoryData)
-}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `EventTextDelegate` listener instead.")
-public protocol SpatialManeuverNotificationDelegate : AnyObject {
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Please use the method with `EventTextDelegate` class instead.")
-  func onSpatialManeuverNotification(spatialManeuver: heresdk.SpatialManeuver, audioCuePanning: heresdk.SpatialManeuverAudioCuePanning)
 }
 public struct SpatialNotificationDetails : Swift.Hashable {
   public var initialAzimuthInDegrees: Swift.Double
@@ -6379,6 +6637,20 @@ public enum TextNotificationType : Swift.UInt32, Swift.CaseIterable, Swift.Codab
     get
   }
 }
+public enum TimingProfile : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case slowSpeed
+  case regularSpeed
+  case fastSpeed
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.TimingProfile]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.TimingProfile] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
 public struct TollBooth : Swift.Hashable {
   public var tollCollectionMethods: [heresdk.TollCollectionMethod]
   public var paymentMethods: [heresdk.PaymentMethod]
@@ -6428,10 +6700,16 @@ public struct TollStop : Swift.Hashable {
 public protocol TollStopWarningDelegate : AnyObject {
   func onTollStopWarning(_ tollStop: heresdk.TollStop)
 }
+@available(*, deprecated, message: "Will be removed in v4.23.0. For getting and setting the warning notification distances use the methods `getWarningNotificationDistances` and `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
 public struct TollStopWarningOptions : Swift.Hashable {
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init()
+  @available(*, deprecated)
   public init(highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.TollStopWarningOptions, b: heresdk.TollStopWarningOptions) -> Swift.Bool
@@ -6444,8 +6722,6 @@ public struct TruckRestrictionWarning : Swift.Hashable {
   public var weightRestriction: heresdk.WeightRestriction?
   public var dimensionRestriction: heresdk.DimensionRestriction?
   public var distanceType: heresdk.DistanceType
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
-  public var type: heresdk.TruckRestrictionWarningType
   public var trailerCount: heresdk.IntegerRange?
   public var timeRule: heresdk.TimeRule?
   public var truckRoadType: heresdk.TruckRoadType?
@@ -6453,26 +6729,9 @@ public struct TruckRestrictionWarning : Swift.Hashable {
   public var tunnelCategory: heresdk.TunnelCategory?
   public var axleCount: heresdk.IntegerRange?
   public init(distanceInMeters: Swift.Double, weightRestriction: heresdk.WeightRestriction? = nil, dimensionRestriction: heresdk.DimensionRestriction? = nil, distanceType: heresdk.DistanceType, trailerCount: heresdk.IntegerRange? = nil, timeRule: heresdk.TimeRule? = nil, truckRoadType: heresdk.TruckRoadType? = nil, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: heresdk.IntegerRange? = nil)
-  @available(*, deprecated)
-  public init(distanceInMeters: Swift.Double, weightRestriction: heresdk.WeightRestriction? = nil, dimensionRestriction: heresdk.DimensionRestriction? = nil, distanceType: heresdk.DistanceType, type: heresdk.TruckRestrictionWarningType = TruckRestrictionWarningType.general, trailerCount: heresdk.IntegerRange? = nil, timeRule: heresdk.TimeRule? = nil, truckRoadType: heresdk.TruckRoadType? = nil, hazardousMaterials: [heresdk.HazardousMaterial] = [], tunnelCategory: heresdk.TunnelCategory? = nil, axleCount: heresdk.IntegerRange? = nil)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.TruckRestrictionWarning, b: heresdk.TruckRestrictionWarning) -> Swift.Bool
   public var hashValue: Swift.Int {
-    get
-  }
-}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
-public enum TruckRestrictionWarningType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case general
-  case weight
-  case dimension
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.TruckRestrictionWarningType]
-  public typealias RawValue = Swift.UInt32
-  public static var allCases: [heresdk.TruckRestrictionWarningType] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
     get
   }
 }
@@ -6481,13 +6740,51 @@ public protocol TruckRestrictionsWarningDelegate : AnyObject {
 }
 public struct TruckRestrictionsWarningOptions : Swift.Hashable {
   public var filterOutInactiveTimeDependentRestrictions: Swift.Bool
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var highwayWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var ruralWarningDistanceInMeters: Swift.Int32
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var urbanWarningDistanceInMeters: Swift.Int32
+  public init(filterOutInactiveTimeDependentRestrictions: Swift.Bool = false)
+  @available(*, deprecated)
   public init(filterOutInactiveTimeDependentRestrictions: Swift.Bool = false, highwayWarningDistanceInMeters: Swift.Int32 = 1500, ruralWarningDistanceInMeters: Swift.Int32 = 750, urbanWarningDistanceInMeters: Swift.Int32 = 500)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.TruckRestrictionsWarningOptions, b: heresdk.TruckRestrictionsWarningOptions) -> Swift.Bool
   public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct WarningNotificationDistances : Swift.Hashable {
+  public var slowSpeedDistanceInMeters: Swift.Int32
+  public var regularSpeedDistanceInMeters: Swift.Int32
+  public var fastSpeedDistanceInMeters: Swift.Int32
+  public init(slowSpeedDistanceInMeters: Swift.Int32 = 500, regularSpeedDistanceInMeters: Swift.Int32 = 750, fastSpeedDistanceInMeters: Swift.Int32 = 1500)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.WarningNotificationDistances, b: heresdk.WarningNotificationDistances) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum WarningType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case safetyCamera
+  case truckRestriction
+  case roadSign
+  case realisticView
+  case environmentalZone
+  case schoolZone
+  case tollStop
+  case dangerZone
+  case borderCrossing
+  case railwayCrossing
+  case lowSpeedZone
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.WarningType]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.WarningType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
     get
   }
 }
@@ -6721,9 +7018,6 @@ public struct RouteStop {
   public func calculateRoute(with waypoints: [heresdk.Waypoint], privateBusOptions: heresdk.PrivateBusOptions, completion: @escaping heresdk.CalculateRouteCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func returnToRoute(_ route: heresdk.Route, startingPoint: heresdk.Waypoint, lastTraveledSectionIndex: Swift.Int32, traveledDistanceOnLastSectionInMeters: Swift.Int32, completion: @escaping heresdk.CalculateRouteCompletionHandler) -> heresdk.TaskHandle
-  @available(*, deprecated, message: "Will be removed in v4.20.0. The functionality moved to IsolineRoutingEngine, please use it instead.")
-  @discardableResult
-  public func calculateIsoline(center: heresdk.Waypoint, isolineOptions: heresdk.IsolineOptions, completion: @escaping heresdk.CalculateIsolineCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func refreshRoute(routeHandle: heresdk.RouteHandle, startingPoint: heresdk.Waypoint, refreshRouteOptions: heresdk.RefreshRouteOptions, completion: @escaping heresdk.CalculateRouteCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
@@ -6770,26 +7064,14 @@ public struct RouteStop {
   public func importRoute(with locations: [heresdk.Location], routeStops: [heresdk.RouteStop], evCarOptions: heresdk.EVCarOptions, completion: @escaping heresdk.CalculateRouteCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func importRoute(with locations: [heresdk.Location], routeStops: [heresdk.RouteStop], evTruckOptions: heresdk.EVTruckOptions, completion: @escaping heresdk.CalculateRouteCompletionHandler) -> heresdk.TaskHandle
+  public func calculateTrafficOnRoute(route: heresdk.Route, lastTraveledSectionIndex: Swift.Int32, traveledDistanceOnLastSectionInMeters: Swift.Int32, completion: @escaping heresdk.CalculateTrafficOnRouteCompletionHandler) -> heresdk.TaskHandle
+  public func calculateTrafficOnRoute(route: heresdk.Route, lastTraveledSectionIndex: Swift.Int32, traveledDistanceOnLastSectionInMeters: Swift.Int32, currentChargeInKilowattHours: Swift.Double, completion: @escaping heresdk.CalculateTrafficOnRouteCompletionHandler) -> heresdk.TaskHandle
   public func setCustomOption(name: Swift.String, value: Swift.String?) -> heresdk.RoutingError?
 }
 extension heresdk.RoutingEngine : Swift.Hashable {
   public static func == (lhs: heresdk.RoutingEngine, rhs: heresdk.RoutingEngine) -> Swift.Bool
   public func hash(into hasher: inout Swift.Hasher)
   public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum AccessAttributes : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case open
-  case noThrough
-  case tollRoad
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.AccessAttributes]
-  public typealias RawValue = Swift.UInt32
-  public static var allCases: [heresdk.AccessAttributes] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
     get
   }
 }
@@ -6816,14 +7098,57 @@ public enum AttributionType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     get
   }
 }
+public struct AvoidBoundingBoxAreaOptions : Swift.Hashable {
+  public var avoidBoundingBoxArea: heresdk.GeoBox
+  public var boundingBoxExceptionAreas: [heresdk.GeoBox]
+  public var polygonExceptionAreas: [heresdk.GeoPolygon]
+  public var corridorExceptionAreas: [heresdk.GeoCorridor]
+  public init(avoidBoundingBoxArea: heresdk.GeoBox, boundingBoxExceptionAreas: [heresdk.GeoBox] = [], polygonExceptionAreas: [heresdk.GeoPolygon] = [], corridorExceptionAreas: [heresdk.GeoCorridor] = [])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.AvoidBoundingBoxAreaOptions, b: heresdk.AvoidBoundingBoxAreaOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct AvoidCorridorAreaOptions : Swift.Hashable {
+  public var avoidCorridorArea: heresdk.GeoCorridor
+  public var boundingBoxExceptionAreas: [heresdk.GeoBox]
+  public var polygonExceptionAreas: [heresdk.GeoPolygon]
+  public var corridorExceptionAreas: [heresdk.GeoCorridor]
+  public init(avoidCorridorArea: heresdk.GeoCorridor, boundingBoxExceptionAreas: [heresdk.GeoBox] = [], polygonExceptionAreas: [heresdk.GeoPolygon] = [], corridorExceptionAreas: [heresdk.GeoCorridor] = [])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.AvoidCorridorAreaOptions, b: heresdk.AvoidCorridorAreaOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct AvoidPolygonAreaOptions : Swift.Hashable {
+  public var avoidPolygonArea: heresdk.GeoPolygon
+  public var boundingBoxExceptionAreas: [heresdk.GeoBox]
+  public var polygonExceptionAreas: [heresdk.GeoPolygon]
+  public var corridorExceptionAreas: [heresdk.GeoCorridor]
+  public init(avoidPolygonArea: heresdk.GeoPolygon, boundingBoxExceptionAreas: [heresdk.GeoBox] = [], polygonExceptionAreas: [heresdk.GeoPolygon] = [], corridorExceptionAreas: [heresdk.GeoCorridor] = [])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.AvoidPolygonAreaOptions, b: heresdk.AvoidPolygonAreaOptions) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct AvoidanceOptions : Swift.Hashable {
   public var roadFeatures: [heresdk.RoadFeatures]
   public var countries: [heresdk.CountryCode]
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `AvoidanceOptions.avoidBoundingBoxAreasOptions`")
   public var avoidBoundingBoxAreas: [heresdk.GeoBox]
+  public var avoidBoundingBoxAreasOptions: [heresdk.AvoidBoundingBoxAreaOptions]
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `AvoidanceOptions.avoidPolygonAreasOptions`")
   public var avoidPolygonAreas: [heresdk.GeoPolygon]
+  public var avoidPolygonAreasOptions: [heresdk.AvoidPolygonAreaOptions]
+  public var avoidCorridorAreasOptions: [heresdk.AvoidCorridorAreaOptions]
   public var zoneCategories: [heresdk.ZoneCategory]
   public var segments: [heresdk.SegmentReference]
-  public init(roadFeatures: [heresdk.RoadFeatures] = [], countries: [heresdk.CountryCode] = [], avoidBoundingBoxAreas: [heresdk.GeoBox] = [], avoidPolygonAreas: [heresdk.GeoPolygon] = [], zoneCategories: [heresdk.ZoneCategory] = [], segments: [heresdk.SegmentReference] = [])
+  public init(roadFeatures: [heresdk.RoadFeatures] = [], countries: [heresdk.CountryCode] = [], avoidBoundingBoxAreasOptions: [heresdk.AvoidBoundingBoxAreaOptions] = [], avoidPolygonAreasOptions: [heresdk.AvoidPolygonAreaOptions] = [], avoidCorridorAreasOptions: [heresdk.AvoidCorridorAreaOptions] = [], zoneCategories: [heresdk.ZoneCategory] = [], segments: [heresdk.SegmentReference] = [])
+  @available(*, deprecated)
+  public init(roadFeatures: [heresdk.RoadFeatures] = [], countries: [heresdk.CountryCode] = [], avoidBoundingBoxAreas: [heresdk.GeoBox] = [], avoidBoundingBoxAreasOptions: [heresdk.AvoidBoundingBoxAreaOptions] = [], avoidPolygonAreas: [heresdk.GeoPolygon] = [], avoidPolygonAreasOptions: [heresdk.AvoidPolygonAreaOptions] = [], avoidCorridorAreasOptions: [heresdk.AvoidCorridorAreaOptions] = [], zoneCategories: [heresdk.ZoneCategory] = [], segments: [heresdk.SegmentReference] = [])
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.AvoidanceOptions, b: heresdk.AvoidanceOptions) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -6875,6 +7200,7 @@ public struct BusOptions : Swift.Hashable {
   }
 }
 public typealias CalculateRouteCompletionHandler = (heresdk.RoutingError?, [heresdk.Route]?) -> Swift.Void
+public typealias CalculateTrafficOnRouteCompletionHandler = (heresdk.RoutingError?, heresdk.TrafficOnRoute?) -> Swift.Void
 public struct CarOptions : Swift.Hashable {
   public var routeOptions: heresdk.RouteOptions
   public var textOptions: heresdk.RouteTextOptions
@@ -6950,17 +7276,6 @@ public enum ChargingSupplyType : Swift.UInt32, Swift.CaseIterable, Swift.Codable
     get
   }
   public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public struct DynamicSpeedInfo : Swift.Hashable {
-  public var baseSpeedInMetersPerSecond: Swift.Double
-  public var trafficSpeedInMetersPerSecond: Swift.Double
-  public var turnTimeInSeconds: Swift.Int32
-  public init(baseSpeedInMetersPerSecond: Swift.Double, trafficSpeedInMetersPerSecond: Swift.Double, turnTimeInSeconds: Swift.Int32)
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.DynamicSpeedInfo, b: heresdk.DynamicSpeedInfo) -> Swift.Bool
-  public var hashValue: Swift.Int {
     get
   }
 }
@@ -7059,45 +7374,6 @@ public enum FareReason : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     get
   }
   public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum FunctionalRoadClass : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case functionalRoadClass1
-  case functionalRoadClass2
-  case functionalRoadClass3
-  case functionalRoadClass4
-  case functionalRoadClass5
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.FunctionalRoadClass]
-  public typealias RawValue = Swift.UInt32
-  public static var allCases: [heresdk.FunctionalRoadClass] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public struct LocalizedRoadNumber : Swift.Hashable {
-  public var localizedNumber: heresdk.LocalizedText
-  public var direction: heresdk.CardinalDirection?
-  public var routeType: heresdk.RouteType
-  public init(localizedNumber: heresdk.LocalizedText, direction: heresdk.CardinalDirection? = nil, routeType: heresdk.RouteType)
-  public func completeRoadNumber() -> Swift.String
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.LocalizedRoadNumber, b: heresdk.LocalizedRoadNumber) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct LocalizedRoadNumbers : Swift.Hashable {
-  public var items: [heresdk.LocalizedRoadNumber]
-  public init()
-  public func preferredValue(for locales: [Foundation.Locale]) -> Swift.String?
-  public func defaultValue() -> Swift.String?
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.LocalizedRoadNumbers, b: heresdk.LocalizedRoadNumbers) -> Swift.Bool
-  public var hashValue: Swift.Int {
     get
   }
 }
@@ -7464,40 +7740,12 @@ public enum RoadType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case highway
   case rural
   case urban
-  @available(*, deprecated, message: "Will be removed in 4.20. Never returned and the `nil` value is used instead in specific fields.")
-  case unknown
-  public static var allCases: [heresdk.RoadType] {
-    get
-  }
-  public enum Key : Swift.CodingKey {
-    case rawValue
-    public static func == (a: heresdk.RoadType.Key, b: heresdk.RoadType.Key) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public init?(stringValue: Swift.String)
-    public init?(intValue: Swift.Int)
-    public var hashValue: Swift.Int {
-      get
-    }
-    public var intValue: Swift.Int? {
-      get
-    }
-    public var stringValue: Swift.String {
-      get
-    }
-  }
-  public enum CodingError : Swift.Error {
-    case unknownValue
-    public static func == (a: heresdk.RoadType.CodingError, b: heresdk.RoadType.CodingError) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.RoadType]
   public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.RoadType] {
+    get
+  }
   public var rawValue: Swift.UInt32 {
     get
   }
@@ -7895,21 +8143,6 @@ public enum SectionTransportMode : Swift.UInt32, Swift.CaseIterable, Swift.Codab
     get
   }
 }
-public struct SegmentReference : Swift.Hashable {
-  public var segmentId: Swift.String
-  public var travelDirection: heresdk.TravelDirection
-  public var offsetStart: Swift.Double
-  public var offsetEnd: Swift.Double
-  public var tilePartitionId: Swift.UInt32
-  public var localId: Swift.UInt32?
-  public init(segmentId: Swift.String = "", travelDirection: heresdk.TravelDirection = TravelDirection.bidirectional, offsetStart: Swift.Double = 0.0, offsetEnd: Swift.Double = 1.0, tilePartitionId: Swift.UInt32 = 0, localId: Swift.UInt32? = 0)
-  public static func fromString(segmentRef: Swift.String) -> heresdk.SegmentReference?
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.SegmentReference, b: heresdk.SegmentReference) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
 public enum SideOfDestination : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case undefined
   case left
@@ -7956,6 +8189,7 @@ public struct SignpostLabel : Swift.Hashable {
   public var segmentReference: heresdk.SegmentReference {
     get
   }
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use `Span.dynamicSpeedInfo` instead.")
   public var trafficSpeed: heresdk.TrafficSpeed {
     get
   }
@@ -8020,29 +8254,6 @@ extension heresdk.Span : Swift.Hashable {
     get
   }
 }
-public enum StreetAttributes : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case rightDrivingSide
-  case dirtRoad
-  case tunnel
-  case bridge
-  case ramp
-  case roundabout
-  case underConstruction
-  case dividedRoad
-  case motorway
-  case privateRoad
-  case builtUpArea
-  case controlledAccessHighway
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.StreetAttributes]
-  public typealias RawValue = Swift.UInt32
-  public static var allCases: [heresdk.StreetAttributes] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
 public struct TaxiOptions : Swift.Hashable {
   public var routeOptions: heresdk.RouteOptions
   public var textOptions: heresdk.RouteTextOptions
@@ -8072,9 +8283,13 @@ public struct TextUsageOptions : Swift.Hashable {
 }
 public struct Toll : Swift.Hashable {
   public var countryCode: Swift.String
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Please use `Toll.tollSystems` instead.")
   public var tollSystem: Swift.String
+  public var tollSystems: [Swift.String]
   public var fares: [heresdk.TollFare]
-  public init(countryCode: Swift.String, tollSystem: Swift.String, fares: [heresdk.TollFare])
+  public init(countryCode: Swift.String, tollSystems: [Swift.String], fares: [heresdk.TollFare])
+  @available(*, deprecated)
+  public init(countryCode: Swift.String, tollSystem: Swift.String = "", tollSystems: [Swift.String], fares: [heresdk.TollFare])
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.Toll, b: heresdk.Toll) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -8086,7 +8301,8 @@ public struct TollFare : Swift.Hashable {
   public var price: Swift.Double
   public var paymentMethods: [heresdk.PaymentMethod]
   public var timeRule: heresdk.TimeRule?
-  public init(currency: Swift.String, price: Swift.Double, paymentMethods: [heresdk.PaymentMethod], timeRule: heresdk.TimeRule? = nil)
+  public var transponders: [Swift.String]
+  public init(currency: Swift.String, price: Swift.Double, paymentMethods: [heresdk.PaymentMethod], timeRule: heresdk.TimeRule? = nil, transponders: [Swift.String] = [])
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.TollFare, b: heresdk.TollFare) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -8163,6 +8379,47 @@ extension heresdk.TrafficIncidentOnRoute : Swift.Hashable {
     get
   }
 }
+public struct TrafficOnRoute : Swift.Hashable {
+  public var lastTraveledSectionIndex: Swift.Int32
+  public var traveledDistanceOnLastSectionInMeters: Swift.Int32
+  public var trafficSections: [heresdk.TrafficOnSection]
+  public init(lastTraveledSectionIndex: Swift.Int32 = 0, traveledDistanceOnLastSectionInMeters: Swift.Int32 = 0, trafficSections: [heresdk.TrafficOnSection] = [])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TrafficOnRoute, b: heresdk.TrafficOnRoute) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct TrafficOnSection : Swift.Hashable {
+  public var geometry: [heresdk.GeoCoordinates]
+  public var trafficSpans: [heresdk.TrafficOnSpan]
+  public var trafficIncidents: [heresdk.TrafficIncidentOnRoute]
+  public var departurePlace: heresdk.RoutePlace
+  public var arrivalPlace: heresdk.RoutePlace
+  public init(geometry: [heresdk.GeoCoordinates] = [], trafficSpans: [heresdk.TrafficOnSpan] = [], trafficIncidents: [heresdk.TrafficIncidentOnRoute] = [], departurePlace: heresdk.RoutePlace, arrivalPlace: heresdk.RoutePlace)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TrafficOnSection, b: heresdk.TrafficOnSection) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct TrafficOnSpan : Swift.Hashable {
+  public var trafficSectionPolylineOffset: Swift.Int32
+  public var lengthInMeters: Swift.Double
+  public var duration: Foundation.TimeInterval
+  public var trafficDelay: Foundation.TimeInterval
+  public var baseSpeedInMetersPerSecond: Swift.Double
+  public var trafficSpeedInMetersPerSecond: Swift.Double
+  public var jamFactor: Swift.Double
+  public var incidentIndices: [Swift.Int32]
+  public var consumptionInKilowattHours: Swift.Double?
+  public init(trafficSectionPolylineOffset: Swift.Int32 = 0, lengthInMeters: Swift.Double = 0.0, duration: Foundation.TimeInterval = 0, trafficDelay: Foundation.TimeInterval = 0, baseSpeedInMetersPerSecond: Swift.Double = 0.0, trafficSpeedInMetersPerSecond: Swift.Double = 0.0, jamFactor: Swift.Double = 0.0, incidentIndices: [Swift.Int32] = [], consumptionInKilowattHours: Swift.Double? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TrafficOnSpan, b: heresdk.TrafficOnSpan) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public enum TrafficOptimizationMode : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case timeDependent
   case longTermClosuresOnly
@@ -8177,6 +8434,7 @@ public enum TrafficOptimizationMode : Swift.UInt32, Swift.CaseIterable, Swift.Co
     get
   }
 }
+@available(*, deprecated, message: "Will be removed in v4.22.0. Please use `DynamicSpeedInfo` class instead.")
 public struct TrafficSpeed : Swift.Hashable {
   public var baseSpeedInMetersPerSecond: Swift.Double?
   public var trafficSpeedInMetersPerSecond: Swift.Double?
@@ -8339,20 +8597,6 @@ public struct TransitTransport {
   public var textColor: UIKit.UIColor?
   public init(mode: heresdk.TransitMode, name: Swift.String? = nil, headsign: Swift.String? = nil, category: Swift.String? = nil, color: UIKit.UIColor? = nil, textColor: UIKit.UIColor? = nil)
 }
-public enum TravelDirection : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case positive
-  case negative
-  case bidirectional
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.TravelDirection]
-  public typealias RawValue = Swift.UInt32
-  public static var allCases: [heresdk.TravelDirection] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
 public struct TruckOptions : Swift.Hashable {
   public var routeOptions: heresdk.RouteOptions
   public var textOptions: heresdk.RouteTextOptions
@@ -8401,23 +8645,6 @@ public struct ViolatedRestriction : Swift.Hashable {
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.ViolatedRestriction, b: heresdk.ViolatedRestriction) -> Swift.Bool
   public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum WalkAttributes : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case stairs
-  case park
-  case indoor
-  case open
-  case noThrough
-  case tollRoad
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.WalkAttributes]
-  public typealias RawValue = Swift.UInt32
-  public static var allCases: [heresdk.WalkAttributes] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
     get
   }
 }
@@ -8626,24 +8853,43 @@ public struct TransitWaypoint : Swift.Hashable {
     get
   }
 }
-@_hasMissingDesignatedInitializers public class SearchEngine {
+@_hasMissingDesignatedInitializers public class SearchEngine : heresdk.SearchInterface {
   public init() throws
   public init(_ sdkEngine: heresdk.SDKNativeEngine) throws
   @objc deinit
   @discardableResult
+  public func searchByText(_ query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByAddress(_ query: heresdk.AddressQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByCategory(_ query: heresdk.CategoryQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByCoordinates(_ coordinates: heresdk.GeoCoordinates, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByPlaceId(_ query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByPickedPlace(_ pickedPlace: heresdk.PickedPlace, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func suggestByText(_ query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByText(...)` instead.")
+  @discardableResult
   public func search(textQuery query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func search(textQuery query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchExtendedCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByAddress(...)` instead.")
   @discardableResult
   public func search(addressQuery query: heresdk.AddressQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func search(addressQuery query: heresdk.AddressQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchExtendedCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByPickedPlace(...)` instead.")
   @discardableResult
   public func searchPickedPlace(pickedPlace: heresdk.PickedPlace, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByPlaceId(...)` instead.")
   @discardableResult
   public func search(placeIdQuery query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func search(placeIdQuery query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchExtendedCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByCoordinates(...)` instead.")
   @discardableResult
   public func search(coordinates: heresdk.GeoCoordinates, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
@@ -8656,10 +8902,12 @@ public struct TransitWaypoint : Swift.Hashable {
   public func sendRequest(href: Swift.String, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func sendRequest(href: Swift.String, completion: @escaping heresdk.SearchExtendedCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByCategory(...)` instead.")
   @discardableResult
   public func search(categoryQuery query: heresdk.CategoryQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func search(categoryQuery query: heresdk.CategoryQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchExtendedCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `suggestByText(...)` instead.")
   @discardableResult
   public func suggest(textQuery query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
@@ -8774,8 +9022,6 @@ public struct CategoryQuery : Swift.Hashable {
     public init(areaCenter: heresdk.GeoCoordinates)
     public init(near areaCenter: heresdk.GeoCoordinates, inBox boxArea: heresdk.GeoBox)
     public init(near areaCenter: heresdk.GeoCoordinates, inCircle circleArea: heresdk.GeoCircle)
-    @available(*, deprecated, message: "Will be removed in v4.20.0. Instead, please use the constructor that also accepts the coordinates.")
-    public init(inCorridor corridorArea: heresdk.GeoCorridor)
     public init(inCorridor corridorArea: heresdk.GeoCorridor, near areaCenter: heresdk.GeoCoordinates)
     public func hash(into hasher: inout Swift.Hasher)
     public static func == (a: heresdk.CategoryQuery.Area, b: heresdk.CategoryQuery.Area) -> Swift.Bool
@@ -8823,12 +9069,23 @@ public struct Details : Swift.Hashable {
     get
   }
 }
+public struct EMobilityServiceProvider : Swift.Hashable {
+  public var name: Swift.String?
+  public var partnerId: Swift.String?
+  public init(name: Swift.String? = nil, partnerId: Swift.String? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.EMobilityServiceProvider, b: heresdk.EMobilityServiceProvider) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct EVChargingPool : Swift.Hashable {
   public var chargingStations: [heresdk.EVChargingStation]
+  public var eMobilityServiceProviders: [heresdk.EMobilityServiceProvider]
   public var details: heresdk.EVChargingPoolDetails?
   public var cpoId: Swift.String?
   public var evseInfo: [heresdk.Evse]
-  public init(chargingStations: [heresdk.EVChargingStation], details: heresdk.EVChargingPoolDetails? = nil, cpoId: Swift.String? = nil, evseInfo: [heresdk.Evse] = [])
+  public init(chargingStations: [heresdk.EVChargingStation], eMobilityServiceProviders: [heresdk.EMobilityServiceProvider], details: heresdk.EVChargingPoolDetails? = nil, cpoId: Swift.String? = nil, evseInfo: [heresdk.Evse] = [])
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.EVChargingPool, b: heresdk.EVChargingPool) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -9201,7 +9458,8 @@ public struct PlaceFilter : Swift.Hashable {
     public var supplierNames: [Swift.String]
     public var connectorTypeIDs: [Swift.String]
     public var minPowerInKilowatts: Swift.Double?
-    public init(supplierNames: [Swift.String] = [], connectorTypeIDs: [Swift.String] = [], minPowerInKilowatts: Swift.Double? = nil)
+    public var eMobilityServiceProviderPartnerIDs: [Swift.String]
+    public init(supplierNames: [Swift.String] = [], connectorTypeIDs: [Swift.String] = [], minPowerInKilowatts: Swift.Double? = nil, eMobilityServiceProviderPartnerIDs: [Swift.String] = [])
     public func hash(into hasher: inout Swift.Hasher)
     public static func == (a: heresdk.PlaceFilter.Ev, b: heresdk.PlaceFilter.Ev) -> Swift.Bool
     public var hashValue: Swift.Int {
@@ -9293,8 +9551,6 @@ public typealias SearchCompletionHandler = (heresdk.SearchError?, [heresdk.Place
 public enum SearchError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case authenticationFailed
   case maxItemsOutOfRange
-  @available(*, deprecated, message: "Will be removed in v4.20.0. SDK resolves too long polyline issue by itself.")
-  case polylineTooLong
   case parsingError
   case noResultsFound
   case httpError
@@ -9310,43 +9566,33 @@ public enum SearchError : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case filterTooLong
   case proxyAuthenticationFailed
   case proxyServerUnreachable
-  public static var allCases: [heresdk.SearchError] {
-    get
-  }
-  public enum Key : Swift.CodingKey {
-    case rawValue
-    public static func == (a: heresdk.SearchError.Key, b: heresdk.SearchError.Key) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public init?(stringValue: Swift.String)
-    public init?(intValue: Swift.Int)
-    public var hashValue: Swift.Int {
-      get
-    }
-    public var intValue: Swift.Int? {
-      get
-    }
-    public var stringValue: Swift.String {
-      get
-    }
-  }
-  public enum CodingError : Swift.Error {
-    case unknownValue
-    public static func == (a: heresdk.SearchError.CodingError, b: heresdk.SearchError.CodingError) -> Swift.Bool
-    public func hash(into hasher: inout Swift.Hasher)
-    public var hashValue: Swift.Int {
-      get
-    }
-  }
-  public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
   public init?(rawValue: Swift.UInt32)
   public typealias AllCases = [heresdk.SearchError]
   public typealias RawValue = Swift.UInt32
+  public static var allCases: [heresdk.SearchError] {
+    get
+  }
   public var rawValue: Swift.UInt32 {
     get
   }
 }
 public typealias SearchExtendedCompletionHandler = (heresdk.SearchError?, [heresdk.Place]?, heresdk.ResponseDetails?) -> Swift.Void
+public protocol SearchInterface : AnyObject {
+  @discardableResult
+  func searchByText(_ query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  func searchByAddress(_ query: heresdk.AddressQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  func searchByCategory(_ query: heresdk.CategoryQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  func searchByCoordinates(_ coordinates: heresdk.GeoCoordinates, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  func searchByPlaceId(_ query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  func searchByPickedPlace(_ pickedPlace: heresdk.PickedPlace, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  func suggestByText(_ query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
+}
 public struct SearchOptions : Swift.Hashable {
   public var languageCode: heresdk.LanguageCode?
   public var maxItems: Swift.Int32?
@@ -9577,25 +9823,46 @@ public struct WebsiteAddress : Swift.Hashable {
     get
   }
 }
-@_hasMissingDesignatedInitializers public class OfflineSearchEngine {
+@_hasMissingDesignatedInitializers public class OfflineSearchEngine : heresdk.SearchInterface {
   public init() throws
   public init(_ sdkEngine: heresdk.SDKNativeEngine) throws
   @objc deinit
+  @discardableResult
+  public func searchByText(_ query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByAddress(_ query: heresdk.AddressQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByCategory(_ query: heresdk.CategoryQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByCoordinates(_ coordinates: heresdk.GeoCoordinates, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByPlaceId(_ query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func searchByPickedPlace(_ pickedPlace: heresdk.PickedPlace, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @discardableResult
+  public func suggestByText(_ query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
   public func attach(dataSource: heresdk.MyPlaces, callback: @escaping heresdk.TaskCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByText(...)` instead.")
   @discardableResult
   public func search(textQuery query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByCategory(...)` instead.")
   @discardableResult
   public func search(categoryQuery query: heresdk.CategoryQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByCoordinates(...)` instead.")
   @discardableResult
   public func search(coordinates: heresdk.GeoCoordinates, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByAddress(...)` instead.")
   @discardableResult
   public func search(addressQuery query: heresdk.AddressQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByPickedPlace(...)` instead.")
   @discardableResult
   public func searchPickedPlace(pickedPlace: heresdk.PickedPlace, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `searchByPlaceId(...)` instead.")
   @discardableResult
   public func search(placeIdQuery query: heresdk.PlaceIdQuery, languageCode: heresdk.LanguageCode?, completion: @escaping heresdk.PlaceIdSearchCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
   public func search(structQuery query: heresdk.StructuredQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SearchCompletionHandler) -> heresdk.TaskHandle
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Please use `suggestByText(...)` instead.")
   @discardableResult
   public func suggest(textQuery query: heresdk.TextQuery, options: heresdk.SearchOptions, completion: @escaping heresdk.SuggestCompletionHandler) -> heresdk.TaskHandle
   @discardableResult
@@ -10313,11 +10580,6 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
-  @available(*, deprecated, message: "Will be removed in v4.20.0. Use `eventTextDelegate` property instead.")
-  weak public var maneuverNotificationDelegate: heresdk.ManeuverNotificationDelegate? {
-    get
-    set
-  }
   weak public var eventTextDelegate: heresdk.EventTextDelegate? {
     get
     set
@@ -10346,6 +10608,7 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var environmentalZoneWarningOptions: heresdk.EnvironmentalZoneWarningOptions {
     get
     set
@@ -10358,6 +10621,7 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var safetyCameraWarningOptions: heresdk.SafetyCameraWarningOptions {
     get
     set
@@ -10366,6 +10630,7 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var dangerZoneWarningOptions: heresdk.DangerZoneWarningOptions {
     get
     set
@@ -10391,14 +10656,6 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     set
   }
   weak public var roadAttributesDelegate: heresdk.RoadAttributesDelegate? {
-    get
-    set
-  }
-  weak public var spatialManeuverNotificationDelegate: heresdk.SpatialManeuverNotificationDelegate? {
-    get
-    set
-  }
-  weak public var spatialManeuverAzimuthDelegate: heresdk.SpatialManeuverAzimuthDelegate? {
     get
     set
   }
@@ -10438,6 +10695,7 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var tollStopWarningOptions: heresdk.TollStopWarningOptions {
     get
     set
@@ -10446,6 +10704,7 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var railwayCrossingWarningOptions: heresdk.RailwayCrossingWarningOptions {
     get
     set
@@ -10454,6 +10713,7 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     get
     set
   }
+  @available(*, deprecated, message: "Will be removed in v4.23.0. Use the method `setWarningNotificationDistances` from `NavigatorProtocol` instead.")
   public var lowSpeedZoneWarningOptions: heresdk.LowSpeedZoneWarningOptions {
     get
     set
@@ -10483,6 +10743,10 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
     set
   }
   public var isPassthroughWaypointsHandlingEnabled: Swift.Bool {
+    get
+    set
+  }
+  public var trafficOnRoute: heresdk.TrafficOnRoute? {
     get
     set
   }
@@ -10543,9 +10807,17 @@ extension heresdk.SpeedBasedCameraBehavior : Swift.Hashable {
   }
   @objc deinit
   public func getManeuver(index: Swift.Int32) -> heresdk.Maneuver?
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use the `getManeuverNotificationTimingOptions()` function with `TimingProfile` parameter instead.")
   public func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType) -> heresdk.ManeuverNotificationTimingOptions
+  @available(*, deprecated, message: "Will be removed in v4.22.0. Use the `setManeuverNotificationTimingOptions()` function with `TimingProfile` parameter instead.")
   @discardableResult
   public func setManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, roadType: heresdk.RoadType, options: heresdk.ManeuverNotificationTimingOptions) -> Swift.Bool
+  public func getManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, timingProfile: heresdk.TimingProfile) -> heresdk.ManeuverNotificationTimingOptions
+  @discardableResult
+  public func setManeuverNotificationTimingOptions(transportMode: heresdk.TransportMode, timingProfile: heresdk.TimingProfile, options: heresdk.ManeuverNotificationTimingOptions) -> Swift.Bool
+  public func getWarningNotificationDistances(warningType: heresdk.WarningType) -> heresdk.WarningNotificationDistances
+  @discardableResult
+  public func setWarningNotificationDistances(warningType: heresdk.WarningType, warningNotificationDistances: heresdk.WarningNotificationDistances) -> Swift.Bool
   public func repeatLastManeuverNotification()
   public func calculateRemainingDistanceInMeters(coordinates: heresdk.GeoCoordinates) -> Swift.Int32?
   public func setCustomOption(key: Swift.String, value: Swift.String)
@@ -10669,15 +10941,21 @@ public typealias VenueLoadErrorHandler = (heresdk.VenueErrorCode?) -> Swift.Void
   }
   @objc deinit
   public func addVenueAsync(venueId: Swift.Int32)
+  public func addVenueAsync(venueIdentifier: Swift.String)
   public func addVenueAsync(venueId: Swift.Int32, completion: @escaping heresdk.VenueLoadErrorHandler)
+  public func addVenueAsync(venueIdentifier: Swift.String, completion: @escaping heresdk.VenueLoadErrorHandler)
   public func removeVenue(venue: heresdk.Venue)
   public func selectVenueAsync(venueId: Swift.Int32)
+  public func selectVenueAsync(venueIdentifier: Swift.String)
   public func selectVenueAsync(venueId: Swift.Int32, completion: @escaping heresdk.VenueLoadErrorHandler)
+  public func selectVenueAsync(venueIdentifier: Swift.String, completion: @escaping heresdk.VenueLoadErrorHandler)
   public func cancelVenueSelection() -> Swift.Bool
   public func getVenue(position: heresdk.GeoCoordinates) -> heresdk.Venue?
   public func getGeometry(position: heresdk.GeoCoordinates) -> heresdk.VenueGeometry?
   public func addVenueLifecycleDelegate(_ delegate: heresdk.VenueLifecycleDelegate)
   public func removeVenueLifecycleDelegate(_ delegate: heresdk.VenueLifecycleDelegate)
+  public func addVenueMapLifecycleDelegate(_ delegate: heresdk.VenueMapLifecycleDelegate)
+  public func removeVenueMapLifecycleDelegate(_ delegate: heresdk.VenueMapLifecycleDelegate)
   public func addVenueSelectionDelegate(_ delegate: heresdk.VenueSelectionDelegate)
   public func removeVenueSelectionDelegate(_ delegate: heresdk.VenueSelectionDelegate)
   public func addDrawingSelectionDelegate(_ delegate: heresdk.VenueDrawingSelectionDelegate)
@@ -10698,6 +10976,10 @@ extension heresdk.VenueMap : Swift.Hashable {
   public var hashValue: Swift.Int {
     get
   }
+}
+public protocol VenueMapLifecycleDelegate : AnyObject {
+  func onVenueAdded(venue: heresdk.Venue)
+  func onVenueRemoved(venueIdentifier: Swift.String)
 }
 public protocol VenueSelectionDelegate : AnyObject {
   func onSelectedVenueChanged(deselectedVenue: heresdk.Venue?, selectedVenue: heresdk.Venue?)
@@ -11138,6 +11420,9 @@ public enum VenueTransportMode : Swift.UInt32, Swift.CaseIterable, Swift.Codable
 public protocol VenueDelegate : AnyObject {
   func onGetVenueCompleted(venueId: Swift.Int32, venueModel: heresdk.VenueModel?, online: Swift.Bool, venueStyle: heresdk.VenueStyle?)
 }
+public protocol VenueMapDelegate : AnyObject {
+  func onGetVenueCompleted(venueIdentifier: Swift.String, venueModel: heresdk.VenueModel?, online: Swift.Bool, venueStyle: heresdk.VenueStyle?)
+}
 @_hasMissingDesignatedInitializers public class VenueService {
   public typealias Int32Array = [Swift.Int32]
   public typealias StringArray = [Swift.String]
@@ -11155,9 +11440,12 @@ public protocol VenueDelegate : AnyObject {
   public func removeServiceDelegate(_ delegate: heresdk.VenueServiceDelegate)
   public func addVenueDelegate(_ delegate: heresdk.VenueDelegate)
   public func removeVenueDelegate(_ delegate: heresdk.VenueDelegate)
+  public func addVenueMapDelegate(_ delegate: heresdk.VenueMapDelegate)
+  public func removeVenueMapDelegate(_ delegate: heresdk.VenueMapDelegate)
   public func getInitStatus() -> heresdk.VenueServiceInitStatus
   public func isInitialized() -> Swift.Bool
   public func addVenueToLoad(venueId: Swift.Int32)
+  public func addVenueToLoad(venueIdentifier: Swift.String)
   public func setHrn(hrn: Swift.String)
   public func setLabeltextPreference(labelTextPref: [Swift.String])
   public func loadTopologies()
@@ -11335,10 +11623,7 @@ public class IconProvider {
     get
     set
   }
-  @_Concurrency.MainActor(unsafe) public static func deinitialize()
-  @_Concurrency.MainActor(unsafe) public static func pause()
   @_Concurrency.MainActor(unsafe) public func pause()
-  @_Concurrency.MainActor(unsafe) public static func resume()
   @_Concurrency.MainActor(unsafe) public func resume()
   @_Concurrency.MainActor(unsafe) @objc convenience dynamic public init()
   @_Concurrency.MainActor(unsafe) @objc override convenience dynamic public init(frame: CoreFoundation.CGRect)
@@ -11631,6 +11916,21 @@ extension heresdk.TaskOutcome : Swift.RawRepresentable {}
 extension heresdk.WeatherType : Swift.Equatable {}
 extension heresdk.WeatherType : Swift.Hashable {}
 extension heresdk.WeatherType : Swift.RawRepresentable {}
+extension heresdk.AccessAttributes : Swift.Equatable {}
+extension heresdk.AccessAttributes : Swift.Hashable {}
+extension heresdk.AccessAttributes : Swift.RawRepresentable {}
+extension heresdk.FunctionalRoadClass : Swift.Equatable {}
+extension heresdk.FunctionalRoadClass : Swift.Hashable {}
+extension heresdk.FunctionalRoadClass : Swift.RawRepresentable {}
+extension heresdk.StreetAttributes : Swift.Equatable {}
+extension heresdk.StreetAttributes : Swift.Hashable {}
+extension heresdk.StreetAttributes : Swift.RawRepresentable {}
+extension heresdk.TravelDirection : Swift.Equatable {}
+extension heresdk.TravelDirection : Swift.Hashable {}
+extension heresdk.TravelDirection : Swift.RawRepresentable {}
+extension heresdk.WalkAttributes : Swift.Equatable {}
+extension heresdk.WalkAttributes : Swift.Hashable {}
+extension heresdk.WalkAttributes : Swift.RawRepresentable {}
 extension heresdk.EmissionStandard : Swift.Equatable {}
 extension heresdk.EmissionStandard : Swift.Hashable {}
 extension heresdk.EmissionStandard : Swift.RawRepresentable {}
@@ -11773,15 +12073,15 @@ extension heresdk.TextNotificationType.Key : Swift.Equatable {}
 extension heresdk.TextNotificationType.Key : Swift.Hashable {}
 extension heresdk.TextNotificationType.CodingError : Swift.Equatable {}
 extension heresdk.TextNotificationType.CodingError : Swift.Hashable {}
+extension heresdk.TimingProfile : Swift.Equatable {}
+extension heresdk.TimingProfile : Swift.Hashable {}
+extension heresdk.TimingProfile : Swift.RawRepresentable {}
 extension heresdk.TollCollectionMethod : Swift.Equatable {}
 extension heresdk.TollCollectionMethod : Swift.Hashable {}
 extension heresdk.TollCollectionMethod : Swift.RawRepresentable {}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
-extension heresdk.TruckRestrictionWarningType : Swift.Equatable {}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
-extension heresdk.TruckRestrictionWarningType : Swift.Hashable {}
-@available(*, deprecated, message: "Will be removed in v4.20.0. Please check all TruckRestrictionWarning fields in order to announce/display the correct truck restriction.")
-extension heresdk.TruckRestrictionWarningType : Swift.RawRepresentable {}
+extension heresdk.WarningType : Swift.Equatable {}
+extension heresdk.WarningType : Swift.Hashable {}
+extension heresdk.WarningType : Swift.RawRepresentable {}
 extension heresdk.WeightRestrictionType : Swift.Equatable {}
 extension heresdk.WeightRestrictionType : Swift.Hashable {}
 extension heresdk.WeightRestrictionType : Swift.RawRepresentable {}
@@ -11794,9 +12094,6 @@ extension heresdk.LocationEngineStatus : Swift.RawRepresentable {}
 extension heresdk.LocationFeature : Swift.Equatable {}
 extension heresdk.LocationFeature : Swift.Hashable {}
 extension heresdk.LocationFeature : Swift.RawRepresentable {}
-extension heresdk.AccessAttributes : Swift.Equatable {}
-extension heresdk.AccessAttributes : Swift.Hashable {}
-extension heresdk.AccessAttributes : Swift.RawRepresentable {}
 extension heresdk.AttributionType : Swift.Equatable {}
 extension heresdk.AttributionType : Swift.Hashable {}
 extension heresdk.AttributionType : Swift.RawRepresentable {}
@@ -11812,9 +12109,6 @@ extension heresdk.FarePriceType : Swift.RawRepresentable {}
 extension heresdk.FareReason : Swift.Equatable {}
 extension heresdk.FareReason : Swift.Hashable {}
 extension heresdk.FareReason : Swift.RawRepresentable {}
-extension heresdk.FunctionalRoadClass : Swift.Equatable {}
-extension heresdk.FunctionalRoadClass : Swift.Hashable {}
-extension heresdk.FunctionalRoadClass : Swift.RawRepresentable {}
 extension heresdk.LocalizedTextPreference : Swift.Equatable {}
 extension heresdk.LocalizedTextPreference : Swift.Hashable {}
 extension heresdk.LocalizedTextPreference : Swift.RawRepresentable {}
@@ -11845,10 +12139,6 @@ extension heresdk.RoadFeatures : Swift.RawRepresentable {}
 extension heresdk.RoadType : Swift.Equatable {}
 extension heresdk.RoadType : Swift.Hashable {}
 extension heresdk.RoadType : Swift.RawRepresentable {}
-extension heresdk.RoadType.Key : Swift.Equatable {}
-extension heresdk.RoadType.Key : Swift.Hashable {}
-extension heresdk.RoadType.CodingError : Swift.Equatable {}
-extension heresdk.RoadType.CodingError : Swift.Hashable {}
 extension heresdk.RoutePlaceDirection : Swift.Equatable {}
 extension heresdk.RoutePlaceDirection : Swift.Hashable {}
 extension heresdk.RoutePlaceDirection : Swift.RawRepresentable {}
@@ -11870,9 +12160,6 @@ extension heresdk.SectionTransportMode : Swift.RawRepresentable {}
 extension heresdk.SideOfDestination : Swift.Equatable {}
 extension heresdk.SideOfDestination : Swift.Hashable {}
 extension heresdk.SideOfDestination : Swift.RawRepresentable {}
-extension heresdk.StreetAttributes : Swift.Equatable {}
-extension heresdk.StreetAttributes : Swift.Hashable {}
-extension heresdk.StreetAttributes : Swift.RawRepresentable {}
 extension heresdk.TollOptions.VehicleCategory : Swift.Equatable {}
 extension heresdk.TollOptions.VehicleCategory : Swift.Hashable {}
 extension heresdk.TollOptions.VehicleCategory : Swift.RawRepresentable {}
@@ -11897,12 +12184,6 @@ extension heresdk.TransitMode : Swift.RawRepresentable {}
 extension heresdk.TransitModeFilter : Swift.Equatable {}
 extension heresdk.TransitModeFilter : Swift.Hashable {}
 extension heresdk.TransitModeFilter : Swift.RawRepresentable {}
-extension heresdk.TravelDirection : Swift.Equatable {}
-extension heresdk.TravelDirection : Swift.Hashable {}
-extension heresdk.TravelDirection : Swift.RawRepresentable {}
-extension heresdk.WalkAttributes : Swift.Equatable {}
-extension heresdk.WalkAttributes : Swift.Hashable {}
-extension heresdk.WalkAttributes : Swift.RawRepresentable {}
 extension heresdk.WaypointType : Swift.Equatable {}
 extension heresdk.WaypointType : Swift.Hashable {}
 extension heresdk.WaypointType : Swift.RawRepresentable {}
@@ -11933,10 +12214,6 @@ extension heresdk.PlaceType : Swift.RawRepresentable {}
 extension heresdk.SearchError : Swift.Equatable {}
 extension heresdk.SearchError : Swift.Hashable {}
 extension heresdk.SearchError : Swift.RawRepresentable {}
-extension heresdk.SearchError.Key : Swift.Equatable {}
-extension heresdk.SearchError.Key : Swift.Hashable {}
-extension heresdk.SearchError.CodingError : Swift.Equatable {}
-extension heresdk.SearchError.CodingError : Swift.Hashable {}
 extension heresdk.StructuredQuery.ResultType : Swift.Equatable {}
 extension heresdk.StructuredQuery.ResultType : Swift.Hashable {}
 extension heresdk.StructuredQuery.ResultType : Swift.RawRepresentable {}

@@ -47,6 +47,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("(,%s*sa otočte)", ", otočte sa")
     sentence = sentence:gsub("(,%s*{LANDMARK}%s+sa otočte)", ", otočte sa")
     sentence = sentence:gsub("na {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
     local new_sentence = sentence:gsub("(po )([^%s]+ )([^%s|%p]+)", adjust_unit_case)
     if (new_sentence ~= nil) then
         return new_sentence

@@ -41,14 +41,16 @@ end
 function mods.apply_language_specific_mods(sentence)
     if _G['imperative_mode'] == nil then
         -- Update diacritic on `ثم` for better pronunciation by TTS engine
-        sentence = sentence:gsub("ثم", "ثمَّ")
+        sentence = sentence:gsub("ثم", "ثُمَّ")
         -- Update diacritic on `Abdullah` for better pronunciation by TTS engine
         sentence = sentence:gsub("عبدال له", "عبدالله")
         -- Update diacritic on `Al Dammam` for better pronunciation by TTS engine
         sentence = sentence:gsub("الدمام", "الدمَّام")
         -- Use the phrase of eight hundred in Arabic for better pronunciation by TTS engine
-        sentence = sentence:gsub(" 800 ", " ثمانية مئه ")
+        sentence = sentence:gsub(" 800 ", " ثَمَانِيَةُ مِئَة ")
     end
+
+    sentence = sentence:gsub("، {SIGNPOST}", "" )
 
     return sentence
 end

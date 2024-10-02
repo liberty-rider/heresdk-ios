@@ -7,6 +7,7 @@ function mods.apply_language_specific_mods(sentence)
     modified_sentence = string.gsub( modified_sentence, "(dans%s%d)%.(%d%s)", "%1,%2" )
 
     modified_sentence = string.gsub( modified_sentence, "la direction {ORIENTATION} ", "" )
+    modified_sentence = string.gsub( modified_sentence, ", {SIGNPOST}", "" )
 
     return modified_sentence
 end

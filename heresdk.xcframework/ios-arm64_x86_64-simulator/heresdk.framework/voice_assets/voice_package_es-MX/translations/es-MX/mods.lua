@@ -31,6 +31,7 @@ function mods.apply_language_specific_mods(sentence)
     modified_sentence = string.gsub( modified_sentence, "B(%s*)(%d+)", "Be %2" )
 
     modified_sentence = string.gsub( modified_sentence, "al {ORIENTATION} ", "" )
+    modified_sentence = string.gsub( modified_sentence, ", {SIGNPOST}", "" )
 
     return modified_sentence
 end

@@ -2,7 +2,9 @@ local mods = require('translations.mods')
 
 function mods.apply_language_specific_mods(original_sentence)
     -- handle destination
-    local sentence = string.gsub(original_sentence, "hedef hedefinize", "hedefinize")
+    local sentence = string.gsub(original_sentence, ", {SIGNPOST}", "")
+
+    sentence = string.gsub(sentence, "hedef hedefinize", "hedefinize")
     sentence = string.gsub(sentence, "hedef hedefi", "hedefiniz")
 
     -- replace "toyola yoluna" with "toyola"
@@ -13,7 +15,7 @@ function mods.apply_language_specific_mods(original_sentence)
 
     -- replace doubled "istikametinde yönünde" with "istikametinde"
     sentence = string.gsub(sentence, "istikametinde yönünde", "istikametinde")
-  
+
     sentence = string.gsub(sentence, "%(daha%) %{IMMEDIATELY%}", "daha")
     sentence = string.gsub(sentence, "%(daha%) ", "")
 

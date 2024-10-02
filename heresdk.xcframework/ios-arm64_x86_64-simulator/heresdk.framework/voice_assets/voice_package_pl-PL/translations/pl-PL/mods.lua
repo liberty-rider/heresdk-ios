@@ -10,6 +10,7 @@ function mods.apply_language_specific_mods(sentence)
     modified_sentence = string.gsub( modified_sentence, "ulica", "" )
 
     modified_sentence = string.gsub( modified_sentence, "na {ORIENTATION} ", "" )
+    modified_sentence = string.gsub( modified_sentence, ", {SIGNPOST}", "" )
 
     return modified_sentence
 end

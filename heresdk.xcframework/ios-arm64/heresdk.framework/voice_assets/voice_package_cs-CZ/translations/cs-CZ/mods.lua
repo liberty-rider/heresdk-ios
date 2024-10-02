@@ -51,6 +51,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("poté (.+) a poté", ", %1, a poté")
 
     sentence = sentence:gsub("na {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     return sentence
 end

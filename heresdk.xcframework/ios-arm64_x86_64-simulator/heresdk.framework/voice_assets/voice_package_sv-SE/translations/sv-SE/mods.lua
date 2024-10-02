@@ -4,6 +4,7 @@ function mods.apply_language_specific_mods(sentence)
     -- for waypoint "it" should be "den", therefore replace "Det" with "Den"
     sentence = sentence:gsub("vägpunkten. Det", "vägpunkten. Den")
 
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
     sentence = sentence:gsub("kör efter (.*) och kör i (.*) {DIRECTION} {SECOND}", "kör i %2 efter %1")
     sentence = sentence:gsub("kör efter (.*) och (.*) {DIRECTION} {SECOND}", "%2 efter %1")
     sentence = sentence:gsub("kör efter", "kör")

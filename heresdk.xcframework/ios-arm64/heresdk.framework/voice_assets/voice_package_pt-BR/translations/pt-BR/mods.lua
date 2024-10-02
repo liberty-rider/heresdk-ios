@@ -2,6 +2,7 @@ local mods = require('translations.mods')
 
 function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("para o {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     return sentence
 end

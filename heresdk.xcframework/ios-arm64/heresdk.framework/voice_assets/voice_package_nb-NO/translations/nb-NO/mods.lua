@@ -9,6 +9,8 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("og sving til", "og sving så til")
     sentence = sentence:gsub("og hold til", "og hold så til")
 
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
+
     return sentence
 end
 

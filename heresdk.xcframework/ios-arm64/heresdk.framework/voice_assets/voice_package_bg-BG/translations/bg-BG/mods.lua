@@ -23,6 +23,7 @@ end
 
 function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("се на {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     return sentence
 end

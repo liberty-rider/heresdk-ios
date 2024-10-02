@@ -22,6 +22,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = string.gsub(sentence, "%s+y%s+(%w+)", handle_spanish_and_word)
 
     sentence = string.gsub(sentence, "al {ORIENTATION} ", "")
+    sentence = string.gsub(sentence, ", {SIGNPOST}", "" )
 
     return sentence
 end

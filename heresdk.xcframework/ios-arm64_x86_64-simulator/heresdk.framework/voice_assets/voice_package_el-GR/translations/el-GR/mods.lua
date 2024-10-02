@@ -5,6 +5,7 @@ function mods.apply_language_specific_mods(original_sentence)
     local destination = "προορισμό"
     local waypoint = "ενδιάμεσο σταθμό"
 
+    original_sentence = original_sentence:gsub(", {SIGNPOST}", "" )
     original_sentence = original_sentence:gsub("στην οδό (.+)λατεία(.+)", "στην %1λατεία%2")
     original_sentence = original_sentence:gsub("στην οδό (.+)εωφόρο(.+)", "στη %1εωφόρο%2")
 

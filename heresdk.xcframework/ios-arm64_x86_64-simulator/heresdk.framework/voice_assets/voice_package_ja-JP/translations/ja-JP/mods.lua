@@ -75,6 +75,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("%s*%.$", "。")
 
     sentence = sentence:gsub("を{ORIENTATION}へ", "")
+    sentence = sentence:gsub("、{SIGNPOST}", "" )
 
     return sentence
 end

@@ -40,6 +40,7 @@ end
 
 function mods.apply_language_specific_mods(sentence)
     sentence = string.gsub(sentence, "на {ORIENTATION} ", "")
+    sentence = string.gsub(sentence, "за вказівником {SIGNPOST}", "")
 
     local streets = {
         ['на вулицю (%S+с)ька вулиця'] = 'на %1ьку вулицю',

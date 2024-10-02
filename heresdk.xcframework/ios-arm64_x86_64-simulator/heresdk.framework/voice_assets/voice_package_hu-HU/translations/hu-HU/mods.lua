@@ -12,6 +12,7 @@ function mods.apply_language_specific_mods(sentence)
     modified_sentence = string.gsub(modified_sentence, '(a)%s+(%d+)%s+(kijáraton)', '%1 %2. %3')
 
     modified_sentence = string.gsub(modified_sentence, '{ORIENTATION} irányába ', '')
+    modified_sentence = string.gsub(modified_sentence, ", {SIGNPOST}", "" )
 
     return modified_sentence
 end

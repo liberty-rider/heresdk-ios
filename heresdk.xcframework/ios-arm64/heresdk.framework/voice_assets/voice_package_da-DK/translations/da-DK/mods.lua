@@ -5,6 +5,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub('%. mål ', '. Målet ')
     sentence = sentence:gsub('^nu (.+) %(nu%)', '%1 nu')
     sentence = sentence:gsub('mod {ORIENTATION} ', '')
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     if sentence:find(',') == false then
         sentence = sentence:gsub('$nu%s(.+)%.$', '%1 nu.')

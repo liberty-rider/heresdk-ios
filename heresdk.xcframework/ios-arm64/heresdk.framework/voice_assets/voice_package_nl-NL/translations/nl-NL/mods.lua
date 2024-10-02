@@ -6,6 +6,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub("^nu invoegen", "voeg nu in")
 
     sentence = sentence:gsub("richting het {ORIENTATION} ", "")
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     return sentence
 end

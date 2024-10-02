@@ -17,6 +17,9 @@ function mods.apply_language_specific_mods(sentence)
         modified_sentence = string.gsub( modified_sentence, "([A-Z]%d)(%d)(%d)([1-9])", "%1 %2 %3 %4" )
     end
 
+
+    modified_sentence = modified_sentence:gsub(", {SIGNPOST}", "" )
+
     return modified_sentence
 end
 

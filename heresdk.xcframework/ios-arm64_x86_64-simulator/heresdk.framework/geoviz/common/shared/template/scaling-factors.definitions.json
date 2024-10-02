@@ -1,1 +1,1 @@
-{"definitions": {"ScalePPI.Labels": ["pixel-ratio"]}}
+{"definitions": {"General.Labels.Scale.Factor": 1, "ScalePPI.Labels": ["*", ["pixel-ratio"], ["ref", "General.Labels.Scale.Factor"]]}}

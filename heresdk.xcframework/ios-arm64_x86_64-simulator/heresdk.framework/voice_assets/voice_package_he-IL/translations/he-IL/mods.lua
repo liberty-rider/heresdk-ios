@@ -4,6 +4,7 @@ function mods.apply_language_specific_mods(sentence)
     ---change phrase containing waypoint (articles and change 'he' to 'she', because it is feminine
     sentence = sentence:gsub('נקודת הציון יהיה', 'נקודת הציון תהיה')
     sentence = sentence:gsub('הגעת אל נקודת הציון. הוא ', 'הגעת אל נקודת הציון. היא ')
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
     return sentence
 end
 

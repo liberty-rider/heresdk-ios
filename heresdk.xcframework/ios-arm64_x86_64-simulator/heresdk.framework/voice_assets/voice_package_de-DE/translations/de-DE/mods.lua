@@ -76,6 +76,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub('|(.*)|', modify_article)
 
     sentence = sentence:gsub('nach {ORIENTATION} ', '')
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
 
     return sentence
 end

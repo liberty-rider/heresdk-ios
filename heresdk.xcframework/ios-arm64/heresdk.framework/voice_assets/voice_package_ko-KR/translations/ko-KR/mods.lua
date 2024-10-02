@@ -19,6 +19,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = string.gsub(sentence, "출구로 나가십시오%s+그런 다음", "출구로 나간 다음,")
     sentence = string.gsub(sentence, "진입하십시오%s+그러면", "진입하면")
     sentence = string.gsub(sentence, "진입하십시오%s+그런 다음", "진입한 다음,")
+    sentence = string.gsub(sentence, ", {SIGNPOST}", "" )
 
     return sentence
 end

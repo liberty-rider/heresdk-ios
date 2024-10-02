@@ -1,1 +1,8 @@
-return require('translations.mods')
+local mods = require('translations.mods')
+
+function mods.apply_language_specific_mods(sentence)
+    sentence = sentence:gsub(", {SIGNPOST}", "" )
+    return sentence
+end
+
+return mods

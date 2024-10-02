@@ -10,6 +10,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub('{NEXT_DIRECTION} شوید', '')
 
     sentence = sentence:gsub('به سمت {ORIENTATION}', '')
+    sentence = sentence:gsub("، {SIGNPOST}", "" )
 
     -- Remove the subject 'مقصد' from the second sentence in the template:
     -- 'You have reached your {GOAL}. It's {SIDE}.' only if {GOAL} is a waypoint.
