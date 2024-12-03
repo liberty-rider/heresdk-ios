@@ -262,8 +262,8 @@ using UInt = size_t;
 /// A view that displays a map.
 /// Note: Before using this class, <code>SDKNativeEngine</code> must be already initialized.
 IB_DESIGNABLE
-SWIFT_CLASS("_TtC7heresdk7MapView")
-@interface MapView : UIView
+SWIFT_CLASS_NAMED("MapView")
+@interface HereMapView : UIView
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithFrame:(CGRect)frame;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
@@ -594,8 +594,8 @@ using UInt = size_t;
 /// A view that displays a map.
 /// Note: Before using this class, <code>SDKNativeEngine</code> must be already initialized.
 IB_DESIGNABLE
-SWIFT_CLASS("_TtC7heresdk7MapView")
-@interface MapView : UIView
+SWIFT_CLASS_NAMED("MapView")
+@interface HereMapView : UIView
 - (nonnull instancetype)init;
 - (nonnull instancetype)initWithFrame:(CGRect)frame;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)aDecoder OBJC_DESIGNATED_INITIALIZER;
