@@ -2,6 +2,10 @@
 
 HereMaps Navigate iOS Edition
 
+Changelog: https://www.here.com/docs/bundle/sdk-for-ios-navigate-edition-changelog/page/README.html
+
+Download last version: https://platform.here.com/portal/sdk, section HERE SDK Navigate Edition for iOS and click on Get now button to download relative .zip
+
 Pour mettre à jour le SDK:
 
 Pour ajouter tous les fichiers d'un type spécifique de manière récursive à Git Large File Storage (LFS), vous utiliseriez la commande git lfs track. Cette commande vous permet de spécifier des motifs de noms de fichiers pour indiquer quels fichiers devraient être gérés par LFS. Voici comment vous pourriez procéder :
