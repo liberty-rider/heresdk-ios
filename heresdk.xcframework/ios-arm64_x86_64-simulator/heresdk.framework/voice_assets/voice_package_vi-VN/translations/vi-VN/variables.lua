@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'nửa dặm',
     ['nav.variable.DISTANCE.quartermile'] = 'một phần tư dặm',
     ['nav.variable.DISTANCE.threequartersmile'] = 'ba phần tư dặm',
+    ['nav.variable.FROMSIDE.left'] = 'từ bên trái',
+    ['nav.variable.FROMSIDE.right'] = 'từ bên phải',
     ['nav.variable.GOAL.destination'] = 'điểm đến',
     ['nav.variable.GOAL.waypoint'] = 'điểm dừng',
     ['nav.variable.HIGHWAY.regular'] = 'đường cao tốc',

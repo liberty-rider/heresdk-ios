@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS signaal is hersteld',
     ['nav.newroute'] = 'Er wordt een nieuwe route gezocht',
     ['nav.speedcamera'] = 'U nadert een flitscamera',
+    ['nav.trafficmerge'] = 'Verkeer dat {FROM_SIDE} invoegt',
 }
 
 return templates

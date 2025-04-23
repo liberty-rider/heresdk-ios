@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'आधे मील',
     ['nav.variable.DISTANCE.quartermile'] = 'एक चोथाई मील',
     ['nav.variable.DISTANCE.threequartersmile'] = 'तीन चौथाई मील',
+    ['nav.variable.FROMSIDE.left'] = 'बाएं से',
+    ['nav.variable.FROMSIDE.right'] = 'दाएं से',
     ['nav.variable.GOAL.destination'] = 'गंतव्य',
     ['nav.variable.GOAL.waypoint'] = 'वे-प्वॉइंट',
     ['nav.variable.HIGHWAY.regular'] = 'मोटर-वे',

@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'Ponovno je primljen signal GPS-a',
     ['nav.newroute'] = 'Traženje nove rute',
     ['nav.speedcamera'] = 'Slijedi kamera za mjerenje brzine',
+    ['nav.trafficmerge'] = 'Slijedi spajanje prometa {FROM_SIDE}',
 }
 
 return templates

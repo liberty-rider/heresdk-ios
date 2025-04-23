@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'ಅರ್ಧ ಮೈಲು',
     ['nav.variable.DISTANCE.quartermile'] = 'ಕಾಲು ಮೈಲು',
     ['nav.variable.DISTANCE.threequartersmile'] = 'ಮುಕ್ಕಾಲು ಮೈಲು',
+    ['nav.variable.FROMSIDE.left'] = 'ಎಡಭಾಗದಿಂದ',
+    ['nav.variable.FROMSIDE.right'] = 'ಬಲಭಾಗದಿಂದ',
     ['nav.variable.GOAL.destination'] = 'ತಲುಪುವ ಸ್ಥಳ',
     ['nav.variable.GOAL.waypoint'] = 'ವೇಪಾಯಿಂಟ್',
     ['nav.variable.HIGHWAY.regular'] = 'ಮೋಟಾರ್‌ವೇ',

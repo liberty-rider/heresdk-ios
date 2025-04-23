@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'سیگنال GPS بازیابی شده است',
     ['nav.newroute'] = 'در حال یافتن مسیر جدید',
     ['nav.speedcamera'] = 'دوربین کنترل سرعت در پیش رو قرار دارد',
+    ['nav.trafficmerge'] = 'ادغام ترافیک {FROM_SIDE} در جلو',
 }
 
 return templates

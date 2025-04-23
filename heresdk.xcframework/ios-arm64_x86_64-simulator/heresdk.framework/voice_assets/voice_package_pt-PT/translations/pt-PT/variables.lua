@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'meia milha',
     ['nav.variable.DISTANCE.quartermile'] = 'um quarto de milha',
     ['nav.variable.DISTANCE.threequartersmile'] = 'três quartos de milha',
+    ['nav.variable.FROMSIDE.left'] = 'da esquerda',
+    ['nav.variable.FROMSIDE.right'] = 'da direita',
     ['nav.variable.GOAL.destination'] = 'destino',
     ['nav.variable.GOAL.waypoint'] = 'escala',
     ['nav.variable.HIGHWAY.regular'] = 'autoestrada',

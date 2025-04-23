@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 's\'ha recuperat el senyal del GPS',
     ['nav.newroute'] = 's\'està cercant una nova ruta',
     ['nav.speedcamera'] = 'us acosteu a un radar',
+    ['nav.trafficmerge'] = 'Incorporació de trànsit {FROM_SIDE} més endavant',
 }
 
 return templates

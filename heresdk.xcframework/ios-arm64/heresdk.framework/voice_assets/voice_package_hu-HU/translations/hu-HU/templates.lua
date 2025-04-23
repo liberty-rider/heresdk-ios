@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'A GPS-jel helyreállt',
     ['nav.newroute'] = 'Új útvonal keresése',
     ['nav.speedcamera'] = 'Traffipax következik',
+    ['nav.trafficmerge'] = '{FROM_SIDE} besoroló forgalom várható',
 }
 
 return templates

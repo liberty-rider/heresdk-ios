@@ -43,13 +43,9 @@ function content.select(message_table, next_message_table, rules)
     local warning = require 'content.select.warning'
     local instruction = require 'content.select.instruction.init'
 
-    if common.is_ignored_warning(rules, message_table) then
-        return nil
-    end
-
     local content_table, next_content_table
     if message_table.trigger_class == 'warning' then
-        content_table = warning.select_warning(message_table.trigger)
+        content_table = warning.select_warning(message_table)
     elseif message_table.trigger_class == 'instruction' then
         content_table = _select_instruction(instruction, message_table, rules)
         if next_message_table and next_message_table.trigger_class == 'instruction' then

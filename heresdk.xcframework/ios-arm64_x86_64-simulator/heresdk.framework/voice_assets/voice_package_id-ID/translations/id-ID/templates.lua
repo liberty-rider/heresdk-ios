@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'Sinyal GPS tersambung',
     ['nav.newroute'] = 'Mencari rute baru',
     ['nav.speedcamera'] = 'Awas, kamera kecepatan',
+    ['nav.trafficmerge'] = 'Perhatian, penggabungan lalu lintas {FROM_SIDE}',
 }
 
 return templates

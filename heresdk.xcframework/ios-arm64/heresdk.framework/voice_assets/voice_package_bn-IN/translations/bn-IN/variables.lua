@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'অর্ধেক মাইল',
     ['nav.variable.DISTANCE.quartermile'] = 'চতুর্থাংশ মাইল',
     ['nav.variable.DISTANCE.threequartersmile'] = 'তিন চতুর্থাংশ মাইল',
+    ['nav.variable.FROMSIDE.left'] = 'বাম দিক থেকে',
+    ['nav.variable.FROMSIDE.right'] = 'ডান দিক থেকে',
     ['nav.variable.GOAL.destination'] = 'গন্তব্য',
     ['nav.variable.GOAL.waypoint'] = 'ওয়েপয়েন্ট',
     ['nav.variable.HIGHWAY.regular'] = 'গাড়ির রাস্তা',

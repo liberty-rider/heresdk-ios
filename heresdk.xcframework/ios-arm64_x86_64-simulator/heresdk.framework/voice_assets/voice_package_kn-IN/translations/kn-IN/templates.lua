@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'ಜಿಪಿಎಸ್ ಸಂಕೇತ ಮರುಸ್ಥಾಪನೆಗೊಂಡಿದೆ',
     ['nav.newroute'] = 'ಹೊಸ ಮಾರ್ಗವನ್ನು ಹುಡುಕಲಾಗುತ್ತಿದೆ',
     ['nav.speedcamera'] = 'ವೇಗ ಅಳೆಯುವ ಕ್ಯಾಮೆರಾ ಮುಂದಿದೆ',
+    ['nav.trafficmerge'] = '{FROM_SIDE} ಮುಂದೆ ಟ್ರಾಫಿಕ್ ವಿಲೀನಗೊಳ್ಳುತ್ತಿದೆ',
 }
 
 return templates

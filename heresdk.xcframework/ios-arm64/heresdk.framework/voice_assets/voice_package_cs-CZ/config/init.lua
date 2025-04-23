@@ -27,7 +27,6 @@ function config.get_selection_rules(rules, voice_settings)
                                                                                                                           { traffic_light = voice_settings.nguidance_trafficlights,
                                                                                                                             stop_sign = voice_settings.nguidance_stop_sign,
                                                                                                                             t_junction = voice_settings.nguidance_t_junction })
-    selection_rules.ignore_warning = rules.ignore_warning
     return selection_rules
 end
 

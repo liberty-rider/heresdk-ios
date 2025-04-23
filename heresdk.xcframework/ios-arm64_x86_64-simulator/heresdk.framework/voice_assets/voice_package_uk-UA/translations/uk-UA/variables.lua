@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'півмилі',
     ['nav.variable.DISTANCE.quartermile'] = 'чверть милі',
     ['nav.variable.DISTANCE.threequartersmile'] = 'три чверті милі',
+    ['nav.variable.FROMSIDE.left'] = 'зліва',
+    ['nav.variable.FROMSIDE.right'] = 'справа',
     ['nav.variable.GOAL.destination'] = 'місце призначення',
     ['nav.variable.GOAL.waypoint'] = 'місце зупинки',
     ['nav.variable.HIGHWAY.regular'] = 'автомагістраль',

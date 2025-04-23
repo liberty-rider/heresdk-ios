@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'μισό μίλι',
     ['nav.variable.DISTANCE.quartermile'] = 'ένα τέταρτο του μιλίου',
     ['nav.variable.DISTANCE.threequartersmile'] = 'τρία τέταρτα του μιλίου',
+    ['nav.variable.FROMSIDE.left'] = 'από αριστερά',
+    ['nav.variable.FROMSIDE.right'] = 'από δεξιά',
     ['nav.variable.GOAL.destination'] = 'προορισμό',
     ['nav.variable.GOAL.waypoint'] = 'ενδιάμεσο σταθμό',
     ['nav.variable.HIGHWAY.regular'] = 'αυτοκινητόδρομο',

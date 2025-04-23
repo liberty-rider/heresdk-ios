@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'Semnalul GPS a fost restabilit',
     ['nav.newroute'] = 'Se caută o nouă rută',
     ['nav.speedcamera'] = 'Cameră radar în față',
+    ['nav.trafficmerge'] = 'Traficul fuzionează {FROM_SIDE} în față',
 }
 
 return templates

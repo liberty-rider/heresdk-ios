@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'o jumătate de milă',
     ['nav.variable.DISTANCE.quartermile'] = 'un sfert de milă',
     ['nav.variable.DISTANCE.threequartersmile'] = 'trei sferturi de milă',
+    ['nav.variable.FROMSIDE.left'] = 'de la stânga',
+    ['nav.variable.FROMSIDE.right'] = 'de la dreapta',
     ['nav.variable.GOAL.destination'] = 'destinație',
     ['nav.variable.GOAL.waypoint'] = 'punctul intermediar',
     ['nav.variable.HIGHWAY.regular'] = 'autostradă',

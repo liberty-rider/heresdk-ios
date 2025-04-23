@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS信号已恢复',
     ['nav.newroute'] = '正在查找新路线',
     ['nav.speedcamera'] = '前方有测速摄像头',
+    ['nav.trafficmerge'] = '前方{FROM_SIDE}合流',
 }
 
 return templates

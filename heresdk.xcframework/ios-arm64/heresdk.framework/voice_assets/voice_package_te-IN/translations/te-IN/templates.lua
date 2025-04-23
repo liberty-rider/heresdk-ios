@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS స్నిగ్నల్ మళ్లీ వచ్చింది',
     ['nav.newroute'] = 'కొత్త మార్గాన్ని కనుగొంటోంది',
     ['nav.speedcamera'] = 'స్పీడ్ కెమేరా ముందు ఉంది',
+    ['nav.trafficmerge'] = '{FROM_SIDE} ముందు ట్రాఫిక్ కలుస్తుంది',
 }
 
 return templates

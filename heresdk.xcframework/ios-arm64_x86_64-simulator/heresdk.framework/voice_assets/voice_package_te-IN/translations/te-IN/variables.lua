@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'అర మైలు',
     ['nav.variable.DISTANCE.quartermile'] = 'పావు మైలు',
     ['nav.variable.DISTANCE.threequartersmile'] = 'ముప్పావు మైలు',
+    ['nav.variable.FROMSIDE.left'] = 'ఎడమ వైపు నుండి',
+    ['nav.variable.FROMSIDE.right'] = 'కుడి వైపు నుండి',
     ['nav.variable.GOAL.destination'] = 'గమ్యస్థానం',
     ['nav.variable.GOAL.waypoint'] = 'వేపాయింట్',
     ['nav.variable.HIGHWAY.regular'] = 'మోటార్‌వేని',

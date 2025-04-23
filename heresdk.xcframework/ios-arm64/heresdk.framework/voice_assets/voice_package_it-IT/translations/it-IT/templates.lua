@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'Segnale GPS ripristinato',
     ['nav.newroute'] = 'Calcolo di un nuovo itinerario in corso',
     ['nav.speedcamera'] = 'Controllo elettronico della velocità più avanti',
+    ['nav.trafficmerge'] = 'Immissione del traffico {FROM_SIDE} più avanti',
 }
 
 return templates

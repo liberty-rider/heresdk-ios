@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'een halve mijl',
     ['nav.variable.DISTANCE.quartermile'] = 'een kwart mijl',
     ['nav.variable.DISTANCE.threequartersmile'] = 'driekwart mijl',
+    ['nav.variable.FROMSIDE.left'] = 'van links',
+    ['nav.variable.FROMSIDE.right'] = 'van rechts',
     ['nav.variable.GOAL.destination'] = 'bestemming',
     ['nav.variable.GOAL.waypoint'] = 'routepunt',
     ['nav.variable.HIGHWAY.regular'] = 'snelweg',

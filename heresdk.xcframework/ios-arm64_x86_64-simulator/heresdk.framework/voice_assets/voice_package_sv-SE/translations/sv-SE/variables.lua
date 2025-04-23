@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'en halv engelsk mil',
     ['nav.variable.DISTANCE.quartermile'] = 'en kvarts engelsk mil',
     ['nav.variable.DISTANCE.threequartersmile'] = 'tre fjärdedels engelsk mil',
+    ['nav.variable.FROMSIDE.left'] = 'från vänster',
+    ['nav.variable.FROMSIDE.right'] = 'från höger',
     ['nav.variable.GOAL.destination'] = 'målet',
     ['nav.variable.GOAL.waypoint'] = 'vägpunkten',
     ['nav.variable.HIGHWAY.regular'] = 'motorvägen',

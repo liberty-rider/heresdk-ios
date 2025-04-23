@@ -19,10 +19,18 @@ function attributes.get_vp_supported_lang_code (input)
     return string.lower(supported_lang_code)
 end
 
+function attributes.get_merge_side (input)
+    local traffic_merge_side = input.merge_side
+    if traffic_merge_side == 'LEFT' then return 'left'
+    elseif traffic_merge_side == 'RIGHT' then return 'right'
+    elseif traffic_merge_side == 'UNKNOWN' then return ''
+    end
+end
 
 function attributes.get_trigger_class (input)
     local trigger = input.trigger
     if trigger == 'SAFETY_CAMERA' then return 'warning'
+    elseif trigger == 'TRAFFIC_MERGE' then return 'warning'
     elseif trigger == 'ROUTE_RECALCULATION' then return 'warning'
     elseif trigger == 'GPS_SIGNAL_LOST' then return 'warning'
     elseif trigger == 'GPS_SIGNAL_RESTORED' then return 'warning'

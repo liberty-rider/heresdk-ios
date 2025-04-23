@@ -54,6 +54,7 @@ local templates = {
     ['nav.newroute'] = 'নতুন রুট খুঁজছি',
     ['nav.now.join.-.highway.-.-.-'] = 'এখন {HIGHWAY} উঠুন',
     ['nav.speedcamera'] = 'সামনে স্পীড ক্যামেরা',
+    ['nav.trafficmerge'] = 'সামনে {FROM_SIDE} ট্রাফিক মার্জ হচ্ছে',
 }
 
 return templates

@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'en halv mile',
     ['nav.variable.DISTANCE.quartermile'] = 'en kvart mile',
     ['nav.variable.DISTANCE.threequartersmile'] = 'trekvart mile',
+    ['nav.variable.FROMSIDE.left'] = 'fra venstre',
+    ['nav.variable.FROMSIDE.right'] = 'fra højre',
     ['nav.variable.GOAL.destination'] = 'mål',
     ['nav.variable.GOAL.waypoint'] = 'waypoint',
     ['nav.variable.HIGHWAY.regular'] = 'motorvejen',

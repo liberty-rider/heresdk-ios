@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'אות GPS חזר',
     ['nav.newroute'] = 'מוצא מסלול חדש',
     ['nav.speedcamera'] = 'מכמונת מהירות לפניך',
+    ['nav.trafficmerge'] = 'תנועה מתמזגת {FROM_SIDE} בהמשך',
 }
 
 return templates

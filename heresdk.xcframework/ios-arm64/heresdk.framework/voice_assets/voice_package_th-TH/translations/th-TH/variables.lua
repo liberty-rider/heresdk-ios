@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'ครึ่งไมล์',
     ['nav.variable.DISTANCE.quartermile'] = 'เศษหนึ่งส่วนสี่ไมล์',
     ['nav.variable.DISTANCE.threequartersmile'] = 'เศษสามส่วนสี่ไมล์',
+    ['nav.variable.FROMSIDE.left'] = 'จากทางซ้าย',
+    ['nav.variable.FROMSIDE.right'] = 'จากทางขวา',
     ['nav.variable.GOAL.destination'] = 'จุดหมาย',
     ['nav.variable.GOAL.waypoint'] = 'จุดพัก',
     ['nav.variable.HIGHWAY.regular'] = 'มอเตอร์เวย์',

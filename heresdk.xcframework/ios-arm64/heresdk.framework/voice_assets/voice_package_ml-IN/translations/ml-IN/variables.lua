@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'അര മൈൽ',
     ['nav.variable.DISTANCE.quartermile'] = 'കാൽ മൈൽ',
     ['nav.variable.DISTANCE.threequartersmile'] = 'മുക്കാൽ മൈൽ',
+    ['nav.variable.FROMSIDE.left'] = 'ഇടത്തുനിന്ന്',
+    ['nav.variable.FROMSIDE.right'] = 'വലത്തുനിന്ന്',
     ['nav.variable.GOAL.destination'] = 'ലക്ഷ്യസ്ഥാനം',
     ['nav.variable.GOAL.waypoint'] = 'വേപോയിന്‍റ്',
     ['nav.variable.HIGHWAY.regular'] = 'മോട്ടോർവേ',

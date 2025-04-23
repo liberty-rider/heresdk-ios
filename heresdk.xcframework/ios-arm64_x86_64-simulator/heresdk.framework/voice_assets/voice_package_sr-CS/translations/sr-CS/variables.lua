@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'pola milje',
     ['nav.variable.DISTANCE.quartermile'] = 'četvrtine milje',
     ['nav.variable.DISTANCE.threequartersmile'] = 'tri četvrtine milje',
+    ['nav.variable.FROMSIDE.left'] = 's leve strane',
+    ['nav.variable.FROMSIDE.right'] = 's desne strane',
     ['nav.variable.GOAL.destination'] = 'odredište',
     ['nav.variable.GOAL.waypoint'] = 'međuodredište',
     ['nav.variable.HIGHWAY.regular'] = 'auto-put',

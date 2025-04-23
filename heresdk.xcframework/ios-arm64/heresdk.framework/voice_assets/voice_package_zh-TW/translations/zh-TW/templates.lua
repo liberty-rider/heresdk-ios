@@ -6,7 +6,7 @@ local templates = {
     ['nav.-.follow.-.highway'] = '沿{HIGHWAY}行駛',
     ['nav.-.follow.-.road'] = '沿道路行駛',
 
-    ['nav.-.head.-.-'] = '向{ORIENTATION}前往{DIRECTION}',
+    ['nav.-.head.-.-'] = '向{ORIENTATION}{DIRECTION}',
 
     ['nav.landmark.makeuturn.-.-'] = '{LANDMARK}迴轉{SECOND}',
     ['nav.landmark.takeferry.-.-'] = '{LANDMARK}搭乘渡輪{DIRECTION}{SECOND}',
@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS訊號已恢復',
     ['nav.newroute'] = '正在尋找新路線',
     ['nav.speedcamera'] = '前方有測速照相',
+    ['nav.trafficmerge'] = '前方{FROM_SIDE}道路合併',
 }
 
 return templates

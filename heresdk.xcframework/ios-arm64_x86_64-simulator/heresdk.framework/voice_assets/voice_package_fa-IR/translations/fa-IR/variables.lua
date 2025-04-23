@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'نیم مایل',
     ['nav.variable.DISTANCE.quartermile'] = 'یک چهارم مایل',
     ['nav.variable.DISTANCE.threequartersmile'] = 'سه چهارم مایل',
+    ['nav.variable.FROMSIDE.left'] = 'از سمت چپ',
+    ['nav.variable.FROMSIDE.right'] = 'از سمت راست',
     ['nav.variable.GOAL.destination'] = 'مقصد',
     ['nav.variable.GOAL.waypoint'] = 'نقطه جهت‌یابی',
     ['nav.variable.HIGHWAY.regular'] = 'بزرگراه شوید',

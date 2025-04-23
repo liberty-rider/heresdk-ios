@@ -52,7 +52,8 @@ local templates = {
     ['nav.gpslost'] = 'Kein GPS-Signal',
     ['nav.gpsrestored'] = 'Das GPS-Signal ist wieder verfügbar',
     ['nav.newroute'] = 'Eine neue Route wird berechnet',
-    ['nav.speedcamera'] = 'Radarkamera voraus.',
+    ['nav.speedcamera'] = 'Radarkamera voraus',
+    ['nav.trafficmerge'] = 'Verkehrszusammenführung {FROM_SIDE} voraus',
 }
 
 return templates

@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS signál bol obnovený',
     ['nav.newroute'] = 'Vyhľadávam novú trasu',
     ['nav.speedcamera'] = 'Pred vami je rýchlostná kamera',
+    ['nav.trafficmerge'] = 'Pred vami sa pripájajú vozidlá {FROM_SIDE}',
 }
 
 return templates

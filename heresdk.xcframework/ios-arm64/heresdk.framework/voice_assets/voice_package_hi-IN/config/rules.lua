@@ -1,24 +1,5 @@
 local rules = {}
 
-
-rules.ignore_warning = { Attribute = 'trigger_class',
-                         Values = { ['safety_camera_warning'] = { Attribute = 'use_speed_camera',
-                                                                  Values = { ['false'] = { Setting = true },
-                                                                             ['*'] = { Setting= false }
-                                                                           }
-                                                                },
-                                    ['simple_warning'] = { Attribute = 'trigger',
-                                                           Values = { ['speed_warner'] = { Attribute = 'use_speed_warner',
-                                                                                           Values = { ['false'] = { Setting = true },
-                                                                                                      ['*'] = { Setting = false }
-                                                                                                    }
-                                                                                         }
-                                                                    }
-                                                         },
-                                    ['*'] = { Setting = false }
-                                  }
-                       }
-
 -- if the distance to maneuver in meters is higher or equal to the threshold, 'follow the road' instruction is used instead of the maneuver
 -- if threshold set to nil, 'follow the road' instruction is never used regardless of the distance
 -- if threshold set to -1, 'follow the road' instruction is always used, since the distance is always greater than -1

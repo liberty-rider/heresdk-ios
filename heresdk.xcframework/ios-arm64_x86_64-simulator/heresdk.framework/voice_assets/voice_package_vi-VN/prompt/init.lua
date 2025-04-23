@@ -79,6 +79,8 @@ function prompt._substitute_placeholders(template, prompt_table, substitutes, mo
             value = prompt._get_again_phrase(prompt_table, substitutes.variables)
         elseif placeholder == '{ORIENTATION}' then
             value = prompt._get_orientation(prompt_table, substitutes.variables)
+        elseif placeholder == '{FROM_SIDE}' then
+            value = substitutes.variables[prompt_table.merge_side]
 
         -- clause placeholders for values
         elseif placeholder == '{DISTANCE}' then

@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'அரை மைல்',
     ['nav.variable.DISTANCE.quartermile'] = 'கால் மைல்',
     ['nav.variable.DISTANCE.threequartersmile'] = 'முக்கால் மைல்',
+    ['nav.variable.FROMSIDE.left'] = 'இடது பக்கம் இருந்து',
+    ['nav.variable.FROMSIDE.right'] = 'வலது பக்கம் இருந்து',
     ['nav.variable.GOAL.destination'] = 'சேருமிடம்',
     ['nav.variable.GOAL.waypoint'] = 'வழிப்பாதை',
     ['nav.variable.HIGHWAY.regular'] = 'மோட்டார் பாதை',

@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'půl míle',
     ['nav.variable.DISTANCE.quartermile'] = 'čtvrt míle',
     ['nav.variable.DISTANCE.threequartersmile'] = 'tři čtvrtiny míle',
+    ['nav.variable.FROMSIDE.left'] = 'zleva',
+    ['nav.variable.FROMSIDE.right'] = 'zprava',
     ['nav.variable.GOAL.destination'] = 'cíle',
     ['nav.variable.GOAL.waypoint'] = 'mezicíle',
     ['nav.variable.HIGHWAY.regular'] = 'dálnici',

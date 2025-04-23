@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'yarım mil',
     ['nav.variable.DISTANCE.quartermile'] = 'çeyrek mil',
     ['nav.variable.DISTANCE.threequartersmile'] = 'dörtte üç mil',
+    ['nav.variable.FROMSIDE.left'] = 'sol',
+    ['nav.variable.FROMSIDE.right'] = 'sağ',
     ['nav.variable.GOAL.destination'] = 'hedef',
     ['nav.variable.GOAL.waypoint'] = 'ara hedef',
     ['nav.variable.HIGHWAY.regular'] = 'otoyola',

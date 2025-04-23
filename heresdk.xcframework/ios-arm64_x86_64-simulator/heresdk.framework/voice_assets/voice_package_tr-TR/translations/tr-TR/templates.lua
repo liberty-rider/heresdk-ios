@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS sinyali tekrar alındı',
     ['nav.newroute'] = 'Yeni güzergah aranıyor',
     ['nav.speedcamera'] = 'İleride hız kamerası var',
+    ['nav.trafficmerge'] = 'İleride {FROM_SIDE} tarafta yol birleşiyor',
 }
 
 return templates

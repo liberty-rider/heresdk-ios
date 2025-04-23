@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'pol míle',
     ['nav.variable.DISTANCE.quartermile'] = 'štvrť míle',
     ['nav.variable.DISTANCE.threequartersmile'] = 'tri štvrtiny míle',
+    ['nav.variable.FROMSIDE.left'] = 'z ľavého pruhu',
+    ['nav.variable.FROMSIDE.right'] = 'z pravého pruhu',
     ['nav.variable.GOAL.destination'] = 'cieľa',
     ['nav.variable.GOAL.waypoint'] = 'bodu trasy',
     ['nav.variable.HIGHWAY.regular'] = 'diaľnicu',

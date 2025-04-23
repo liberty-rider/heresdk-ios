@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'puoli mailia',
     ['nav.variable.DISTANCE.quartermile'] = 'neljännesmaili',
     ['nav.variable.DISTANCE.threequartersmile'] = 'kolme neljännesmailia',
+    ['nav.variable.FROMSIDE.left'] = 'vasemmalta',
+    ['nav.variable.FROMSIDE.right'] = 'oikealta',
     ['nav.variable.GOAL.destination'] = 'määränpää',
     ['nav.variable.GOAL.waypoint'] = 'reittipiste',
     ['nav.variable.HIGHWAY.regular'] = 'maantietä',

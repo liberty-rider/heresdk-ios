@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'setengah mil',
     ['nav.variable.DISTANCE.quartermile'] = 'seperempat mil',
     ['nav.variable.DISTANCE.threequartersmile'] = 'tiga perempat mil',
+    ['nav.variable.FROMSIDE.left'] = 'dari kiri',
+    ['nav.variable.FROMSIDE.right'] = 'dari kanan',
     ['nav.variable.GOAL.destination'] = 'tujuan',
     ['nav.variable.GOAL.waypoint'] = 'persinggahan',
     ['nav.variable.HIGHWAY.regular'] = 'jalan tol',

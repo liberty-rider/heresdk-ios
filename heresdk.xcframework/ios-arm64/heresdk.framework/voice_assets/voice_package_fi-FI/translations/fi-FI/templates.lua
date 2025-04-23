@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS-signaali on palautunut',
     ['nav.newroute'] = 'Haetaan uutta reittiä',
     ['nav.speedcamera'] = 'Valvontakamera edessä',
+    ['nav.trafficmerge'] = 'Liikennettä tulossa {FROM_SIDE}',
 }
 
 return templates

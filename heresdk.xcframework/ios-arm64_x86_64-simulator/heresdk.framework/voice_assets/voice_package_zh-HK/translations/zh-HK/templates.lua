@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS訊號已經恢復',
     ['nav.newroute'] = '正喺度搵緊新嘅路線',
     ['nav.speedcamera'] = '前面有快相機',
+    ['nav.trafficmerge'] = '前方{FROM_SIDE}車輛併入',
 }
 
 return templates

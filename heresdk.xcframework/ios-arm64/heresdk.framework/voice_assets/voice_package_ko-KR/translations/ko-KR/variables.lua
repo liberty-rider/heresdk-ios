@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = '0.5마일',
     ['nav.variable.DISTANCE.quartermile'] = '0.25마일',
     ['nav.variable.DISTANCE.threequartersmile'] = '0.75마일',
+    ['nav.variable.FROMSIDE.left'] = '왼쪽에서',
+    ['nav.variable.FROMSIDE.right'] = '오른쪽에서',
     ['nav.variable.GOAL.destination'] = '목적지',
     ['nav.variable.GOAL.waypoint'] = '경유지',
     ['nav.variable.HIGHWAY.regular'] = '고속 도로',

@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'fél mérföld',
     ['nav.variable.DISTANCE.quartermile'] = 'negyed mérföld',
     ['nav.variable.DISTANCE.threequartersmile'] = 'háromnegyed mérföld',
+    ['nav.variable.FROMSIDE.left'] = 'balról',
+    ['nav.variable.FROMSIDE.right'] = 'jobbról',
     ['nav.variable.GOAL.destination'] = 'az úti célt',
     ['nav.variable.GOAL.waypoint'] = 'az iránypontot',
     ['nav.variable.HIGHWAY.regular'] = 'az autópályára',

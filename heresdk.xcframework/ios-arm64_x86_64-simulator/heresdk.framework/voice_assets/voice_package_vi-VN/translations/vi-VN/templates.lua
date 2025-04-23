@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'Đã khôi phục tín hiệu GPS',
     ['nav.newroute'] = 'Đang tìm tuyến đường mới',
     ['nav.speedcamera'] = 'Chú ý, camera bắn tốc độ ở phía trước',
+    ['nav.trafficmerge'] = 'Phương tiện đang nhập làn {FROM_SIDE} phía trước',
 }
 
 return templates

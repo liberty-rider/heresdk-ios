@@ -25,15 +25,6 @@ function common.get_config_value(config_table, attribute_table)
 end
 
 
-function common.is_ignored_warning(rules, message)
-    local attributes = { ['trigger_class'] = message.trigger_class,
-                         ['trigger'] = message.trigger,
-                         ['use_speed_camera'] = message.use_speed_camera,
-                         ['use_speed_warner'] = message.use_speed_warner }
-    return common.get_config_value(rules.ignore_warning, attributes)
-end
-
-
 function common.get_prompt_table(content_table, next_content_table)
     local prompt_table = common._get_prompt_variables(content_table, next_content_table)
     prompt_table.prompt_id = common._get_prompt_id(content_table, next_content_table)

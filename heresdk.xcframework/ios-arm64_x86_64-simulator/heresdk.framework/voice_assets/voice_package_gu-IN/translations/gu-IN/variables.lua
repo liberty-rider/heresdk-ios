@@ -11,6 +11,8 @@ return {
     ['nav.variable.DISTANCE.halfmile'] = 'અડધો માઇલ',
     ['nav.variable.DISTANCE.quartermile'] = 'એક ચતુર્થાંશ માઇલ',
     ['nav.variable.DISTANCE.threequartersmile'] = 'પોણો માઇલ',
+    ['nav.variable.FROMSIDE.left'] = 'ડાબી તરફ',
+    ['nav.variable.FROMSIDE.right'] = 'જમણી તરફ',
     ['nav.variable.GOAL.destination'] = 'ગંતવ્ય',
     ['nav.variable.GOAL.waypoint'] = 'માર્ગસ્થાન',
     ['nav.variable.HIGHWAY.regular'] = 'મોટરવે',

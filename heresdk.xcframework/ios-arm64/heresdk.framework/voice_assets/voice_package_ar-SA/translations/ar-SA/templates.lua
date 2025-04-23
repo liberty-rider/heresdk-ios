@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'تمَّ اِستِعادةُ الإِشارة GPS.',
     ['nav.newroute'] = 'يَتِمُّ الآنَ البَحْثُ عن مَسارٍ جَدِيد.',
     ['nav.speedcamera'] = 'أَمامَكَ كامِيرةُ سُرعة.',
+    ['nav.trafficmerge'] = 'انْدِماجْ مَعَ حَرَكَةِ الْمُرُورِ {FROM_SIDE} أَمامَكَ',
 }
 
 return templates

@@ -53,6 +53,7 @@ local templates = {
     ['nav.gpsrestored'] = 'GPS 신호가 복원되었습니다',
     ['nav.newroute'] = '새 경로를 찾는 중입니다',
     ['nav.speedcamera'] = '속도 카메라가 전방에 있습니다',
+    ['nav.trafficmerge'] = '전방 {FROM_SIDE} 차량 합류',
 }
 
 return templates
