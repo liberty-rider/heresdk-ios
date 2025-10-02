@@ -1,1 +1,1 @@
-{"raster tile service": {"tags": ["rts"], "enabledByDefault": false, "modes": [{"name": "full feature", "disabledLayers": ["background", "outdoor", "shadow", "geo", "geohalo", "geofog", "northpole", "southpole"]}], "disabledMode": {}}}
+{"raster tile service": {"tags": ["rts"], "defaultMode": "none", "modes": {"full feature": {"disabledLayers": ["background", "outdoor", "shadow", "geo", "geohalo", "geofog", "northpole", "southpole"]}, "none": {}}}}

@@ -1,1 +1,0 @@
-{"$concat": [{"$ref": "../../shared/list/features.common.json#"}, {"$ref": "ocm.features.common.json#"}, {"$removeElement": {"filter": ["hd roads", "lane boundaries", "lane meshes", "ambient occlusion"], "from": {"$ref": "ocm.features.common.json#"}}}, {"$ref": "ocm.hd-features.common.json#"}]}
