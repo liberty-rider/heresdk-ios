@@ -928,7 +928,7 @@ extension heresdk.MapArrow : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class MapCamera {
-  public typealias DryCameraUpdateHandler = (heresdk.MapCamera.State?) -> Swift.Void
+  public typealias DryCameraUpdateHandler = (_ cameraState: heresdk.MapCamera.State?) -> Swift.Void
   public var state: heresdk.MapCamera.State {
     get
   }
@@ -1972,7 +1972,7 @@ public enum MapProjection : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   }
 }
 @_hasMissingDesignatedInitializers public class MapScene {
-  public typealias LoadSceneCompletionHandler = (heresdk.MapError?) -> Swift.Void
+  public typealias LoadSceneCompletionHandler = (_ loadSceneError: heresdk.MapError?) -> Swift.Void
   public var lights: heresdk.MapSceneLights {
     get
   }
@@ -2038,7 +2038,7 @@ extension heresdk.MapScene.MapPickFilter : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class MapSceneLights {
-  public typealias AttributeSettingCompletionHandler = (heresdk.MapSceneLights.AttributeSettingError?) -> Swift.Void
+  public typealias AttributeSettingCompletionHandler = (_ setLightError: heresdk.MapSceneLights.AttributeSettingError?) -> Swift.Void
   @objc deinit
   public enum Category : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
     case main
@@ -2441,7 +2441,7 @@ extension heresdk.LineDataBuilder : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class LineDataSource {
-  public typealias LineDataProcessor = (heresdk.LineDataAccessor) -> Swift.Bool
+  public typealias LineDataProcessor = (_ lineAccessor: heresdk.LineDataAccessor) -> Swift.Bool
   @objc deinit
   public func add(_ line: heresdk.LineData)
   public func add(_ lines: [heresdk.LineData])
@@ -2533,7 +2533,7 @@ extension heresdk.PointDataBuilder : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class PointDataSource {
-  public typealias PointDataProcessor = (heresdk.PointDataAccessor) -> Swift.Bool
+  public typealias PointDataProcessor = (_ pointAccessor: heresdk.PointDataAccessor) -> Swift.Bool
   @objc deinit
   public func add(_ point: heresdk.PointData)
   public func add(_ points: [heresdk.PointData])
@@ -2625,7 +2625,7 @@ extension heresdk.PolygonDataBuilder : Swift.Hashable {
   }
 }
 @_hasMissingDesignatedInitializers public class PolygonDataSource {
-  public typealias PolygonDataProcessor = (heresdk.PolygonDataAccessor) -> Swift.Bool
+  public typealias PolygonDataProcessor = (_ polygonAccessor: heresdk.PolygonDataAccessor) -> Swift.Bool
   @objc deinit
   public func add(_ polygon: heresdk.PolygonData)
   public func add(_ polygons: [heresdk.PolygonData])
@@ -2735,7 +2735,7 @@ extension heresdk.TileUrlProviderFactory : Swift.Hashable {
     get
   }
 }
-public typealias TileUrlRequestHandler = (Swift.Int32, Swift.Int32, Swift.Int32) -> Swift.String
+public typealias TileUrlRequestHandler = (_ x: Swift.Int32, _ y: Swift.Int32, _ level: Swift.Int32) -> Swift.String
 public enum TilingScheme : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case halfQuadTreeIdentity
   case halfQuadTreeMercator
@@ -3937,150 +3937,6 @@ extension heresdk.Threading : Swift.Hashable {
     get
   }
 }
-public struct AdministrativeRules : Swift.Hashable {
-  public var countryCode: heresdk.CountryCode
-  public var stateCode: Swift.String?
-  public var drivingSide: heresdk.DrivingSide?
-  public var unitSystem: heresdk.UnitSystem?
-  public var speedLimits: heresdk.GeneralVehicleSpeedLimits
-  public var timeZoneOffsetsInMinutes: [Foundation.TimeInterval]
-  public var daylightSavingPeriod: heresdk.TimeRule?
-  public var isUturnRestricted: Swift.Bool
-  public var headlightsRequirements: [heresdk.HeadlightsRequirement]
-  public var isTollRequired: Swift.Bool
-  public var isTollStickerRequired: Swift.Bool
-  public var turnOnRedRegulations: [heresdk.TurnOnRedRegulation]
-  public var parkingSideRegulations: [heresdk.ParkingSideRegulation]
-  public var isCleanAirStickerRequired: Swift.Bool
-  public var bloodAlcoholContentLimit: heresdk.BloodAlcoholContentLimit
-  public var tollSystems: [heresdk.TollSystem]
-  public var preTripPlanning: heresdk.PreTripPlanning
-  public init(countryCode: heresdk.CountryCode = CountryCode.abw, stateCode: Swift.String? = nil, drivingSide: heresdk.DrivingSide? = nil, unitSystem: heresdk.UnitSystem? = nil, speedLimits: heresdk.GeneralVehicleSpeedLimits = GeneralVehicleSpeedLimits(), timeZoneOffsetsInMinutes: [Foundation.TimeInterval] = [], daylightSavingPeriod: heresdk.TimeRule? = nil, isUturnRestricted: Swift.Bool = false, headlightsRequirements: [heresdk.HeadlightsRequirement] = [], isTollRequired: Swift.Bool = false, isTollStickerRequired: Swift.Bool = false, turnOnRedRegulations: [heresdk.TurnOnRedRegulation] = [], parkingSideRegulations: [heresdk.ParkingSideRegulation] = [], isCleanAirStickerRequired: Swift.Bool = false, bloodAlcoholContentLimit: heresdk.BloodAlcoholContentLimit = BloodAlcoholContentLimit(), tollSystems: [heresdk.TollSystem] = [], preTripPlanning: heresdk.PreTripPlanning = PreTripPlanning())
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.AdministrativeRules, b: heresdk.AdministrativeRules) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct BloodAlcoholContentLimit : Swift.Hashable {
-  public var noviceDriverLimitInPartsPerMillion: Swift.Int32
-  public var standardDriverLimitInPartsPerMillion: Swift.Int32
-  public var commercialDriverLimitInPartsPerMillion: Swift.Int32
-  public init(noviceDriverLimitInPartsPerMillion: Swift.Int32 = 0, standardDriverLimitInPartsPerMillion: Swift.Int32 = 0, commercialDriverLimitInPartsPerMillion: Swift.Int32 = 0)
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.BloodAlcoholContentLimit, b: heresdk.BloodAlcoholContentLimit) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum DrivingSide : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case right
-  case left
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.DrivingSide]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.DrivingSide] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum HeadlightsRequirement : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case alwaysOn
-  case halfHourAfterSunsetHalfHourBeforeSunrise
-  case whenWindshieldVipersOn
-  case lowVisibility
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.HeadlightsRequirement]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.HeadlightsRequirement] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum ParkingSideRegulation : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case bothSidesOneWayRoad
-  case oppositeLaneTwoWayRoad
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.ParkingSideRegulation]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.ParkingSideRegulation] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public struct PreTripPlanning : Swift.Hashable {
-  public var isWarningTriangleRequired: Swift.Bool
-  public var isFirstAidKitRequired: Swift.Bool
-  public var isSafetyVestRequired: Swift.Bool
-  public var areSpareLightBulbsRequired: Swift.Bool
-  public var isAlcoholTesterRequired: Swift.Bool
-  public var isFireExtinguisherRequired: Swift.Bool
-  public var isTowRopeRequired: Swift.Bool
-  public var areWinterTiresRequired: Swift.Bool
-  public var winterSeasonPeriod: Swift.String?
-  public init(isWarningTriangleRequired: Swift.Bool = false, isFirstAidKitRequired: Swift.Bool = false, isSafetyVestRequired: Swift.Bool = false, areSpareLightBulbsRequired: Swift.Bool = false, isAlcoholTesterRequired: Swift.Bool = false, isFireExtinguisherRequired: Swift.Bool = false, isTowRopeRequired: Swift.Bool = false, areWinterTiresRequired: Swift.Bool = false, winterSeasonPeriod: Swift.String? = nil)
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.PreTripPlanning, b: heresdk.PreTripPlanning) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct TollCost : Swift.Hashable {
-  public var currency: Swift.String
-  public var price: Swift.Double
-  public var paymentMethods: [heresdk.PaymentMethod]
-  public var isPriceCalculatedPerKilometer: Swift.Bool
-  public var vehicleProfiles: [heresdk.VehicleProfile]
-  public init(currency: Swift.String, price: Swift.Double = 0.0, paymentMethods: [heresdk.PaymentMethod] = [], isPriceCalculatedPerKilometer: Swift.Bool = false, vehicleProfiles: [heresdk.VehicleProfile] = [])
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.TollCost, b: heresdk.TollCost) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct TollSystem : Swift.Hashable {
-  public var systemName: Swift.String
-  public var tollCosts: [heresdk.TollCost]
-  public init(systemName: Swift.String, tollCosts: [heresdk.TollCost] = [])
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.TollSystem, b: heresdk.TollSystem) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum TrafficSignalLocation : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case overhead
-  case left
-  case right
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.TrafficSignalLocation]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.TrafficSignalLocation] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum TurnOnRedRegulation : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case allowedUnlessPosted
-  case prohibitedUnlessPosted
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.TurnOnRedRegulation]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.TurnOnRedRegulation] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
 public enum DividerMarker : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   case longDashedLine
   case doubleSolidLine
@@ -4100,22 +3956,6 @@ public enum DividerMarker : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
   public typealias AllCases = [heresdk.DividerMarker]
   public typealias RawValue = Swift.UInt32
   nonisolated public static var allCases: [heresdk.DividerMarker] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum GeneralWarningRoadSignType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case unknown
-  case objectOverhang
-  case riskOfGrounding
-  case animalCrossing
-  case accidentHazard
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.GeneralWarningRoadSignType]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.GeneralWarningRoadSignType] {
     get
   }
   public var rawValue: Swift.UInt32 {
@@ -4232,134 +4072,6 @@ public struct RoadAttributes : Swift.Hashable {
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.RoadAttributes, b: heresdk.RoadAttributes) -> Swift.Bool
   public var hashValue: Swift.Int {
-    get
-  }
-}
-public struct RoadSign : Swift.Hashable {
-  public var offsetInMeters: Swift.Int32
-  public var travelDirection: heresdk.TravelDirection
-  public var roadSignType: heresdk.RoadSignType
-  public var roadSignCategory: heresdk.RoadSignCategory
-  public var isPrioritySign: Swift.Bool
-  public var generalWarningType: heresdk.GeneralWarningRoadSignType
-  public var vehicleTypes: [heresdk.RoadSignVehicleType]
-  public var weatherType: heresdk.WeatherType
-  public var localizedSignValue: heresdk.LocalizedText?
-  public var localizedPreWarning: heresdk.LocalizedText?
-  public var localizedDuration: heresdk.LocalizedText?
-  public var localizedValidityTime: heresdk.LocalizedText?
-  public init(offsetInMeters: Swift.Int32, travelDirection: heresdk.TravelDirection, roadSignType: heresdk.RoadSignType, roadSignCategory: heresdk.RoadSignCategory, isPrioritySign: Swift.Bool, generalWarningType: heresdk.GeneralWarningRoadSignType, vehicleTypes: [heresdk.RoadSignVehicleType], weatherType: heresdk.WeatherType, localizedSignValue: heresdk.LocalizedText? = nil, localizedPreWarning: heresdk.LocalizedText? = nil, localizedDuration: heresdk.LocalizedText? = nil, localizedValidityTime: heresdk.LocalizedText? = nil)
-  public func hash(into hasher: inout Swift.Hasher)
-  public static func == (a: heresdk.RoadSign, b: heresdk.RoadSign) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-}
-public enum RoadSignCategory : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case unknown
-  case regulatorySign
-  case informativeSign
-  case warningSign
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.RoadSignCategory]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.RoadSignCategory] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum RoadSignType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case unknown
-  case startOfNoOvertaking
-  case endOfNoOvertaking
-  case protectedOvertakingExtraLane
-  case protectedOvertakingExtraLaneRightSide
-  case protectedOvertakingExtraLaneLeftSide
-  case laneMergeRight
-  case laneMergeLeft
-  case laneMergeCenter
-  case railwayCrossingProtected
-  case railwayCrossingUnprotected
-  case roadNarrows
-  case sharpCurveLeft
-  case sharpCurveRight
-  case windingRoadStartingLeft
-  case windingRoadStartingRight
-  case startOfNoOvertakingTrucks
-  case endOfNoOvertakingTrucks
-  case steepHillUpwards
-  case steepHillDownwards
-  case stopSign
-  case lateralWind
-  case generalWarningSign
-  case riskOfGrounding
-  case generalCurve
-  case endOfAllRestrictions
-  case generalHill
-  case animalCrossing
-  case icyConditions
-  case slipperyRoad
-  case fallingRocks
-  case schoolZone
-  case tramwayCrossing
-  case congestionHazard
-  case accidentHazard
-  case priorityOverOncomingTraffic
-  case yieldToOncomingTraffic
-  case crossingWithPriorityFromTheRight
-  case pedestrianCrossing
-  case yield
-  case doubleHairpin
-  case tripleHairpin
-  case embankment
-  case twoWayTraffic
-  case urbanArea
-  case humpBridge
-  case unevenRoad
-  case floodArea
-  case obstacle
-  case hornSign
-  case noEngineBrake
-  case endOfNoEngineBrake
-  case noIdling
-  case truckRollover
-  case lowGear
-  case endOfLowGear
-  case bicycleCrossing
-  case yieldToBicycles
-  case noTowedCaravanAllowed
-  case noTowedTrailerAllowed
-  case noCamperOrMotorhomeAllowed
-  case noTurnOnRed
-  case turnPermittedOnRed
-  case twoStageLeft
-  case twoStageRight
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.RoadSignType]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.RoadSignType] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
-    get
-  }
-}
-public enum RoadSignVehicleType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
-  case trucks
-  case heavyTrucks
-  case bus
-  case autoTrailer
-  case motorhome
-  case motorcycle
-  public init?(rawValue: Swift.UInt32)
-  public typealias AllCases = [heresdk.RoadSignVehicleType]
-  public typealias RawValue = Swift.UInt32
-  nonisolated public static var allCases: [heresdk.RoadSignVehicleType] {
-    get
-  }
-  public var rawValue: Swift.UInt32 {
     get
   }
 }
@@ -4844,6 +4556,7 @@ public enum ElectronicHorizonErrorCode : Swift.UInt32, Swift.CaseIterable, Swift
   case unknown
   case dataNotReady
   case segmentNotFoundInCache
+  case segmentNotReady
   case pathNotFound
   case invalidSegmentData
   public init?(rawValue: Swift.UInt32)
@@ -5030,6 +4743,31 @@ public protocol TwoFingerPanDelegate : AnyObject {
 public protocol TwoFingerTapDelegate : AnyObject {
   func onTwoFingerTap(origin: heresdk.Point2D)
 }
+public struct AdministrativeRules : Swift.Hashable {
+  public var countryCode: heresdk.CountryCode
+  public var stateCode: Swift.String?
+  public var drivingSide: heresdk.DrivingSide?
+  public var unitSystem: heresdk.UnitSystem?
+  public var speedLimits: heresdk.GeneralVehicleSpeedLimits
+  public var timeZoneOffsetsInMinutes: [Foundation.TimeInterval]
+  public var daylightSavingPeriod: heresdk.TimeRule?
+  public var isUturnRestricted: Swift.Bool
+  public var headlightsRequirements: [heresdk.HeadlightsRequirement]
+  public var isTollRequired: Swift.Bool
+  public var isTollStickerRequired: Swift.Bool
+  public var turnOnRedRegulations: [heresdk.TurnOnRedRegulation]
+  public var parkingSideRegulations: [heresdk.ParkingSideRegulation]
+  public var isCleanAirStickerRequired: Swift.Bool
+  public var bloodAlcoholContentLimit: heresdk.BloodAlcoholContentLimit
+  public var tollSystems: [heresdk.TollSystem]
+  public var preTripPlanning: heresdk.PreTripPlanning
+  public init(countryCode: heresdk.CountryCode = CountryCode.abw, stateCode: Swift.String? = nil, drivingSide: heresdk.DrivingSide? = nil, unitSystem: heresdk.UnitSystem? = nil, speedLimits: heresdk.GeneralVehicleSpeedLimits = GeneralVehicleSpeedLimits(), timeZoneOffsetsInMinutes: [Foundation.TimeInterval] = [], daylightSavingPeriod: heresdk.TimeRule? = nil, isUturnRestricted: Swift.Bool = false, headlightsRequirements: [heresdk.HeadlightsRequirement] = [], isTollRequired: Swift.Bool = false, isTollStickerRequired: Swift.Bool = false, turnOnRedRegulations: [heresdk.TurnOnRedRegulation] = [], parkingSideRegulations: [heresdk.ParkingSideRegulation] = [], isCleanAirStickerRequired: Swift.Bool = false, bloodAlcoholContentLimit: heresdk.BloodAlcoholContentLimit = BloodAlcoholContentLimit(), tollSystems: [heresdk.TollSystem] = [], preTripPlanning: heresdk.PreTripPlanning = PreTripPlanning())
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.AdministrativeRules, b: heresdk.AdministrativeRules) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 @_hasMissingDesignatedInitializers public class AdministrativeRulesLoader {
   public init() throws
   public init(sdkEngine: heresdk.SDKNativeEngine) throws
@@ -5059,6 +4797,17 @@ public struct AllowedTransportModes : Swift.Hashable {
     get
   }
 }
+public struct BloodAlcoholContentLimit : Swift.Hashable {
+  public var noviceDriverLimitInPartsPerMillion: Swift.Int32
+  public var standardDriverLimitInPartsPerMillion: Swift.Int32
+  public var commercialDriverLimitInPartsPerMillion: Swift.Int32
+  public init(noviceDriverLimitInPartsPerMillion: Swift.Int32 = 0, standardDriverLimitInPartsPerMillion: Swift.Int32 = 0, commercialDriverLimitInPartsPerMillion: Swift.Int32 = 0)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.BloodAlcoholContentLimit, b: heresdk.BloodAlcoholContentLimit) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct Connectivity : Swift.Hashable {
   public var directedSegmentId: heresdk.DirectedOCMSegmentId
   public var access: [heresdk.TransportType]
@@ -5076,6 +4825,34 @@ public struct DirectedOCMSegmentId : Swift.Hashable {
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.DirectedOCMSegmentId, b: heresdk.DirectedOCMSegmentId) -> Swift.Bool
   public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum DrivingSide : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case right
+  case left
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.DrivingSide]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.DrivingSide] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum HeadlightsRequirement : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case alwaysOn
+  case halfHourAfterSunsetHalfHourBeforeSunrise
+  case whenWindshieldVipersOn
+  case lowVisibility
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.HeadlightsRequirement]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.HeadlightsRequirement] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
     get
   }
 }
@@ -5132,6 +4909,19 @@ public struct OCMSegmentId : Swift.Hashable {
     get
   }
 }
+public enum ParkingSideRegulation : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case bothSidesOneWayRoad
+  case oppositeLaneTwoWayRoad
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.ParkingSideRegulation]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.ParkingSideRegulation] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
 public struct PhysicalAttributes : Swift.Hashable {
   public var isDirtRoad: Swift.Bool
   public var isTunnel: Swift.Bool
@@ -5149,6 +4939,23 @@ public struct PhysicalAttributes : Swift.Hashable {
   public init(isDirtRoad: Swift.Bool = false, isTunnel: Swift.Bool = false, isBridge: Swift.Bool = false, isPrivate: Swift.Bool = false, isDividedRoad: Swift.Bool = false, isRoundabout: Swift.Bool = false, isMultiplyDigitized: Swift.Bool = false, divider: heresdk.RoadDivider? = nil, isBoatFerry: Swift.Bool = false, isRailFerry: Swift.Bool = false)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.PhysicalAttributes, b: heresdk.PhysicalAttributes) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct PreTripPlanning : Swift.Hashable {
+  public var isWarningTriangleRequired: Swift.Bool
+  public var isFirstAidKitRequired: Swift.Bool
+  public var isSafetyVestRequired: Swift.Bool
+  public var areSpareLightBulbsRequired: Swift.Bool
+  public var isAlcoholTesterRequired: Swift.Bool
+  public var isFireExtinguisherRequired: Swift.Bool
+  public var isTowRopeRequired: Swift.Bool
+  public var areWinterTiresRequired: Swift.Bool
+  public var winterSeasonPeriod: Swift.String?
+  public init(isWarningTriangleRequired: Swift.Bool = false, isFirstAidKitRequired: Swift.Bool = false, isSafetyVestRequired: Swift.Bool = false, areSpareLightBulbsRequired: Swift.Bool = false, isAlcoholTesterRequired: Swift.Bool = false, isFireExtinguisherRequired: Swift.Bool = false, isTowRopeRequired: Swift.Bool = false, areWinterTiresRequired: Swift.Bool = false, winterSeasonPeriod: Swift.String? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.PreTripPlanning, b: heresdk.PreTripPlanning) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -5273,9 +5080,10 @@ public struct SegmentDataLoaderOptions : Swift.Hashable {
   public var loadAdministrativeRules: Swift.Bool
   public var loadRailwayCrossings: Swift.Bool
   public var loadUrban: Swift.Bool
-  public init(loadTravelDirection: Swift.Bool = false, loadFunctionalRoadClass: Swift.Bool = false, loadTransportModesAccess: Swift.Bool = false, loadSpeedLimits: Swift.Bool = false, loadBaseSpeeds: Swift.Bool = false, loadLocalRoadCharacteristics: Swift.Bool = false, loadStreetNamesAndRoadNumbers: Swift.Bool = false, loadRoadAttributes: Swift.Bool = false, loadTrafficSignals: Swift.Bool = false, loadRoadSigns: Swift.Bool = false, loadAdministrativeRules: Swift.Bool = false, loadRailwayCrossings: Swift.Bool = false, loadUrban: Swift.Bool = false)
+  public var loadSpecialSpeedSituations: Swift.Bool
+  public init(loadTravelDirection: Swift.Bool = false, loadFunctionalRoadClass: Swift.Bool = false, loadTransportModesAccess: Swift.Bool = false, loadSpeedLimits: Swift.Bool = false, loadBaseSpeeds: Swift.Bool = false, loadLocalRoadCharacteristics: Swift.Bool = false, loadStreetNamesAndRoadNumbers: Swift.Bool = false, loadRoadAttributes: Swift.Bool = false, loadTrafficSignals: Swift.Bool = false, loadRoadSigns: Swift.Bool = false, loadAdministrativeRules: Swift.Bool = false, loadRailwayCrossings: Swift.Bool = false, loadUrban: Swift.Bool = false, loadSpecialSpeedSituations: Swift.Bool = false)
   @available(*, deprecated)
-  public init(loadTravelDirection: Swift.Bool = false, loadFunctionalRoadClass: Swift.Bool = false, loadAllowedTransportModes: Swift.Bool = false, loadTransportModesAccess: Swift.Bool = false, loadSpeedLimits: Swift.Bool = false, loadBaseSpeeds: Swift.Bool = false, loadLocalRoadCharacteristics: Swift.Bool = false, loadStreetNamesAndRoadNumbers: Swift.Bool = false, loadRoadAttributes: Swift.Bool = false, loadTrafficSignals: Swift.Bool = false, loadRoadSigns: Swift.Bool = false, loadAdministrativeRules: Swift.Bool = false, loadRailwayCrossings: Swift.Bool = false, loadUrban: Swift.Bool = false)
+  public init(loadTravelDirection: Swift.Bool = false, loadFunctionalRoadClass: Swift.Bool = false, loadAllowedTransportModes: Swift.Bool = false, loadTransportModesAccess: Swift.Bool = false, loadSpeedLimits: Swift.Bool = false, loadBaseSpeeds: Swift.Bool = false, loadLocalRoadCharacteristics: Swift.Bool = false, loadStreetNamesAndRoadNumbers: Swift.Bool = false, loadRoadAttributes: Swift.Bool = false, loadTrafficSignals: Swift.Bool = false, loadRoadSigns: Swift.Bool = false, loadAdministrativeRules: Swift.Bool = false, loadRailwayCrossings: Swift.Bool = false, loadUrban: Swift.Bool = false, loadSpecialSpeedSituations: Swift.Bool = false)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.SegmentDataLoaderOptions, b: heresdk.SegmentDataLoaderOptions) -> Swift.Bool
   public var hashValue: Swift.Int {
@@ -5351,11 +5159,25 @@ extension heresdk.SegmentReferenceConverter : Swift.Hashable {
   public var isUrban: Swift.Bool? {
     get
   }
+  public var specialSpeedSituations: [heresdk.SegmentSpecialSpeedSituation]? {
+    get
+  }
   @objc deinit
 }
 extension heresdk.SegmentSpanData : Swift.Hashable {
   public static func == (lhs: heresdk.SegmentSpanData, rhs: heresdk.SegmentSpanData) -> Swift.Bool
   public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct SegmentSpecialSpeedSituation : Swift.Hashable {
+  public var specialSpeedType: heresdk.SpecialSpeedType
+  public var speedLimitInMetersPerSecond: Swift.Double
+  public var appliesDuring: [heresdk.TimeRule]
+  public init(specialSpeedType: heresdk.SpecialSpeedType, speedLimitInMetersPerSecond: Swift.Double, appliesDuring: [heresdk.TimeRule])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.SegmentSpecialSpeedSituation, b: heresdk.SegmentSpecialSpeedSituation) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -5366,6 +5188,40 @@ public struct SegmentSpeedLimit : Swift.Hashable {
   public init(speedLimitInMeterPerSeconds: Swift.Double? = nil, speedLimitIsUnlimited: Swift.Bool)
   public func hash(into hasher: inout Swift.Hasher)
   public static func == (a: heresdk.SegmentSpeedLimit, b: heresdk.SegmentSpeedLimit) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum SpecialSpeedType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case advisorySpeed
+  case speedBumpsPresent
+  case school
+  case timeDependent
+  case approximateSeasonalTime
+  case laneDependent
+  case rain
+  case snow
+  case fog
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.SpecialSpeedType]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.SpecialSpeedType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public struct TollCost : Swift.Hashable {
+  public var currency: Swift.String
+  public var price: Swift.Double
+  public var paymentMethods: [heresdk.PaymentMethod]
+  public var isPriceCalculatedPerKilometer: Swift.Bool
+  public var vehicleProfiles: [heresdk.VehicleProfile]
+  public init(currency: Swift.String, price: Swift.Double = 0.0, paymentMethods: [heresdk.PaymentMethod] = [], isPriceCalculatedPerKilometer: Swift.Bool = false, vehicleProfiles: [heresdk.VehicleProfile] = [])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TollCost, b: heresdk.TollCost) -> Swift.Bool
   public var hashValue: Swift.Int {
     get
   }
@@ -5395,11 +5251,192 @@ public enum TollStructureType : Swift.UInt32, Swift.CaseIterable, Swift.Codable 
     get
   }
 }
+public struct TollSystem : Swift.Hashable {
+  public var systemName: Swift.String
+  public var tollCosts: [heresdk.TollCost]
+  public init(systemName: Swift.String, tollCosts: [heresdk.TollCost] = [])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.TollSystem, b: heresdk.TollSystem) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
 public struct TrafficSignal {
   public var offsetInMeters: Swift.Int32
   public var travelDirection: heresdk.TravelDirection
   public var signalLocations: [heresdk.TrafficSignalLocation]
   public init(offsetInMeters: Swift.Int32, travelDirection: heresdk.TravelDirection, signalLocations: [heresdk.TrafficSignalLocation] = [])
+}
+public enum TrafficSignalLocation : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case overhead
+  case left
+  case right
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.TrafficSignalLocation]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.TrafficSignalLocation] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum TurnOnRedRegulation : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case allowedUnlessPosted
+  case prohibitedUnlessPosted
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.TurnOnRedRegulation]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.TurnOnRedRegulation] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum GeneralWarningRoadSignType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case objectOverhang
+  case riskOfGrounding
+  case animalCrossing
+  case accidentHazard
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.GeneralWarningRoadSignType]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.GeneralWarningRoadSignType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public struct RoadSign : Swift.Hashable {
+  public var offsetInMeters: Swift.Int32
+  public var travelDirection: heresdk.TravelDirection
+  public var roadSignType: heresdk.RoadSignType
+  public var roadSignCategory: heresdk.RoadSignCategory
+  public var isPrioritySign: Swift.Bool
+  public var generalWarningType: heresdk.GeneralWarningRoadSignType
+  public var vehicleTypes: [heresdk.RoadSignVehicleType]
+  public var weatherType: heresdk.WeatherType
+  public var localizedSignValue: heresdk.LocalizedText?
+  public var localizedPreWarning: heresdk.LocalizedText?
+  public var localizedDuration: heresdk.LocalizedText?
+  public var localizedValidityTime: heresdk.LocalizedText?
+  public init(offsetInMeters: Swift.Int32, travelDirection: heresdk.TravelDirection, roadSignType: heresdk.RoadSignType, roadSignCategory: heresdk.RoadSignCategory, isPrioritySign: Swift.Bool, generalWarningType: heresdk.GeneralWarningRoadSignType, vehicleTypes: [heresdk.RoadSignVehicleType], weatherType: heresdk.WeatherType, localizedSignValue: heresdk.LocalizedText? = nil, localizedPreWarning: heresdk.LocalizedText? = nil, localizedDuration: heresdk.LocalizedText? = nil, localizedValidityTime: heresdk.LocalizedText? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: heresdk.RoadSign, b: heresdk.RoadSign) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum RoadSignCategory : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case regulatorySign
+  case informativeSign
+  case warningSign
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.RoadSignCategory]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.RoadSignCategory] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum RoadSignType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case unknown
+  case startOfNoOvertaking
+  case endOfNoOvertaking
+  case protectedOvertakingExtraLane
+  case protectedOvertakingExtraLaneRightSide
+  case protectedOvertakingExtraLaneLeftSide
+  case laneMergeRight
+  case laneMergeLeft
+  case laneMergeCenter
+  case railwayCrossingProtected
+  case railwayCrossingUnprotected
+  case roadNarrows
+  case sharpCurveLeft
+  case sharpCurveRight
+  case windingRoadStartingLeft
+  case windingRoadStartingRight
+  case startOfNoOvertakingTrucks
+  case endOfNoOvertakingTrucks
+  case steepHillUpwards
+  case steepHillDownwards
+  case stopSign
+  case lateralWind
+  case generalWarningSign
+  case riskOfGrounding
+  case generalCurve
+  case endOfAllRestrictions
+  case generalHill
+  case animalCrossing
+  case icyConditions
+  case slipperyRoad
+  case fallingRocks
+  case schoolZone
+  case tramwayCrossing
+  case congestionHazard
+  case accidentHazard
+  case priorityOverOncomingTraffic
+  case yieldToOncomingTraffic
+  case crossingWithPriorityFromTheRight
+  case pedestrianCrossing
+  case yield
+  case doubleHairpin
+  case tripleHairpin
+  case embankment
+  case twoWayTraffic
+  case urbanArea
+  case humpBridge
+  case unevenRoad
+  case floodArea
+  case obstacle
+  case hornSign
+  case noEngineBrake
+  case endOfNoEngineBrake
+  case noIdling
+  case truckRollover
+  case lowGear
+  case endOfLowGear
+  case bicycleCrossing
+  case yieldToBicycles
+  case noTowedCaravanAllowed
+  case noTowedTrailerAllowed
+  case noCamperOrMotorhomeAllowed
+  case noTurnOnRed
+  case turnPermittedOnRed
+  case twoStageLeft
+  case twoStageRight
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.RoadSignType]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.RoadSignType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+public enum RoadSignVehicleType : Swift.UInt32, Swift.CaseIterable, Swift.Codable {
+  case trucks
+  case heavyTrucks
+  case bus
+  case autoTrailer
+  case motorhome
+  case motorcycle
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [heresdk.RoadSignVehicleType]
+  public typealias RawValue = Swift.UInt32
+  nonisolated public static var allCases: [heresdk.RoadSignVehicleType] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
 }
 public typealias CacheCallbackCompletionHandler = (_ maploaderError: heresdk.MapLoaderError?) -> Swift.Void
 public struct CatalogUpdateInfo : Swift.Hashable {
@@ -13065,39 +13102,12 @@ extension heresdk.UsageStats.Feature : Swift.RawRepresentable {}
 extension heresdk.TaskOutcome : Swift.Equatable {}
 extension heresdk.TaskOutcome : Swift.Hashable {}
 extension heresdk.TaskOutcome : Swift.RawRepresentable {}
-extension heresdk.DrivingSide : Swift.Equatable {}
-extension heresdk.DrivingSide : Swift.Hashable {}
-extension heresdk.DrivingSide : Swift.RawRepresentable {}
-extension heresdk.HeadlightsRequirement : Swift.Equatable {}
-extension heresdk.HeadlightsRequirement : Swift.Hashable {}
-extension heresdk.HeadlightsRequirement : Swift.RawRepresentable {}
-extension heresdk.ParkingSideRegulation : Swift.Equatable {}
-extension heresdk.ParkingSideRegulation : Swift.Hashable {}
-extension heresdk.ParkingSideRegulation : Swift.RawRepresentable {}
-extension heresdk.TrafficSignalLocation : Swift.Equatable {}
-extension heresdk.TrafficSignalLocation : Swift.Hashable {}
-extension heresdk.TrafficSignalLocation : Swift.RawRepresentable {}
-extension heresdk.TurnOnRedRegulation : Swift.Equatable {}
-extension heresdk.TurnOnRedRegulation : Swift.Hashable {}
-extension heresdk.TurnOnRedRegulation : Swift.RawRepresentable {}
 extension heresdk.DividerMarker : Swift.Equatable {}
 extension heresdk.DividerMarker : Swift.Hashable {}
 extension heresdk.DividerMarker : Swift.RawRepresentable {}
-extension heresdk.GeneralWarningRoadSignType : Swift.Equatable {}
-extension heresdk.GeneralWarningRoadSignType : Swift.Hashable {}
-extension heresdk.GeneralWarningRoadSignType : Swift.RawRepresentable {}
 extension heresdk.LaneDirection : Swift.Equatable {}
 extension heresdk.LaneDirection : Swift.Hashable {}
 extension heresdk.LaneDirection : Swift.RawRepresentable {}
-extension heresdk.RoadSignCategory : Swift.Equatable {}
-extension heresdk.RoadSignCategory : Swift.Hashable {}
-extension heresdk.RoadSignCategory : Swift.RawRepresentable {}
-extension heresdk.RoadSignType : Swift.Equatable {}
-extension heresdk.RoadSignType : Swift.Hashable {}
-extension heresdk.RoadSignType : Swift.RawRepresentable {}
-extension heresdk.RoadSignVehicleType : Swift.Equatable {}
-extension heresdk.RoadSignVehicleType : Swift.Hashable {}
-extension heresdk.RoadSignVehicleType : Swift.RawRepresentable {}
 extension heresdk.WeatherType : Swift.Equatable {}
 extension heresdk.WeatherType : Swift.Hashable {}
 extension heresdk.WeatherType : Swift.RawRepresentable {}
@@ -13155,21 +13165,51 @@ extension heresdk.GestureState : Swift.RawRepresentable {}
 extension heresdk.GestureType : Swift.Equatable {}
 extension heresdk.GestureType : Swift.Hashable {}
 extension heresdk.GestureType : Swift.RawRepresentable {}
+extension heresdk.DrivingSide : Swift.Equatable {}
+extension heresdk.DrivingSide : Swift.Hashable {}
+extension heresdk.DrivingSide : Swift.RawRepresentable {}
+extension heresdk.HeadlightsRequirement : Swift.Equatable {}
+extension heresdk.HeadlightsRequirement : Swift.Hashable {}
+extension heresdk.HeadlightsRequirement : Swift.RawRepresentable {}
 extension heresdk.LocalRoadCharacteristic : Swift.Equatable {}
 extension heresdk.LocalRoadCharacteristic : Swift.Hashable {}
 extension heresdk.LocalRoadCharacteristic : Swift.RawRepresentable {}
 extension heresdk.MapDataLoaderErrorCode : Swift.Equatable {}
 extension heresdk.MapDataLoaderErrorCode : Swift.Hashable {}
 extension heresdk.MapDataLoaderErrorCode : Swift.RawRepresentable {}
+extension heresdk.ParkingSideRegulation : Swift.Equatable {}
+extension heresdk.ParkingSideRegulation : Swift.Hashable {}
+extension heresdk.ParkingSideRegulation : Swift.RawRepresentable {}
 extension heresdk.RailwayCrossingType : Swift.Equatable {}
 extension heresdk.RailwayCrossingType : Swift.Hashable {}
 extension heresdk.RailwayCrossingType : Swift.RawRepresentable {}
 extension heresdk.RoadDivider : Swift.Equatable {}
 extension heresdk.RoadDivider : Swift.Hashable {}
 extension heresdk.RoadDivider : Swift.RawRepresentable {}
+extension heresdk.SpecialSpeedType : Swift.Equatable {}
+extension heresdk.SpecialSpeedType : Swift.Hashable {}
+extension heresdk.SpecialSpeedType : Swift.RawRepresentable {}
 extension heresdk.TollStructureType : Swift.Equatable {}
 extension heresdk.TollStructureType : Swift.Hashable {}
 extension heresdk.TollStructureType : Swift.RawRepresentable {}
+extension heresdk.TrafficSignalLocation : Swift.Equatable {}
+extension heresdk.TrafficSignalLocation : Swift.Hashable {}
+extension heresdk.TrafficSignalLocation : Swift.RawRepresentable {}
+extension heresdk.TurnOnRedRegulation : Swift.Equatable {}
+extension heresdk.TurnOnRedRegulation : Swift.Hashable {}
+extension heresdk.TurnOnRedRegulation : Swift.RawRepresentable {}
+extension heresdk.GeneralWarningRoadSignType : Swift.Equatable {}
+extension heresdk.GeneralWarningRoadSignType : Swift.Hashable {}
+extension heresdk.GeneralWarningRoadSignType : Swift.RawRepresentable {}
+extension heresdk.RoadSignCategory : Swift.Equatable {}
+extension heresdk.RoadSignCategory : Swift.Hashable {}
+extension heresdk.RoadSignCategory : Swift.RawRepresentable {}
+extension heresdk.RoadSignType : Swift.Equatable {}
+extension heresdk.RoadSignType : Swift.Hashable {}
+extension heresdk.RoadSignType : Swift.RawRepresentable {}
+extension heresdk.RoadSignVehicleType : Swift.Equatable {}
+extension heresdk.RoadSignVehicleType : Swift.Hashable {}
+extension heresdk.RoadSignVehicleType : Swift.RawRepresentable {}
 extension heresdk.CatalogUpdateState : Swift.Equatable {}
 extension heresdk.CatalogUpdateState : Swift.Hashable {}
 extension heresdk.CatalogUpdateState : Swift.RawRepresentable {}

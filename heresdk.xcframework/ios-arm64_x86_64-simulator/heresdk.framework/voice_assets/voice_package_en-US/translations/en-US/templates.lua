@@ -17,8 +17,8 @@ local templates = {
     -- First maneuver
     ['nav.interval.arrive.-.side'] = '{INTERVAL} you will reach your {GOAL} {DIRECTION}. The {GOAL} will be {SIDE}',
     ['nav.interval.arrive.-.-'] = '{INTERVAL} you will reach your {GOAL} {DIRECTION}',
-    ['nav.interval.enterroundabout.-.-'] = '{INTERVAL} enter the traffic circle {SECOND}',
-    ['nav.interval.exitroundabout.-.-'] = '{INTERVAL} {TAKE_NTH_EXIT} at the traffic circle {DIRECTION} {SECOND}',
+    ['nav.interval.enterroundabout.-.-'] = '{INTERVAL} enter the roundabout {SECOND}',
+    ['nav.interval.exitroundabout.-.-'] = '{INTERVAL} {TAKE_NTH_EXIT} at the roundabout {DIRECTION} {SECOND}',
     ['nav.interval.join.-.highway'] = '{INTERVAL} join the {HIGHWAY} {SECOND}',
     ['nav.interval.makeuturn.-.-'] = '{INTERVAL} make a U-turn {LANDMARK} {SECOND}',
     ['nav.interval.takeexit.-.-'] = '{INTERVAL} take the exit {DIRECTION} {SECOND}',
@@ -34,8 +34,8 @@ local templates = {
 
     -- Second maneuver
     ['nav.second.arrive.-.-'] = 'and then you will reach your {NEXT_GOAL} {NEXT_DIRECTION}',
-    ['nav.second.enterroundabout.-.-'] = 'and then enter the traffic circle',
-    ['nav.second.exitroundabout.-.-'] = 'and then {NEXT_TAKE_NTH_EXIT} at the traffic circle {NEXT_DIRECTION}',
+    ['nav.second.enterroundabout.-.-'] = 'and then enter the roundabout',
+    ['nav.second.exitroundabout.-.-'] = 'and then {NEXT_TAKE_NTH_EXIT} at the roundabout {NEXT_DIRECTION}',
     ['nav.second.join.-.highway'] = 'and then join the {NEXT_HIGHWAY}',
     ['nav.second.makeuturn.-.-'] = 'and then {IMMEDIATELY} make a U-turn {NEXT_LANDMARK}',
     ['nav.second.takeexit.-.-'] = 'and then take the exit',

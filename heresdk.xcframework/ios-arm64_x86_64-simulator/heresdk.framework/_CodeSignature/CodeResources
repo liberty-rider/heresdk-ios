@@ -18,47 +18,47 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		7cdJwok8R2GU+XWux2zSzAiSvfU=
+		2sEwKGdrgpPiTqO9q6GtwTdsUkk=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		4pkcynlyKdphWzkPCKBvDAk8dxQ=
+		SAr63hoSwMQOraXdt7GMd0Vd11A=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		Y6voRSRZPdgbadsZ1IXX6BprgwU=
+		BYjFNImDptmn9P8vbQ6ZUx6XhFY=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		XV476By51w0+ODP4XjKdQLGbE6s=
+		lEGZVqE8V8nb8Dn8y2qSd8RdwMo=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		Y6voRSRZPdgbadsZ1IXX6BprgwU=
+		BYjFNImDptmn9P8vbQ6ZUx6XhFY=
 		</data>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		+lcW4un5wnVFYkmIWtELIiV+c74=
+		ohLZutW+Nn++fsJvb5EPDYIYfZ0=
 		</data>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		4pkcynlyKdphWzkPCKBvDAk8dxQ=
+		SAr63hoSwMQOraXdt7GMd0Vd11A=
 		</data>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		oaOY+2xvbObDckWzU7vCJx8pa7I=
+		zbO1zoflBrWHxJt5E2HjttDZ42s=
 		</data>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		vFZiLbQLCWiJfZIu59daQqcwmvo=
+		h6vABgO3E2fqWxXG/98ditgIle8=
 		</data>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		oaOY+2xvbObDckWzU7vCJx8pa7I=
+		zbO1zoflBrWHxJt5E2HjttDZ42s=
 		</data>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		6Zbd9+vK7/dKz7ziPdkaCBrJsoE=
+		FmTP9HGItYU4cVriHZTQ2ltbDgw=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -9206,7 +9206,7 @@
 		</data>
 		<key>geoviz/common/ocm/list/ocm.cockpit.objects.json</key>
 		<data>
-		ZAWE96dYAR3plYN1xKndLtOJUqw=
+		C1uxodGA+2XuWIRPSYELB8V/EYU=
 		</data>
 		<key>geoviz/common/ocm/list/ocm.cockpit.tunnel.objects.json</key>
 		<data>
@@ -9714,7 +9714,7 @@
 		</data>
 		<key>geoviz/common/shared/template/environment.definitions.json</key>
 		<data>
-		0SD5/ghAs8klgILcQf/7FUiuc+c=
+		gbip4VbPFsg4dx8oII3pc5+gvr8=
 		</data>
 		<key>geoviz/common/shared/template/environment.style.json</key>
 		<data>
@@ -9906,7 +9906,7 @@
 		</data>
 		<key>geoviz/common/shared/template/terrain-common.definitions.json</key>
 		<data>
-		U/zcjEimHqvfqi61iGCy7V4h/bs=
+		qxokdRuKb1jsbrUYfRZcsk0g4Uw=
 		</data>
 		<key>geoviz/common/shared/template/terrain-common.native.definitions.json</key>
 		<data>
@@ -9930,7 +9930,7 @@
 		</data>
 		<key>geoviz/common/shared/template/traffic-lights.style.json</key>
 		<data>
-		BG4UJnGRFWIX5LGb2X1vsVOICaA=
+		BnUIfgyMv1GUxCyWvs7peQcwe8o=
 		</data>
 		<key>geoviz/common/shared/template/truck.definitions.json</key>
 		<data>
@@ -10002,7 +10002,7 @@
 		</data>
 		<key>geoviz/miami/schemes/normal.day.definitions.json</key>
 		<data>
-		r+HlSwBa3iLodMejHiFkH1Fnxzc=
+		fX1a5KU1CRj/Usx+EJbWaWq2SVY=
 		</data>
 		<key>geoviz/oslo/assets/assets.cockpit.day.json</key>
 		<data>
@@ -10218,7 +10218,7 @@
 		</data>
 		<key>geoviz/oslo/schemes/cockpit.day.definitions.json</key>
 		<data>
-		k3C45uMGUQxBpQvOUFSVTf4yIY8=
+		eht1Pmdn0kZOJ2RIxVryUsIy9po=
 		</data>
 		<key>geoviz/oslo/schemes/cockpit.night.definitions.json</key>
 		<data>
@@ -10232,9 +10232,13 @@
 		<data>
 		Q2g7alW3WWoPUHUaQhulr0REbSQ=
 		</data>
+		<key>geoviz/oslo/schemes/day.cycle.lighting.definitions.json</key>
+		<data>
+		70AUK4Ne9AN7dn4WkaOl2LbG4DQ=
+		</data>
 		<key>geoviz/oslo/schemes/hybrid.day.definitions.json</key>
 		<data>
-		X4Q4LvsgBHqnDbHSb1LitaYAPo0=
+		72EIYVsTiHYWht9VgUgDW5ODFxU=
 		</data>
 		<key>geoviz/oslo/schemes/hybrid.night.definitions.json</key>
 		<data>
@@ -10256,13 +10260,9 @@
 		<data>
 		I4H4+XAFsNS5RyRPLEHaT9bxibQ=
 		</data>
-		<key>geoviz/oslo/schemes/lights.interpolation.definitions.json</key>
-		<data>
-		noNv2XFu//2O0zQQi52l7/kWY4I=
-		</data>
 		<key>geoviz/oslo/schemes/lite.day.definitions.json</key>
 		<data>
-		rYxzynKR9UWf/8gTRQcx4X1YX4k=
+		6N8R8GozwpD6lZkGW5uHtAV7e20=
 		</data>
 		<key>geoviz/oslo/schemes/lite.hybrid.day.definitions.json</key>
 		<data>
@@ -10290,7 +10290,7 @@
 		</data>
 		<key>geoviz/oslo/schemes/logistics.day.definitions.json</key>
 		<data>
-		/ExRnKFYu4f+v50f221ViD6v+qM=
+		6ppd0hBwm+4dNomTiGCfZeeLIqw=
 		</data>
 		<key>geoviz/oslo/schemes/logistics.hybrid.day.definitions.json</key>
 		<data>
@@ -10302,11 +10302,11 @@
 		</data>
 		<key>geoviz/oslo/schemes/normal.day.definitions.json</key>
 		<data>
-		qCvQ/drzqRqelIskVTMua51VvRg=
+		SIuKbONWGH3I+wcb92850fSoKfk=
 		</data>
 		<key>geoviz/oslo/schemes/normal.night.definitions.json</key>
 		<data>
-		jT7h6B15xb8eSgry98r+XqalGdM=
+		NWAkXVm33LdmlemJ9wMsyq97o08=
 		</data>
 		<key>geoviz/oslo/schemes/normal.time.dawn.definitions.json</key>
 		<data>
@@ -10326,7 +10326,7 @@
 		</data>
 		<key>geoviz/oslo/schemes/road.network.day.definitions.json</key>
 		<data>
-		zsuXkmSPMdhnLs4C8vUsiKs8sTg=
+		Qzw9+1ZVMHobgQCfEOn5uNY5ChI=
 		</data>
 		<key>geoviz/oslo/schemes/road.network.night.definitions.json</key>
 		<data>
@@ -10394,99 +10394,99 @@
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/AdvancedBuilding.shaderb</key>
 		<data>
-		9Tj1PfEj5EQ9pcYr3SS6ZuDFdB8=
+		EHZKfq+Ze+0FAeHXA9Q0n+VYFf0=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/BlendScreenQuad.shaderb</key>
 		<data>
-		2XfjYLaJKylQv3rQeMeeo1fPVAk=
+		EYH+0aeidI14gSf+i+PjirlAr8w=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/DepthSky.shaderb</key>
 		<data>
-		pP5FT/+OlTlJdvZQTynP2D+z7LA=
+		vp8JgaRjZYHHl2MfENlazclRcmE=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/GeoHalo.shaderb</key>
 		<data>
-		hwRUM2Ep0+WpTTG+lfW1oJms+UQ=
+		q8/+alF9HLSKigSFF2RMKwQf/mc=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/GeoSkyBox.shaderb</key>
 		<data>
-		gb8TOyRnUcM7Z2JCy3wd9GXKdpQ=
+		AT+jHzAhhrdcm1TFn433R3JalDg=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/LabelIcon.shaderb</key>
 		<data>
-		d2xg+YQnYuNZNtBPM26EFrsIJ/o=
+		shSVUyM679+sM/CL/BniCmh5yF8=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/LocalTangentPlane.shaderb</key>
 		<data>
-		27uBXjvbxC9bl15+oWScL41raRw=
+		U0Ap/ort7fdCzXIXArvOoXHroZY=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dExtrudedBuilding.shaderb</key>
 		<data>
-		1VAzRCjV40+2mYY5nDRnYq9aBVs=
+		+yzdUAsbKfDf5bt8wrPJo861SUE=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dExtrudedBuildingOutline.shaderb</key>
 		<data>
-		UQzewN4wK20pGZ9nzJTHOKc7hto=
+		wWtaZfRZbSadGFfQXJi+RoKfzCc=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dFastLine.shaderb</key>
 		<data>
-		x3UqHVr9/oUcSBe5Z7W95pIVPeI=
+		K3ST1YbkoAvCgfJABjRnJvWBg9o=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dLandmark.shaderb</key>
 		<data>
-		PDE8lctvSUa+v18woDJJH2tubNE=
+		dCV9W+gXMDHAPaMPO5zTlmxNt60=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dLine.shaderb</key>
 		<data>
-		A/xFYgkNg0l6Ez/vXrz5D+T4e0w=
+		lKb+7DIL8I0rsFS+xhlaX30pJ+c=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dLineProgress.shaderb</key>
 		<data>
-		9k4l17pDkkrVQiBzdJY/y1lHPAw=
+		yikj1NfgWClq8J/y0xrjtrxG/Vw=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dPoint.shaderb</key>
 		<data>
-		eLYEUx4+JPEyA5shiF/HAAtGS2g=
+		vi1mfUhymvQn6LUKQAsgdDlJJqw=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dPoint3d.shaderb</key>
 		<data>
-		hb36gvUG5Um06YSV8UV2Sl8Cf1I=
+		lVoYGqPfIoxO0kF2qGrZY83Xr7g=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dPolygon.shaderb</key>
 		<data>
-		Lf0ILV20NDITrQhupqRHEHIje+o=
+		Ub1BIrGfo1TNmyER1jKzf5fsZio=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dRasterTerrain.shaderb</key>
 		<data>
-		MJW+PGy1bq7na0cdbcd4VjC53xQ=
+		/BlmTrmgy/KMvK+2nNYY2zRmd5U=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dSimpleLine.shaderb</key>
 		<data>
-		tHZXz+0SNguXYfGwDaxdRi1qZfI=
+		KucBd0bFX+ZC4b1xzVt/BaCly+o=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dTerrain.shaderb</key>
 		<data>
-		cUZQwej9+0VR0wU3vv7T0f/LQ2E=
+		95lkTlJg2X1dzPvhgT4wrbraeAU=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/SSAOQuad.shaderb</key>
 		<data>
-		8DVPA254zI4bCuQHUH5M7wAqLk0=
+		5O4LJRGFuuGjhD/sQkTNUVGWays=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/ScreenQuad.shaderb</key>
 		<data>
-		lOZ7ERJGb3econCSeaGyYYZBYMg=
+		OFh+KnW5tUh0mY4BogF0Z4432V8=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/SpaceBackground.shaderb</key>
 		<data>
-		yfPyNl8Mssj4aUMaIun67OWRoFo=
+		1pVUjvD/2bkXqZ2XDpGS1OYxG5s=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/VenueGeometryFace.shaderb</key>
 		<data>
-		cneK5V1SdK1rqfPQTb3IlWZgCQQ=
+		tKaPtCbYEFrYkB4s8fZjNk1NGRo=
 		</data>
 		<key>geoviz/shaders/metal_ios_simulator/VenueGeometryLine.shaderb</key>
 		<data>
-		8tEpQAND/WrauNmmS5zyzjdfBM4=
+		Ct2sTIp4TX3eJnFslDaCMRl7NRs=
 		</data>
 		<key>localization/tmcevents.bg-BG</key>
 		<data>
@@ -10786,19 +10786,19 @@
 		</data>
 		<key>magma/shaders/metal_ios_simulator/Default.shaderb</key>
 		<data>
-		IY+MSaCFddZsJnBfakuf7hwHbns=
+		19iWUav4BQ/ensbJH8u3tKAge1Q=
 		</data>
 		<key>magma/shaders/metal_ios_simulator/FogParameters.shaderb</key>
 		<data>
-		I+5EYbBDOJ1WgQGIbWoJKbHXwBE=
+		vrtZsd0EYWDs+XsJwskit5qUfEg=
 		</data>
 		<key>magma/shaders/metal_ios_simulator/Font.shaderb</key>
 		<data>
-		FkcAUrQ0ikb8G8m4c7fY2KkqWFg=
+		m1zkswVwfweyyNRbPCtnNoc7lnk=
 		</data>
 		<key>magma/shaders/metal_ios_simulator/Primitive.shaderb</key>
 		<data>
-		KypgzShPCMb/7WaqN/bfmt0ZZDU=
+		+esisaRAprdK45PJHe44vsYA11Y=
 		</data>
 		<key>vehicle.obj</key>
 		<data>
@@ -12082,7 +12082,7 @@
 		</data>
 		<key>voice_assets/voice_package_en-US/translations/en-US/templates.lua</key>
 		<data>
-		eYJBkDZLtTJISM2xjN9Zan02jYM=
+		NAcNvdkQsvHCOps88c1FUahbSZg=
 		</data>
 		<key>voice_assets/voice_package_en-US/translations/en-US/variables.lua</key>
 		<data>
@@ -16984,70 +16984,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jsew19PW6zZVcPpW6uZ89C9w0lyS8BQuevD1y2FLxUA=
+			s8Z4Zo8ZUZyrqRqeoPKvWDpsz/xxJYNv3GCh+oST34U=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9dKvoh57I4g04CPiiT146d2v50wBiq0U3yaKNWp+ONY=
+			hGM+39f6rqspR7Nb/QG12TpLtO5qPWzPCIbBdC3WPkI=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+S1djL/AmuYS9AYrI1vqvkjAJsMQ0bayDL7R34PFvVQ=
+			Akqs2FeHl1S0SvgDde4I7X8i/VDfHLc+dDal+FwAE04=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9dKvoh57I4g04CPiiT146d2v50wBiq0U3yaKNWp+ONY=
+			hGM+39f6rqspR7Nb/QG12TpLtO5qPWzPCIbBdC3WPkI=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gcWORkudnLbE4jMLaoWTO10vIkeuKF6HqcdAmi6dAew=
+			e9KWrDPMhpe7aqN3+hK8GtVI5wN7TGQqJnEgXXPZGvU=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jsew19PW6zZVcPpW6uZ89C9w0lyS8BQuevD1y2FLxUA=
+			s8Z4Zo8ZUZyrqRqeoPKvWDpsz/xxJYNv3GCh+oST34U=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o8/D7qp4qb5qXpeZmcQMMc8PC8rdH1sQzgCl+GtPFu0=
+			cIyBUQDPUUkhZhLZ4CHWVDXfmJ90ZHQRedmsiad1il8=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zNw+c9/2gt0UCs//YmQpj2gnU49i9xgV7TR0ZY2Ojis=
+			t1Nc0uIe/EWgwCi5TcJRHlp63eGBoHsVxjEpuls4WMk=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o8/D7qp4qb5qXpeZmcQMMc8PC8rdH1sQzgCl+GtPFu0=
+			cIyBUQDPUUkhZhLZ4CHWVDXfmJ90ZHQRedmsiad1il8=
 			</data>
 		</dict>
 		<key>Modules/heresdk.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d2OTbrf6dew+ofb9OjNQQAQBusYeJY3Bd8VEQsnAko4=
+			oLfeumvyl0wTLPtTuasU70JvBUtIa6A1+d9buVkQ0/E=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -33056,7 +33056,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KA01g3yASzQMY88YXPrhTw/3/swu+/zvYaERAsSTayY=
+			sLyvSrhvys74jj0dn56JRpDRwst2q1OCVLh/sskJ5Gc=
 			</data>
 		</dict>
 		<key>geoviz/common/ocm/list/ocm.cockpit.tunnel.objects.json</key>
@@ -33945,7 +33945,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2AwUgzbodbch8mP/DYECTKH5zG5MWW3cZK7E6JJ5dto=
+			wZYIhDyhBVNV8w62bl+WC4nPAMbq2TX69TVpsUg7xgM=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/environment.style.json</key>
@@ -34281,7 +34281,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0Lo+Hiw80+BRhnJh76b29tMlz/Db0LV1K+qT8+dm1yU=
+			iAmeMG26JWVCYFWmPW7ev7A1EqqTVx0EKXrtP4TOqmE=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/terrain-common.native.definitions.json</key>
@@ -34323,7 +34323,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Mj7y/KTC2uq8P6t1qEjSGi9xR0LCk/zgqa839OgqIN0=
+			vEypmx4p5oV0NAYm4zhLU/Ficdb880fA8Wum/kkRk6I=
 			</data>
 		</dict>
 		<key>geoviz/common/shared/template/truck.definitions.json</key>
@@ -34449,7 +34449,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vNN1ujTgmV0pIM0kDjn9nw/QiVGFnWZHWmEiLpJt5+k=
+			4tjgqpOGaFetiD/3R2xvowBupSgmecIzVmp8RfQNz/E=
 			</data>
 		</dict>
 		<key>geoviz/oslo/assets/assets.cockpit.day.json</key>
@@ -34827,7 +34827,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lCayRDCDbWe/pMpMi5M0e79jRJXEeL7hMy+aw2yOK4c=
+			4UliFLS4xQTdiGY3wTtdpl6nxvFpjzKo9+eTy1enmhk=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/cockpit.night.definitions.json</key>
@@ -34851,11 +34851,18 @@
 			8hk2xhCnuQjOt/hnQJhcIPKrG8+L47LvMtS20EXxJAA=
 			</data>
 		</dict>
+		<key>geoviz/oslo/schemes/day.cycle.lighting.definitions.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JKwaRLnQGSTxmJV+/f5MfPHQo2ZeLS5W1wD0BLjJqr8=
+			</data>
+		</dict>
 		<key>geoviz/oslo/schemes/hybrid.day.definitions.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+KRREtXEbCiD2pfNn7p7n3ImWTRkyO9RfgRDXnem5tM=
+			T9jL3uHM/y5okJEy6fXmcrsLtzQ6GrNbkGh4C5B4pnE=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/hybrid.night.definitions.json</key>
@@ -34893,18 +34900,11 @@
 			zjODg4o6nzrS/y2xwXsGJs2bqPN58FvbSA9cRvo71Sg=
 			</data>
 		</dict>
-		<key>geoviz/oslo/schemes/lights.interpolation.definitions.json</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			eEwTgytNlmZlBbdgwhyC8H3ZPShSosRJd5MZJ8iZ7XA=
-			</data>
-		</dict>
 		<key>geoviz/oslo/schemes/lite.day.definitions.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ta5Vpcr1pPGWHZVN1e4G85wsar+ID+8gaR/KzUUCDog=
+			AfFN40M9tQYIUfV0mA0QXGX7A1HQOWwTabztg5kbHN0=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/lite.hybrid.day.definitions.json</key>
@@ -34953,7 +34953,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			I1XMAh5U/4xxUQ4Fr1CgOCfZ8h8qfLqgWfGxtHk+mfc=
+			S2eRCGYBOK6lpZtIteIytA158D6WJb78F0fjIuUYLdo=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/logistics.hybrid.day.definitions.json</key>
@@ -34974,14 +34974,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Wgcl5F2txx6VvDRCmgovclwlIBOfUZKYG44Yomw+0aw=
+			eEWhz52JDqq4Yx8aDACIZHNqIMrbgL/pRWFn2/EOj/o=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/normal.night.definitions.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IQqkncFJ29lIWPlCwdeG4INYKEkLyh0Vn7I5FkSjijU=
+			1wDBVLIk31I2hdrcuNbJalUWzLinpUS5djJKP4YBxMg=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/normal.time.dawn.definitions.json</key>
@@ -35016,7 +35016,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qpJLheJ9TnOpO4fNXOK06eF7CkSc3XLbTf3G9mEUnhI=
+			b+sMDsBOQUqGZDII/QM9KhvZYNIIvl+zAn+S98/PlSc=
 			</data>
 		</dict>
 		<key>geoviz/oslo/schemes/road.network.night.definitions.json</key>
@@ -35135,168 +35135,168 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dDZJZgPtKEGamHrE0HfrdrcNWHXZvPyVEbvtH3v4U3s=
+			4+kw5EDCOrpYck9Rz2XwITyyR7vxU1oizLgDX2Jso8U=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/BlendScreenQuad.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EBazxzThIJ/Ky0+rSERgBU1R6id8ueWhDPa5Q0nW6kw=
+			rvTtwyM6IZs5AVrKW1BUcwvZE6vLaAr6UcbtpJIbu1g=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/DepthSky.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TqrTrOpnKYK18w747qmDJHljs6OLEPndQ+J2BBzbHkA=
+			XMQ6TNTUDT/1jMzXlenH/KHV8Yp3AswbAPL/q6DQFjs=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/GeoHalo.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ovlpJjDd4+8lKIRV4wFDDdAosh9wZ7/8oWO7qFhYf/k=
+			9Lio3OVhe2/XuDAjtK8EJwJHN5t814WiNGl904U4iU4=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/GeoSkyBox.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			O4DgjhVOo7h4CaW7Jqkgf9GR9vPSbFKqBcHffV/4VgU=
+			Qv02YQDiWKr51W/TzFGbk4ScwXarV3CkEn2NGXpziQ0=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/LabelIcon.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5kfSpTgCLk8YtyOMRwfK/Z24QrwhmL40q7/D7uXbTcQ=
+			/7fQ6bmY79gnP49tdRPdz/Q+VB7DyPP74jqYwy9C4+Y=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/LocalTangentPlane.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			V9nWnN3rqVb6fn0/gFSieqM7Ri1kECcFtNJ+X4tD77Q=
+			7B2GbLy20SotIzfhBGeiTf1sPoojbgrmpezi6qrWxnI=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dExtrudedBuilding.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YzDZjbzUNBNe/atSu1uNNkZdL69X5e+KHEiWZPX6I54=
+			5HI7QR+6tFWhhcXqV4VuTi53lmVlOvDcsoRHa7Zim5c=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dExtrudedBuildingOutline.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TYG3qOIvtUYR/zjIXT62Y5uX0imxU+z1Jl6oJNST1vU=
+			INyEtvf1P+W6yOvu61nMrVYM72p90AuC6hGOKjTlq7U=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dFastLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Hb09dWt8X+Drptn+MftLPYNoImBRr2jQnIo4Qz/vELc=
+			co+qZOjbMMZhRpuF2+dA6OfeoWUApK1Q1JMNiX02exc=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dLandmark.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			99HBPovIVS8FzObhmVgM5McH+o6CUxyUvEb+SRfIsrs=
+			E6AwLfCR6Gr7m1+VKMF1Vw53ng96FYIGT8nBY90dcVQ=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			M/z94Ifz/wtJTBFhd++gK1CdDjfmwbZkau5qFMIjWAk=
+			/1ZJQbO7EB9YkmFHWWJtqgypRymBghJ36j2u7aTedLk=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dLineProgress.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			J+ReOI/QXcE4tPHNhSQ9QJCLiXjuTVOymZVogNNtOQg=
+			1Q156+38ZM4x1F5BUsMTSAU4vl9T0ZLsvAUFInYZX18=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dPoint.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KUYNa+1ZbUtU5rzoMzG5/q0CfkLska6KeDfq91C560E=
+			vFYAT8Z0+0YdJMMTfD6kNkeFs9PotPPmOnlmaiiuFU4=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dPoint3d.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			r+AyDW7fwitnslDEIkTipxn6a61bIk2Afk1o+1Mh9iU=
+			y3oE9hAHRQixXbXvTxk6UNdPKx4omegQ382dhp0eLbY=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dPolygon.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OV17kz6rvSU4j7//vr9JLZvubls+cmPTNpZ2qVa52oU=
+			kqY3ygosfD4J4P3iZFI1oH0q0Y0+k6vRqozFY1jifa4=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dRasterTerrain.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			jjun4CcECds+6ns0QDgRzhgc73/2hQp8AxmQOMXjD74=
+			Tyn9SPzyFS4p2MkzjusNMz0XgXL3C4qvXt496bOTh9A=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dSimpleLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			KbT/m/gWp6TT4gv0+8zXPTYNXI4TQeiZJ7AzQ2dXI2w=
+			HSdGfXzCjX3zIZjPgqTiMA4O6q7fOaKIhSDTE9DZ1HE=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/Map2dTerrain.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EhrReb8b2rVwBMtUa4PJilFwFBkEd6sNPyTg+SruQvg=
+			bm3ng0NbSc7if4N8DzMYDMOPYyipfvqFYBZSth1pGIM=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/SSAOQuad.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7zHr1HoWTYoqKZUAlPryCVC2PD0W2Am/wO5jHTPOe44=
+			fZHS71ybYUZdg4PdRHzXpUWAJvc8hJI2ayHSyYbc040=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/ScreenQuad.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			h1Zc0RK+51tw02K0TWu4M4eY8s6uuAXVxBNhvOB1/w0=
+			C3Dl103zpuuuVmy857Vhd2Y/g15Ca/QIGj5Fgjp/Zjc=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/SpaceBackground.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Mts/HdJU1iSmtJn5sMaIXH8zUIs4JSv40h2t6T2JgoA=
+			2l1HYWvqc4uMPtz6Rf8eTLk4a2wLLroKo5q72dG2hjI=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/VenueGeometryFace.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			4w+LzjMkDDfNQ4TfRZtmUxe+txvf6Wh9F/vryO1HKEo=
+			2KKLEkvTn1nG2S5/II8dr8iCTAISu50O1IUz7WmoQJ8=
 			</data>
 		</dict>
 		<key>geoviz/shaders/metal_ios_simulator/VenueGeometryLine.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gGGxV//IMoJBOlzPPD8ywVBnv7PW8i7YhrQPawBA6Z4=
+			9fsR9IEqjukNzfOq45of0gMscgFF39wZId4mBajCyZQ=
 			</data>
 		</dict>
 		<key>localization/tmcevents.bg-BG</key>
@@ -35821,28 +35821,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WWQsuC1urDaIIcE6z4IzjT3EOljCkQBljjTwqqPCMyA=
+			Am6NRbCkuvHKPgrPF7hYO0nzjWR0jtOgpq9RoeQ2FeM=
 			</data>
 		</dict>
 		<key>magma/shaders/metal_ios_simulator/FogParameters.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			f0FOyeN14+cjQ/u3jBXMpCjZ3kwxPw8Wg90qmTKcdGY=
+			OMrO3p8mZnlIqZJfHEXoFyxWUUuz1g0MzfnJ3T+IJZo=
 			</data>
 		</dict>
 		<key>magma/shaders/metal_ios_simulator/Font.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OYhuScj/YTKzRqO3Mrhirj4IBJQmP2qGMEnOh2JDp64=
+			jXV/FeyIvdvooVd0Sp4EwYm+90/f1KMWwngTQTJY4x4=
 			</data>
 		</dict>
 		<key>magma/shaders/metal_ios_simulator/Primitive.shaderb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0wUd477+G4zh1h7/nSADNHp46ep2rq9L/HyhtrZ7iPc=
+			1/8CwF/Jzt2G/485WznQWHq9Fd6VvE9qOZK3vqA8HMk=
 			</data>
 		</dict>
 		<key>vehicle.obj</key>
@@ -38089,7 +38089,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zp8KCQFyGS5q5GuKOfx186FKhuxfzlrK8Qohdsqsmbo=
+			vwZ2P6ifCVzQVloDOBU1gq5bozFtxs8WFSrQnSSeInk=
 			</data>
 		</dict>
 		<key>voice_assets/voice_package_en-US/translations/en-US/variables.lua</key>
