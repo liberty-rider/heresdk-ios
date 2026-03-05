@@ -27,6 +27,7 @@ function mods.apply_language_specific_mods(sentence)
     sentence = sentence:gsub('יָשָׁר מִיָּד', 'מִיָּד יָשָׁר')
 
     sentence = sentence:gsub(", {SIGNPOST}", "" )
+
     return sentence
 end
 
@@ -43,6 +44,16 @@ function mods.get_distance_phrase(distance, distance_unit, variables)
     else
         return distance .. ' ' .. variables[distance_unit]
     end
+end
+
+function mods.adjust_direction_phrase(phrase, template_id, prompt_table, segment_order)
+    if _G['imperative_mode'] == nil then
+        -- spell route name with more than two digits with spaces between digits
+        phrase = phrase:gsub("([0-9])([0-9])([0-9])([0-9])", "%1 %2 %3 %4" )
+        phrase = phrase:gsub("([0-9])([0-9])([0-9])", "%1 %2 %3" )
+    end
+
+    return phrase
 end
 
 return mods
