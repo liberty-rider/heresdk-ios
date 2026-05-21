@@ -67,6 +67,8 @@ local variables = {
     ['nav.variable.MOVE.turnsharplyright'] = '鋭角に右折',
     ['nav.variable.MOVE.turnslightlyleft'] = 'ゆるやかに左折',
     ['nav.variable.MOVE.turnslightlyright'] = 'ゆるやかに右折',
+    ['nav.variable.MOVE.mergeleft'] = '左側',
+    ['nav.variable.MOVE.mergeright'] = '右側',
     ['nav.variable.ORIENTATION.east'] = '東',
     ['nav.variable.ORIENTATION.north'] = '北',
     ['nav.variable.ORIENTATION.northeast'] = '北東',
@@ -97,6 +99,7 @@ local variables = {
     ['nav.variable.UNIT.mile'] = 'マイル',
     ['nav.variable.UNIT.miles'] = 'マイル',
     ['nav.variable.UNIT.yards'] = 'ヤード'
+    
 }
 
 return variables

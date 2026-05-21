@@ -54,6 +54,7 @@ local templates = {
     ['nav.newroute'] = '新しいルートを探しています',
     ['nav.speedcamera'] = '前方に速度取締機があります',
     ['nav.trafficmerge'] = '前方{FROM_SIDE}合流',
+    ['nav.laneend'] = 'この先、{MERGE} 車線が減少します',
 }
 
 return templates

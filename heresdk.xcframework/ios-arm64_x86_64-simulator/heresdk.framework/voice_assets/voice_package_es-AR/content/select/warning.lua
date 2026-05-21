@@ -17,6 +17,19 @@ function warning.get_merge_side(merge_side)
 end
 
 
+function warning.get_lane_decrease_merge(message_table)
+    local has_left = message_table.lanes_decreased_from_left ~= nil
+    local has_right = message_table.lanes_decreased_from_right ~= nil
+    if has_left and not has_right then
+        return 'nav.variable.MOVE.mergeleft'
+    elseif has_right and not has_left then
+        return 'nav.variable.MOVE.mergeright'
+    else
+        return ''
+    end
+end
+
+
 function warning.select_warning(message_table)
     local content = warning.select_common_content()
     if message_table.trigger == 'gps_signal_lost' then content.action = 'gpslost'
@@ -26,6 +39,9 @@ function warning.select_warning(message_table)
     elseif message_table.trigger == 'traffic_merge' then
         content.action = 'trafficmerge'
         content.merge_side = warning.get_merge_side(message_table.merge_side)
+    elseif message_table.trigger == 'lane_decrease' then
+        content.action = 'laneend'
+        content.merge_direction = warning.get_lane_decrease_merge(message_table)
     end
     return content
 end

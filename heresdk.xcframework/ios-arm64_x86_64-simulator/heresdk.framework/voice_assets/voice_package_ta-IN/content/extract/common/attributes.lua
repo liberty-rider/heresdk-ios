@@ -31,6 +31,7 @@ function attributes.get_trigger_class (input)
     local trigger = input.trigger
     if trigger == 'SAFETY_CAMERA' then return 'warning'
     elseif trigger == 'TRAFFIC_MERGE' then return 'warning'
+    elseif trigger == 'LANE_DECREASE' then return 'warning'
     elseif trigger == 'ROUTE_RECALCULATION' then return 'warning'
     elseif trigger == 'GPS_SIGNAL_LOST' then return 'warning'
     elseif trigger == 'GPS_SIGNAL_RESTORED' then return 'warning'

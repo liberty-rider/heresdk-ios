@@ -54,6 +54,7 @@ local templates = {
     ['nav.newroute'] = 'Finding a new route',
     ['nav.speedcamera'] = 'Speed camera ahead',
     ['nav.trafficmerge'] = 'Traffic merging {FROM_SIDE} ahead',
+    ['nav.laneend'] = 'Lane ends. {MERGE}',
 }
 
 return templates
