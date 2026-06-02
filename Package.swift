@@ -3,7 +3,7 @@
 
 import PackageDescription
 
-let version = "4.25.4.0"
+let version = "4.25.4"
 let moduleName = "heresdk"
 let checksum = "70de3120985ebd7b29d50f4cbd59baddb76ad1a8542642ecfb14f932cefd6360"
 
