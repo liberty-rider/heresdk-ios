@@ -3,26 +3,22 @@
 
 import PackageDescription
 
-let version = "4.25.4"
-let moduleName = "heresdk"
-let checksum = "70de3120985ebd7b29d50f4cbd59baddb76ad1a8542642ecfb14f932cefd6360"
-
 let package = Package(
-    name: moduleName,
+    name: "heresdk",
     platforms: [
         .iOS(.v15)
     ],
     products: [
         .library(
-            name: moduleName,
-            targets: [moduleName]
+            name: "heresdk",
+            targets: ["heresdk"]
         )
     ],
     targets: [
         .binaryTarget(
-            name: moduleName,
-            url: "https://github.com/liberty-rider/heresdk/releases/download/\(version)/\(moduleName).xcframework.zip",
-            checksum: checksum
+            name: "heresdk",
+            url: "https://github.com/liberty-rider/heresdk/releases/download/4.25.4/heresdk.xcframework.zip",
+            checksum: "70de3120985ebd7b29d50f4cbd59baddb76ad1a8542642ecfb14f932cefd6360"
         )
     ]
 )
