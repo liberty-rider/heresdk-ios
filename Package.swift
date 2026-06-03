@@ -15,10 +15,14 @@ let package = Package(
         )
     ],
     targets: [
-        .binaryTarget(
+        /*.binaryTarget(
             name: "heresdk",
             url: "https://github.com/liberty-rider/heresdk/releases/download/4.25.4/heresdk.xcframework.zip",
             checksum: "70de3120985ebd7b29d50f4cbd59baddb76ad1a8542642ecfb14f932cefd6360"
+        )*/
+        .binaryTarget(
+            name: "heresdk",
+            path: "./heresdk.xcframework"
         )
     ]
 )
