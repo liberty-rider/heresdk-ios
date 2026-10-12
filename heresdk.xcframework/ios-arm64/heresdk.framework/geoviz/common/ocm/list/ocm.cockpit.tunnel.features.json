@@ -1,1 +1,0 @@
-{"$concat": [{"$removeElement": {"filter": ["congestion zones", "environmental zones", "ev range"], "from": {"$ref": "../../shared/list/features.common.json#"}}}, {"$ref": "ocm.features.common.json#"}]}

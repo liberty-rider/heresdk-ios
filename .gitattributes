@@ -1,3 +1,0 @@
-heresdk.xcframework/ios-arm64/dSYMs/heresdk.framework.dSYM/Contents/Resources/DWARF/heresdk filter=lfs diff=lfs merge=lfs -text
-heresdk.xcframework/ios-arm64_x86_64-simulator/heresdk.framework/heresdk filter=lfs diff=lfs merge=lfs -text
-heresdk.xcframework/ios-arm64/heresdk.framework/heresdk filter=lfs diff=lfs merge=lfs -text
